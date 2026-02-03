@@ -1,6 +1,9 @@
+import Card from "@/components/card";
+import { getProducts } from "@/lib/getProducts";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProducts();
   return (
     <div>
       <div className="bg-purple-700 mt-5">
@@ -20,6 +23,8 @@ export default function Home() {
           <p>Hi my na=me is Mia, WORLDS GREATEST BAKER</p>
         </div>
       </div>
+
+      <Card products={products} />
     </div>
   );
 }

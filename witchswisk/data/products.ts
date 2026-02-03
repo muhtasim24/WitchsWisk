@@ -24,10 +24,3 @@ export const products: Product[] = [
         ingredients: "nutella, sugar, dough, chocolate"
     }
 ]
-
-
-export async function getProducts() {
-    await new Promise( (res) => setTimeout(res, 300));
-
-    return products;
-}
