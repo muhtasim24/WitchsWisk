@@ -24,7 +24,11 @@ export default async function Home() {
         </div>
       </div>
 
-      <Card products={products} />
+      <div className="flex gap-3 justify-center">
+        {products.map( (product) => (
+          <Card key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 }
