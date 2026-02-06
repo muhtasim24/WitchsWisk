@@ -34,5 +34,14 @@ export const products: Product[] = [
         image: "/cookies/media.png",
         description: "Chocolate Cookie filled with nutella",
         ingredients: "M&M, sugar, dough, chocolate"
+    },
+
+        {
+        id: "4",
+        name: "Jumbo Twix Cookie",
+        price: 5.00,
+        image: "/cookies/media.png",
+        description: "Chocolate Cookie filled with nutella",
+        ingredients: "Twix &M, sugar, dough, chocolate"
     }
 ]
