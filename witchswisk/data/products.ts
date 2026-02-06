@@ -11,7 +11,7 @@ export const products: Product[] = [
     {
         id: "1",
         name: "Chocolate Chip Cookie",
-        price: 4.5,
+        price: 5.00,
         description: "Cookie filled with chocolate chips",
         ingredients: "chocolate, cookie chips, sugar, dough"
     }, 
@@ -19,7 +19,7 @@ export const products: Product[] = [
     {
         id: "2",
         name: "Nutella Cookie",
-        price: 5,
+        price: 5.00,
         description: "Chocolate Cookie filled with nutella",
         ingredients: "nutella, sugar, dough, chocolate"
     }
