@@ -7,7 +7,7 @@ export default async function Home() {
   const firstThree = products.slice(0,3);
   return (
     <div>
-      <div className="bg-purple-700 mt-5">
+      <div className="bg-brand mt-5">
         <h1><strong>Events</strong></h1>
         <p>Come see us at this festival Woohoo</p>
         <p>June 6-8 2025</p>
@@ -23,7 +23,7 @@ export default async function Home() {
       </div>
 
       <div className="flex justify-center">
-        <div className="bg-purple-700 mt-5 w-md">
+        <div className="bg-brand mt-5 w-md">
           <div className="flex flex-row">
             <h1><strong>About Me</strong></h1>
             <p>IG LINK</p>

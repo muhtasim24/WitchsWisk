@@ -9,7 +9,7 @@ type Props = {
 
 export default function Card( { product } : Props) {
     return (
-        <div className="bg-purple-700 w-80 flex flex-col items-center m-8">
+        <div className="bg-brand w-80 flex flex-col items-center m-8">
             <Image 
                 src={product.image} 
                 alt={product.image} 

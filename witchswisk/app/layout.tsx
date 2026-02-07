@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="bg-purple-600 h-12 text-4xl flex justify-between">
+        <div className="bg-brand h-12 text-4xl flex justify-between">
           <Link href={"/"}>Home</Link>
           <Link href={"/cookies"}>Cookies</Link>
           <Link href={"/contact"}>Contact</Link>
