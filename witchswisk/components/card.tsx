@@ -13,12 +13,13 @@ export default function Card( { product } : Props) {
             <Image 
                 src={product.image} 
                 alt={product.image} 
-                width = {300}
-                height = {300}
+                width = {150}
+                height = {150}
             />
             <h1>{product.name}</h1>
             <h1>${product.price}.00</h1>
-            <h1>Ingredients: {product.ingredients}</h1>
+            <br></br>
+            <button>Add to Cart</button>
         </div>
     )
 }

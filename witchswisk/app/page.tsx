@@ -4,6 +4,7 @@ import Image from "next/image";
 
 export default async function Home() {
   const products = await getProducts();
+  const firstThree = products.slice(0,3);
   return (
     <div>
       <div className="bg-purple-700 mt-5">
@@ -14,20 +15,21 @@ export default async function Home() {
         <p> Tangar Outlets Deer Park</p>
       </div>
 
+      <div className="flex gap-3 justify-center">
+        
+        {firstThree.map( (product) => (
+          <Card key={product.id} product={product} />
+        ))}
+      </div>
+
       <div className="flex justify-center">
         <div className="bg-purple-700 mt-5 w-md">
           <div className="flex flex-row">
             <h1><strong>About Me</strong></h1>
             <p>IG LINK</p>
           </div>
-          <p>Hi my na=me is Mia, WORLDS GREATEST BAKER</p>
+          <p>WORLDS GREATEST BAKER</p>
         </div>
-      </div>
-
-      <div className="flex gap-3 justify-center">
-        {products.map( (product) => (
-          <Card key={product.id} product={product} />
-        ))}
       </div>
     </div>
   );
