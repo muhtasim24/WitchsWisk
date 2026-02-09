@@ -26,5 +26,5 @@ body {
     var(--bg-gradient-end) 100%
   );
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Arial, Helvetica, sans-serif';
 }

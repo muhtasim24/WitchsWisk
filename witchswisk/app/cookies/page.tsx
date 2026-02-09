@@ -8,7 +8,7 @@ export default async function Cookies() {
         <div>
             <h1>Cookies</h1>
 
-            <div className="flex gap-3 justify-center grid grid-cols-3 m-10">
+            <div className="flex gap-3 grid grid-cols-3 ">
                 {products.map( product => (
                     <Card key={product.id} product = {product}></Card>
                 ))}
