@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Product } from "@/data/products";
 import Card from "./card";
+import CardModal from "./cardModal";
 
 
 type Props = {
@@ -24,7 +25,10 @@ export default function SearchProduct({ products } : Props) {
                     <p>No cookies found</p>
                 ) : (
                 filteredProducts.map(product => (
-                    <Card key={product.id} product={product} />
+                    <Card 
+                        key={product.id} 
+                        product={product} 
+                    />
                 )))}
             </div>
         </div>
