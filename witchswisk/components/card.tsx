@@ -5,6 +5,7 @@ import Image from "next/image";
 
 type Props = {
     product: Product;
+    onClick?: () => void;
 }
 
 export default function Card( { product } : Props) {

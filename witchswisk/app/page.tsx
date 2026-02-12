@@ -1,4 +1,5 @@
 import Card from "@/components/card";
+import ProductGrid from "@/components/productGrid";
 import { getProducts } from "@/lib/getProducts";
 import Image from "next/image";
 
@@ -16,10 +17,7 @@ export default async function Home() {
       </div>
 
       <div className="flex gap-3 justify-center">
-        
-        {firstThree.map( (product) => (
-          <Card key={product.id} product={product} />
-        ))}
+        <ProductGrid products={firstThree} />
       </div>
 
       <div className="flex justify-center">
