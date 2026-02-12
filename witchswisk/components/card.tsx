@@ -5,12 +5,12 @@ import Image from "next/image";
 
 type Props = {
     product: Product;
-    onClick?: () => void;
+    onClick: () => void;
 }
 
-export default function Card( { product } : Props) {
+export default function Card( { product, onClick } : Props) {
     return (
-        <div className="bg-brand w-80 flex flex-col items-center m-8">
+        <div onClick = {onClick} className="bg-brand w-80 flex flex-col items-center m-8 rounded-xl">
             <Image 
                 src={product.image} 
                 alt={product.image} 

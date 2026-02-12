@@ -10,10 +10,10 @@ type Props = {
 }
 
 export default function ProductGrid( {products} : Props) {
-    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     function handleCardClick(product: Product) {
-        
+        setSelectedProduct(product);
     };
 
     return (
@@ -28,6 +28,13 @@ export default function ProductGrid( {products} : Props) {
                 onClick={ () => handleCardClick(product)}
             />
         )))}
+
+        {selectedProduct && (
+            <CardModal 
+                product={selectedProduct}
+                onClose={ () => setSelectedProduct(null)}
+            />
+        )}
     </div>
     )
 }
