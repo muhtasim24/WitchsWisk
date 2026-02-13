@@ -11,8 +11,10 @@ type Props = {
 export default function CardModal( {product, onClose} : Props) {
 
     return (
-        <div className="bg-brand w-80 rounded-xl">
-            <button onClick = {onClose}>X</button>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center" onClick={onClose}>
+
+        <div className="bg-brand w-80 rounded-xl flex flex-col items-center justify-center" onClick={ (e) => e.stopPropagation()}>
+            <button onClick = {onClose} className="flex justify-start">X</button>
             <Image 
                 src={product.image} 
                 alt={product.image} 
@@ -23,6 +25,7 @@ export default function CardModal( {product, onClose} : Props) {
             <h1> ${product.price}.00 </h1>
             <h1> Ingredients: {product.ingredients} </h1>
             <button>Add to Cart </button>
+        </div>
         </div>
     )
 }
