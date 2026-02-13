@@ -1,6 +1,7 @@
 'use client';
 import { Product } from "@/data/products";
 import Image from "next/image";
+import AddCartBtn from "./addCartBtn";
 
 
 type Props = {
@@ -24,7 +25,7 @@ export default function CardModal( {product, onClose} : Props) {
             <h1> {product.name} </h1>
             <h1> ${product.price}.00 </h1>
             <h1> Ingredients: {product.ingredients} </h1>
-            <button>Add to Cart </button>
+            <AddCartBtn/>
         </div>
         </div>
     )

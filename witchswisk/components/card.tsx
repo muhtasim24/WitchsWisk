@@ -1,6 +1,7 @@
 'use client';
 import { Product } from "@/data/products";
 import Image from "next/image";
+import AddCartBtn from "./addCartBtn";
 
 
 type Props = {
@@ -20,7 +21,7 @@ export default function Card( { product, onClick } : Props) {
             <h1>{product.name}</h1>
             <h1>${product.price}.00</h1>
             <br></br>
-            <button>Add to Cart</button>
+            <AddCartBtn/>
         </div>
     )
 }
