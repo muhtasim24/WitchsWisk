@@ -12,7 +12,7 @@ export default function AddCartBtn() {
     return (
         <div>
             {clicked === true ? (
-                <button>Added</button>
+                <button onClick={ (e) => {e.stopPropagation}}>Added</button>
             ) : (
                 <button 
                 onClick={(e) => {e.stopPropagation();
