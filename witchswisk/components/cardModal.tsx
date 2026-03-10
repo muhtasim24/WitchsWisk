@@ -25,7 +25,7 @@ export default function CardModal( {product, onClose} : Props) {
             <h1> {product.name} </h1>
             <h1> ${product.price}.00 </h1>
             <h1> Ingredients: {product.ingredients} </h1>
-            <AddCartBtn/>
+            <AddCartBtn product={product}/>
         </div>
         </div>
     )

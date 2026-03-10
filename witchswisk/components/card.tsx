@@ -21,7 +21,7 @@ export default function Card( { product, onClick } : Props) {
             <h1>{product.name}</h1>
             <h1>${product.price}.00</h1>
             <br></br>
-            <AddCartBtn/>
+            <AddCartBtn product={product}/>
         </div>
     )
 }

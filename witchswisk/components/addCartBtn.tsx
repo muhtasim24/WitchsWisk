@@ -1,9 +1,17 @@
 'use client';
+import { useCart } from "@/app/context/cartContext";
+import { Product } from "@/data/products";
 import { useState } from "react";
 
 
-export default function AddCartBtn() {
+type Props = { 
+    product: Product;
+};
+
+
+export default function AddCartBtn( { product } : Props) {
     const [clicked, setClicked] = useState(false);
+    const {addToCart} = useCart()
 
     function handleClick() {
         setClicked(true);
@@ -17,6 +25,7 @@ export default function AddCartBtn() {
                 <button 
                 onClick={(e) => {e.stopPropagation();
                     handleClick();
+                    
                 }}
                     >Add to Cart</button>
             )}
