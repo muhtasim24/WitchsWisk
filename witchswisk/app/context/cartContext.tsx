@@ -35,23 +35,31 @@ export function useCart() {
 export function CartProvider( { children } : CartProviderProps) {
     // need a place to store our cart information, for now using useState to store that
     const[cartItems, setCartItems] = useState<CartItem[]>([])
+    console.log(cartItems);
     
     function addToCart(id: string) {
+        console.log("ADDING", id);
         setCartItems(currItems => {
             // if we dont find the item, in the arrayList add it
-            if (currItems.find(item => item.id === null)) {
+            const findItem = currItems.find(item => item.id === id);
+
+            if (!findItem) {
                 return [...currItems, {id, quantity: 1}]
             } else {
-                return currItems.map(item => {
-                    if (item.id === id) {
-                        return {...item, quantity: item.quantity + 1}
-                    } else {
-                        return item
-                    }
-                })
+                return currItems;
             }
         })
     }
+
+
+    return (
+        <CartContext.Provider value = { { cartItems, addToCart } }>
+            {children}
+        </CartContext.Provider>
+    )
+}
+
+
 
         // function increaseCartQuantity(id: string) {
         //     setCartItems(currItems => {
@@ -63,14 +71,6 @@ export function CartProvider( { children } : CartProviderProps) {
         //         return currItems.map(item => {
         //             if (item.id === id) {
         //                 return {...item, quantity: item.quantity + 1}
-
-
-    return (
-        <CartContext.Provider value = { { cartItems, addToCart } }>
-            {children}
-        </CartContext.Provider>
-    )
-}
 
 
 

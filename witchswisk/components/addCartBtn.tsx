@@ -18,12 +18,12 @@ export default function AddCartBtn( { product } : Props) {
     function handleClick(e: React.MouseEvent) {
         e.stopPropagation()
         addToCart(product.id)
-        setClicked(true)
+    
     }
 
     return (
         <button onClick={handleClick}>
-            {clicked ? "Added" : "Add to Cart"}
+            {inCart ? "Added" : "Add to Cart"}
         </button>
     )
 
