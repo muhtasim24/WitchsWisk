@@ -11,24 +11,20 @@ type Props = {
 
 export default function AddCartBtn( { product } : Props) {
     const [clicked, setClicked] = useState(false);
-    const {addToCart} = useCart()
+    const {addToCart, cartItems} = useCart()
 
-    function handleClick() {
-        setClicked(true);
+    const inCart = cartItems.find(item => item.id === product.id);
+
+    function handleClick(e: React.MouseEvent) {
+        e.stopPropagation()
+        addToCart(product.id)
+        setClicked(true)
     }
 
     return (
-        <div>
-            {clicked === true ? (
-                <button onClick={ (e) => {e.stopPropagation}}>Added</button>
-            ) : (
-                <button 
-                onClick={(e) => {e.stopPropagation();
-                    handleClick();
-                    
-                }}
-                    >Add to Cart</button>
-            )}
-        </div>
+        <button onClick={handleClick}>
+            {clicked ? "Added" : "Add to Cart"}
+        </button>
     )
+
 }

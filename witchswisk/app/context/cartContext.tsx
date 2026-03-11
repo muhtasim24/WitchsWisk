@@ -14,7 +14,7 @@ type CartItem = {
 
 // what do we need to be able to do with our cart
 // add, increment, decrement, remove, how many items in our cart
-type CartContext = {
+type CartContextType = {
     // getItemQuantity: (id: string) => number
     // increaseCartQuantity: (id: string) => void // adding to the cart also
     // decreaseCartQuantity: (id: string) => void
@@ -24,7 +24,7 @@ type CartContext = {
 }
 
 
-const CartContext = createContext({} as CartContext);
+const CartContext = createContext({} as CartContextType);
 
 // custom hook instead of calling useContext everywhere
 export function useCart() {
@@ -35,10 +35,44 @@ export function useCart() {
 export function CartProvider( { children } : CartProviderProps) {
     // need a place to store our cart information, for now using useState to store that
     const[cartItems, setCartItems] = useState<CartItem[]>([])
-
+    
     function addToCart(id: string) {
-        
+        setCartItems(currItems => {
+            // if we dont find the item, in the arrayList add it
+            if (currItems.find(item => item.id === null)) {
+                return [...currItems, {id, quantity: 1}]
+            } else {
+                return currItems.map(item => {
+                    if (item.id === id) {
+                        return {...item, quantity: item.quantity + 1}
+                    } else {
+                        return item
+                    }
+                })
+            }
+        })
     }
+
+        // function increaseCartQuantity(id: string) {
+        //     setCartItems(currItems => {
+        //     // if we dont have the item in the cart, set quantity to 1
+        //     if (currItems.find(item => item.id === id) === null) {
+        //         return [...currItems, { id, quantity: 1}]
+        //     } else {
+        //         // if we found the item, take the current item and increase the quantity by 1
+        //         return currItems.map(item => {
+        //             if (item.id === id) {
+        //                 return {...item, quantity: item.quantity + 1}
+
+
+    return (
+        <CartContext.Provider value = { { cartItems, addToCart } }>
+            {children}
+        </CartContext.Provider>
+    )
+}
+
+
 
     // function getItemQuantity(id: number) {
     //     return cartItems.find(item => item.id == id)?.quantity || 0; // if we find item, get quantity else give us 0
@@ -87,10 +121,3 @@ export function CartProvider( { children } : CartProviderProps) {
     //         return currItems.filter(item => item.id !== id);
     //     })
     // }
-
-    return (
-        <CartContext.Provider value = { { cartItems, addToCart } }>
-            {children}
-        </CartContext.Provider>
-    )
-}
