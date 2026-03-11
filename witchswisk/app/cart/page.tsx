@@ -7,7 +7,7 @@ export default async function Cart() {
 
     return (
         <div>
-            <h1>Checkout</h1>
+            <h1 className="text-5xl font-bold">Shopping Cart</h1>
             <CartView products = { products } />
         </div>
     )

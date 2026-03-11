@@ -16,9 +16,9 @@ export type CartItem = {
 // add, increment, decrement, remove, how many items in our cart
 type CartContextType = {
     // getItemQuantity: (id: string) => number
-    // increaseCartQuantity: (id: string) => void // adding to the cart also
-    // decreaseCartQuantity: (id: string) => void
-    // removeFromCart: (id: string) => void
+    increaseCartQuantity: (id: string) => void // adding to the cart also
+    decreaseCartQuantity: (id: string) => void
+    removeFromCart: (id: string) => void
     cartItems: CartItem[]
     addToCart: (id: string) => void
 }
@@ -38,7 +38,7 @@ export function CartProvider( { children } : CartProviderProps) {
     console.log(cartItems);
     
     function addToCart(id: string) {
-        console.log("ADDING", id);
+        console.log("ADDING TO CART: ", id);
         setCartItems(currItems => {
             // if we dont find the item, in the arrayList add it
             const findItem = currItems.find(item => item.id === id);
@@ -51,35 +51,47 @@ export function CartProvider( { children } : CartProviderProps) {
         })
     }
 
+    function increaseCartQuantity(id: string) {
+        console.log("increasing count for: ", id);
+        setCartItems(currItems => {
+            return currItems.map(item => {
+                if (item.id === id) {
+                    return {...item, quantity: item.quantity + 1}
+                } else {
+                    return item
+                }
+            })
+        })
+    }
+
+    function decreaseCartQuantity(id: string) {
+        console.log("decreasing count for: ", id);
+        setCartItems(currItems => {
+            return currItems.map(item => {
+                if (item.id === id && item.quantity !== 0) {
+                    return {...item, quantity: item.quantity - 1}
+                } else {
+                    return item;
+                }
+            }
+            )
+        })
+    }
+
+    function removeFromCart(id: string) {
+        setCartItems(currItems => {
+            return currItems.filter(item => item.id !== id)
+        })
+    }
 
     return (
-        <CartContext.Provider value = { { cartItems, addToCart } }>
+        <CartContext.Provider value = { { cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart } }>
             {children}
         </CartContext.Provider>
     )
 }
-
-
-
-        // function increaseCartQuantity(id: string) {
-        //     setCartItems(currItems => {
-        //     // if we dont have the item in the cart, set quantity to 1
-        //     if (currItems.find(item => item.id === id) === null) {
-        //         return [...currItems, { id, quantity: 1}]
-        //     } else {
-        //         // if we found the item, take the current item and increase the quantity by 1
-        //         return currItems.map(item => {
-        //             if (item.id === id) {
-        //                 return {...item, quantity: item.quantity + 1}
-
-
-
-    // function getItemQuantity(id: number) {
-    //     return cartItems.find(item => item.id == id)?.quantity || 0; // if we find item, get quantity else give us 0
-    // }
-
-    // function increaseCartQuantity(id: string) {
-    //     setCartItems(currItems => {
+    //     function increaseCartQuantity(id: string) {
+    //         setCartItems(currItems => {
     //         // if we dont have the item in the cart, set quantity to 1
     //         if (currItems.find(item => item.id === id) === null) {
     //             return [...currItems, { id, quantity: 1}]
@@ -94,6 +106,13 @@ export function CartProvider( { children } : CartProviderProps) {
     //             })
     //         }
     //     })
+    // }
+
+
+
+
+    // function getItemQuantity(id: number) {
+    //     return cartItems.find(item => item.id == id)?.quantity || 0; // if we find item, get quantity else give us 0
     // }
 
 
