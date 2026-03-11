@@ -14,7 +14,7 @@ export default function AddCartBtn( { product } : Props) {
     const {addToCart, cartItems} = useCart()
 
     const inCart = cartItems.find(item => item.id === product.id);
-
+    console.log("CART ITEMS: ", cartItems)
     function handleClick(e: React.MouseEvent) {
         e.stopPropagation()
         addToCart(product.id)

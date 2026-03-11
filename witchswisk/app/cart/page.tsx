@@ -1,9 +1,14 @@
+import CartView from "@/components/cartView";
+import { getProducts } from "@/lib/getProducts";
 
+    
+export default async function Cart() {
+    const products = await getProducts();
 
-export default function Cart() {
     return (
         <div>
-            <h1>CHECKOUT</h1>
+            <h1>Checkout</h1>
+            <CartView products = { products } />
         </div>
     )
 }
