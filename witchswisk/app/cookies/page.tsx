@@ -6,11 +6,8 @@ export default async function Cookies() {
     const products = await getProducts();
 
     return (
-        <div>
-            <h1>Cookies</h1>
+        <div className="mt-10">
             <Search products={products}/>
-
-
         </div>
     )
 }
