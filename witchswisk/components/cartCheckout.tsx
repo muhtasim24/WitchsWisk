@@ -13,7 +13,7 @@ export default function CartCheckout( {products} : Props) {
 
     // I want to display name, quantity and price here and total price
 
-    let totalPrice = 0;
+    let totalPrice : number = 0;
 
 
     return (
@@ -23,7 +23,7 @@ export default function CartCheckout( {products} : Props) {
                 const product = products.find(product => product.id === item.id);
 
                 if (product) {
-                    const price = item.quantity * product.price
+                    const price: number = item.quantity * product.price
                     totalPrice = totalPrice + price
                     return (
                         <div className="flex gap-15">
