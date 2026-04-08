@@ -1,5 +1,5 @@
 'use client';
-import { Product } from "@/data/products";
+import type { Product } from "@/lib/types";
 import Image from "next/image";
 import AddCartBtn from "./addCartBtn";
 

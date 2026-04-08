@@ -1,5 +1,5 @@
 'use client'
-import { Product, products } from "@/data/products";
+import type { Product } from "@/lib/types";
 
 import { CartItem, useCart } from "@/app/context/cartContext"
 import Image from "next/image";

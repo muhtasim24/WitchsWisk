@@ -1,13 +1,5 @@
 
-export type Product = {
-    id: string
-    name: string
-    price: number
-    type: string
-    image: string
-    description: string
-    ingredients: string
-}
+import type { Product } from "@/lib/types"
 
 export const products: Product[] = [
     {
