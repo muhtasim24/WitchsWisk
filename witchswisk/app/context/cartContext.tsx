@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type CartProviderProps = {
     children: ReactNode
@@ -36,8 +36,19 @@ export function CartProvider( { children } : CartProviderProps) {
     // need a place to store our cart information, for now using useState to store that
     const[cartItems, setCartItems] = useState<CartItem[]>([])
     console.log(cartItems);
-    
-    function addToCart(id: string) {
+
+    useEffect( () => {
+        console.log("FETCHING CART API")
+        async function loadCart() {
+            fetch("api/cart", {method: "GET"})
+            .then( (response) => response.json())
+            .then( (data) => setCartItems(data));
+        }
+
+        loadCart();
+    }, []);
+
+    async function addToCart(id: string) {
         console.log("ADDING TO CART: ", id);
         setCartItems(currItems => {
             // if we dont find the item, in the arrayList add it
@@ -48,7 +59,13 @@ export function CartProvider( { children } : CartProviderProps) {
             } else {
                 return currItems;
             }
-        })
+        });
+
+        await fetch("/api/cart", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify( {id})
+        });
     }
 
     function increaseCartQuantity(id: string) {

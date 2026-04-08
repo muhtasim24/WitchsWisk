@@ -1,6 +1,6 @@
 'use client'
 import { useCart } from "@/app/context/cartContext";
-import { Product } from "@/data/products";
+import type { Product } from "@/lib/types";
 import CartSlot from "./cartSlot";
 
 type Props = {
