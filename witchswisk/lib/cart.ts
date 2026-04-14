@@ -16,3 +16,11 @@ export function addToCart(id: string) {
 
     return cart;
 }
+
+export function deleteFromCart(id: string) {
+    // create a new list and filter the old list by id
+    // keep only the id's that dont match the given id
+    const filteredList = cart.filter(item => item.id !== id);
+    cart = filteredList;
+    return cart;
+}

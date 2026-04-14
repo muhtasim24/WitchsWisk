@@ -95,9 +95,17 @@ export function CartProvider( { children } : CartProviderProps) {
         })
     }
 
-    function removeFromCart(id: string) {
+    async function removeFromCart(id: string) {
+        console.log("REMOVING FROM CART", id)
         setCartItems(currItems => {
             return currItems.filter(item => item.id !== id)
+        })
+        
+        // make backend request to delete
+        await fetch("/api/cart", {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify( {id} ),
         })
     }
 
