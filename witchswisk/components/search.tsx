@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { Product } from "@/data/products";
+import type { Product } from "@/lib/types";
 import Card from "./card";
 import CardModal from "./cardModal";
 import ProductGrid from "./productGrid";

@@ -13,7 +13,15 @@ export default function CartCheckout( {products} : Props) {
 
     // I want to display name, quantity and price here and total price
 
-    let totalPrice : number = 0;
+    // do calculations outside of rendering
+    // start a running total, starts at 0
+    // for each matching product to the cartItem, find the price and add to the total
+    const totalPrice : number = cartItems.reduce( (sum, item) => {
+        const product = products.find(p => p.id === item.id);
+        if (!product) return sum;
+
+        return sum + item.quantity * product.price;
+    }, 0);
 
 
     return (
@@ -22,17 +30,15 @@ export default function CartCheckout( {products} : Props) {
             {cartItems.map(item => {
                 const product = products.find(product => product.id === item.id);
 
-                if (product) {
-                    const price: number = item.quantity * product.price
-                    totalPrice = totalPrice + price
-                    return (
-                        <div key = {item.id} className="flex gap-15">
-                            <h1> {product.name} </h1>
-                            <h1> {item.quantity}x </h1>
-                            <h1> ${price}.00</h1>
-                        </div>
-                    )
-                }
+                if (!product) return null;
+              
+                return (
+                    <div key = {item.id} className="flex gap-15">
+                        <h1> {product.name} </h1>
+                        <h1> {item.quantity}x </h1>
+                        <h1> ${item.quantity * product.price}.00</h1>
+                    </div>
+                );
             })}
 
             <h1>Total Price: ${totalPrice}.00</h1>
