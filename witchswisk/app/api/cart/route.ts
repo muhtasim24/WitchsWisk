@@ -8,9 +8,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-    const item = await request.json();
-    console.log("API POST:", item);
-    const updatedCart = addToCart(item)
+    const { id } = await request.json();
+    console.log(id);
+    const updatedCart = addToCart(id)
     return NextResponse.json(updatedCart);
 
 }

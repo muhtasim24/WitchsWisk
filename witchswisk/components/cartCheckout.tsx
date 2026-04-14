@@ -26,7 +26,7 @@ export default function CartCheckout( {products} : Props) {
                     const price: number = item.quantity * product.price
                     totalPrice = totalPrice + price
                     return (
-                        <div className="flex gap-15">
+                        <div key = {item.id} className="flex gap-15">
                             <h1> {product.name} </h1>
                             <h1> {item.quantity}x </h1>
                             <h1> ${price}.00</h1>

@@ -17,13 +17,15 @@ export default function CartView( { products } : Props) {
         <div>
             {cartItems.map(cartItem => {
                 const product = products.find(product => product.id === cartItem.id);
-                if (product) {
-                    return <CartSlot 
-                                key = {cartItem.id}
-                                item = {cartItem} 
-                                product={product} 
-                            />
-                }
+                console.log(product);
+                if (!product) return null
+                console.log("HERE", product)
+                return (<CartSlot 
+                            key = {cartItem.id}
+                            item = {cartItem} 
+                            product={product} 
+                        />
+                )
             })}
         </div>
     )
