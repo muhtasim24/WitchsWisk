@@ -24,3 +24,42 @@ export function deleteFromCart(id: string) {
     cart = filteredList;
     return cart;
 }
+
+// find the cartItem that matches the id
+export function increaseCartQuantity(id: string) {
+    const findItem = cart.find(item => item.id === id);
+
+    if (findItem) {
+
+    }
+}
+
+    function increaseCartQuantity(id: string) {
+        console.log("increasing count for: ", id);
+        setCartItems(currItems => {
+            return currItems.map(item => {
+                if (item.id === id) {
+                    return {...item, quantity: item.quantity + 1}
+                } else {
+                    return item
+                }
+            })
+        })
+    }
+
+    function decreaseCartQuantity(id: string) {
+        console.log("decreasing count for: ", id);
+        setCartItems(currItems => {
+            return currItems.map(item => {
+                if (item.id === id && item.quantity !== 1) {
+                    return {...item, quantity: item.quantity - 1}
+                } else {
+                    return item;
+                }
+            }
+            )
+        })
+    }
+export function decreaseCartQuantity(id: string) {
+
+}
