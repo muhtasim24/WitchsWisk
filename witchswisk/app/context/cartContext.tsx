@@ -68,7 +68,7 @@ export function CartProvider( { children } : CartProviderProps) {
         });
     }
 
-    function increaseCartQuantity(id: string) {
+    async function increaseCartQuantity(id: string) {
         console.log("increasing count for: ", id);
         setCartItems(currItems => {
             return currItems.map(item => {
@@ -79,9 +79,15 @@ export function CartProvider( { children } : CartProviderProps) {
                 }
             })
         })
+
+        await fetch("/api/cart", {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify( {id: id, action: "increasing"} )
+        })
     }
 
-    function decreaseCartQuantity(id: string) {
+    async function decreaseCartQuantity(id: string) {
         console.log("decreasing count for: ", id);
         setCartItems(currItems => {
             return currItems.map(item => {
@@ -90,8 +96,13 @@ export function CartProvider( { children } : CartProviderProps) {
                 } else {
                     return item;
                 }
-            }
-            )
+            })
+        })
+
+        await fetch("/api/cart", {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify( {id: id, action: "decreasing"} )
         })
     }
 

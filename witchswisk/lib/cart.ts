@@ -26,40 +26,27 @@ export function deleteFromCart(id: string) {
 }
 
 // find the cartItem that matches the id
-export function increaseCartQuantity(id: string) {
-    const findItem = cart.find(item => item.id === id);
-
-    if (findItem) {
-
-    }
+// go through every cart item, till we find the one with the id that matches, return everything before so it stays the same
+// and only update the correct item's quantity
+export function increaseQuantity(id: string) {
+    const updateQuantity = cart.map(item => {
+        if (item.id === id) {
+            return {...item, quantity: item.quantity + 1}
+        }
+        return item
+    })
+    cart = updateQuantity;
+    return cart;
 }
 
-    function increaseCartQuantity(id: string) {
-        console.log("increasing count for: ", id);
-        setCartItems(currItems => {
-            return currItems.map(item => {
-                if (item.id === id) {
-                    return {...item, quantity: item.quantity + 1}
-                } else {
-                    return item
-                }
-            })
-        })
-    }
+export function decreaseQuantity(id: string) {
+    const updateQuantity = cart.map(item => {
 
-    function decreaseCartQuantity(id: string) {
-        console.log("decreasing count for: ", id);
-        setCartItems(currItems => {
-            return currItems.map(item => {
-                if (item.id === id && item.quantity !== 1) {
-                    return {...item, quantity: item.quantity - 1}
-                } else {
-                    return item;
-                }
-            }
-            )
-        })
-    }
-export function decreaseCartQuantity(id: string) {
-
+        if (item.id === id && item.quantity !== 1) {
+            return {...item, quantity: item.quantity - 1}
+        }
+        return item
+    })
+    cart = updateQuantity
+    return cart;
 }
