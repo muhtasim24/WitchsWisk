@@ -21,6 +21,7 @@ type CartContextType = {
     removeFromCart: (id: string) => void
     cartItems: CartItem[]
     addToCart: (id: string) => void
+    loadCart: () => Promise<void>
 }
 
 
@@ -38,15 +39,14 @@ export function CartProvider( { children } : CartProviderProps) {
     console.log(cartItems);
 
     useEffect( () => {
-        console.log("FETCHING CART API")
-        async function loadCart() {
-            fetch("api/cart", {method: "GET"})
-            .then( (response) => response.json())
-            .then( (data) => setCartItems(data));
-        }
-
         loadCart();
     }, []);
+
+    function loadCart() {
+        fetch("/api/cart", {method: "GET"})
+            .then( (response) => response.json())
+            .then( (data) => setCartItems(data));
+    }
 
     async function addToCart(id: string) {
         console.log("ADDING TO CART: ", id);

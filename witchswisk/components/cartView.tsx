@@ -2,6 +2,7 @@
 import { useCart } from "@/app/context/cartContext";
 import type { Product } from "@/lib/types";
 import CartSlot from "./cartSlot";
+import { useEffect } from "react";
 
 type Props = {
     products: Product[];
@@ -19,7 +20,7 @@ export default function CartView( { products } : Props) {
                 const product = products.find(product => product.id === cartItem.id);
                 console.log(product);
                 if (!product) return null
-                console.log("HERE", product)
+
                 return (<CartSlot 
                             key = {cartItem.id}
                             item = {cartItem} 
