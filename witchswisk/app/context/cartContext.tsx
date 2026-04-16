@@ -42,10 +42,19 @@ export function CartProvider( { children } : CartProviderProps) {
         loadCart();
     }, []);
 
-    function loadCart() {
-        fetch("/api/cart", {method: "GET"})
-            .then( (response) => response.json())
-            .then( (data) => setCartItems(data));
+    async function loadCart() {
+        try {
+            const res = await fetch("/api/cart");
+            
+            if (!res.ok) {
+                throw new Error("Failed to fetch cart");
+            };
+
+            const data = await res.json();
+            setCartItems(data);
+        } catch(error) {
+            console.log("LOAD CART FAILED", error);
+        }
     }
 
     async function addToCart(id: string) {
@@ -60,12 +69,22 @@ export function CartProvider( { children } : CartProviderProps) {
                 return currItems;
             }
         });
-
-        await fetch("/api/cart", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify( {id})
-        });
+        try {
+            const res = await fetch("/api/cart", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify( {id})
+            });
+            // check the HTTP error, if its anything but 200s status
+            if (!res.ok) {
+                throw new Error("Failed to add to cart"); // manually throw an error
+            }
+        }
+        catch(error) {
+            console.log("ADD TO CART FAILED", error);
+            // reload the cart before error
+            loadCart();
+        }
     }
 
     async function increaseCartQuantity(id: string) {
@@ -79,12 +98,21 @@ export function CartProvider( { children } : CartProviderProps) {
                 }
             })
         })
-
-        await fetch("/api/cart", {
-            method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify( {id: id, action: "increasing"} )
-        })
+        
+        try {
+            const res = await fetch("/api/cart", {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify( {id: id, action: "increasing"} )
+            });
+            if (!res.ok) {
+                throw new Error("Failed to increase quantity");
+            }
+        }
+        catch(error) {
+            console.log("Failed to increase item", error);
+            loadCart();
+        }
     }
 
     async function decreaseCartQuantity(id: string) {
@@ -99,11 +127,20 @@ export function CartProvider( { children } : CartProviderProps) {
             })
         })
 
-        await fetch("/api/cart", {
-            method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify( {id: id, action: "decreasing"} )
-        })
+        try {
+            const res = await fetch("/api/cart", {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify( {id: id, action: "decreasing"} )
+            });
+            if (!res.ok) {
+                throw new Error("Failed to decrease quantity");
+            };
+        }
+        catch(error) {
+            console.log("FAILED TO DECREASE", error);
+            loadCart();
+        }
     }
 
     async function removeFromCart(id: string) {
@@ -113,22 +150,26 @@ export function CartProvider( { children } : CartProviderProps) {
         })
         
         // make backend request to delete
-        await fetch("/api/cart", {
-            method: "DELETE",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify( {id} ),
-        })
+        try {
+            const res = await fetch("/api/cart", {
+                method: "DELETE",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify( {id} ),
+            });
+            if (!res.ok) {
+                throw new Error("Failed to remove from cart");
+            }
+        }
+        catch(error) {
+            console.log("Failed to remove", error);
+            loadCart();
+        }
     }
 
     return (
-        <CartContext.Provider value = { { cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart } }>
+        <CartContext.Provider value = { { cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart, loadCart } }>
             {children}
         </CartContext.Provider>
     )
-}
 
-    // function removeFromCart(id: number) {
-    //     setCartItems( currItems => {
-    //         return currItems.filter(item => item.id !== id);
-    //     })
-    // }
+}
