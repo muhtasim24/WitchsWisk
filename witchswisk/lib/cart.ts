@@ -1,9 +1,17 @@
 import { CartItem } from "./types";
+import { supabase } from "./supabaseClient";
 
 let cart: CartItem[] = [];
 
-export function getCart() {
-    return cart;
+export async function getCart() {
+    const { data, error } = await supabase.from('cart_items').select('*');
+    
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data;
 }
 
 export function addToCart(id: string) {
