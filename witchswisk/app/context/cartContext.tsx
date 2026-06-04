@@ -8,7 +8,7 @@ type CartProviderProps = {
 
 // information our cart item holds
 export type CartItem = {
-    id: string // if we use id, we can associate id with name, and if the name changes in our data, this will update as well
+    id: number // if we use id, we can associate id with name, and if the name changes in our data, this will update as well
     quantity: number // can get price from price X quantity
 }
 
@@ -16,11 +16,11 @@ export type CartItem = {
 // add, increment, decrement, remove, how many items in our cart
 type CartContextType = {
     // getItemQuantity: (id: string) => number
-    increaseCartQuantity: (id: string) => void // adding to the cart also
-    decreaseCartQuantity: (id: string) => void
-    removeFromCart: (id: string) => void
+    increaseCartQuantity: (id: number) => void // adding to the cart also
+    decreaseCartQuantity: (id: number) => void
+    removeFromCart: (id: number) => void
     cartItems: CartItem[]
-    addToCart: (id: string) => void
+    addToCart: (id: number) => void
     loadCart: () => Promise<void>
 }
 
@@ -51,13 +51,14 @@ export function CartProvider( { children } : CartProviderProps) {
             };
 
             const data = await res.json();
+            console.log("DATA", data);
             setCartItems(data);
         } catch(error) {
             console.log("LOAD CART FAILED", error);
         }
     }
 
-    async function addToCart(id: string) {
+    async function addToCart(id: number) {
         console.log("ADDING TO CART: ", id);
         setCartItems(currItems => {
             // if we dont find the item, in the arrayList add it
@@ -87,7 +88,7 @@ export function CartProvider( { children } : CartProviderProps) {
         }
     }
 
-    async function increaseCartQuantity(id: string) {
+    async function increaseCartQuantity(id: number) {
         console.log("increasing count for: ", id);
         setCartItems(currItems => {
             return currItems.map(item => {
@@ -115,7 +116,7 @@ export function CartProvider( { children } : CartProviderProps) {
         }
     }
 
-    async function decreaseCartQuantity(id: string) {
+    async function decreaseCartQuantity(id: number) {
         console.log("decreasing count for: ", id);
         setCartItems(currItems => {
             return currItems.map(item => {
@@ -143,7 +144,7 @@ export function CartProvider( { children } : CartProviderProps) {
         }
     }
 
-    async function removeFromCart(id: string) {
+    async function removeFromCart(id: number) {
         console.log("REMOVING FROM CART", id)
         setCartItems(currItems => {
             return currItems.filter(item => item.id !== id)

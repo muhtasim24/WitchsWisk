@@ -8,7 +8,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+    const response = await request.json();
     const { id } = await request.json();
+    console.log("JERE", response);
     const updatedCart = addToCart(id)
     return NextResponse.json(updatedCart);
 

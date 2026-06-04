@@ -1,3 +1,4 @@
+import { products } from "@/data/products";
 import { supabase } from "./supabaseClient";
 
 // THIS PAGE CHANGES WHEN IMPLEMENT REAL DB

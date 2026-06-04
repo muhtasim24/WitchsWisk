@@ -1,31 +1,28 @@
 import { CartItem } from "./types";
 import { supabase } from "./supabaseClient";
+import CartSlot from "@/components/cartSlot";
 
 let cart: CartItem[] = [];
 
 export async function getCart() {
-    const { data, error } = await supabase.from('cart_items').select('*');
+    // const { data, error } = await supabase.from('cart_items').select('*');
     
-    if (error) {
-        console.error(error);
-        return [];
-    }
+    // if (error) {
+    //     console.error(error);
+    //     return [];
+    // }
 
-    return data;
-}
-
-export function addToCart(id: string) {
-    const findItem = cart.find(item => item.id === id);
-
-    // if item doesnt exist in the cart, add to it
-    if (!findItem) {
-        cart.push( {id, quantity: 1});
-    }
-
+    // return data;
     return cart;
 }
 
-export function deleteFromCart(id: string) {
+export async function addToCart(id: number) {
+    const { data, error } = await supabase
+        .from('cart_items')
+        .insert({id: {id}, quantity: 1});
+}
+
+export function deleteFromCart(id: number) {
     // create a new list and filter the old list by id
     // keep only the id's that dont match the given id
     const filteredList = cart.filter(item => item.id !== id);
@@ -36,7 +33,7 @@ export function deleteFromCart(id: string) {
 // find the cartItem that matches the id
 // go through every cart item, till we find the one with the id that matches, return everything before so it stays the same
 // and only update the correct item's quantity
-export function increaseQuantity(id: string) {
+export function increaseQuantity(id: number) {
     const updateQuantity = cart.map(item => {
         if (item.id === id) {
             return {...item, quantity: item.quantity + 1}
@@ -47,7 +44,7 @@ export function increaseQuantity(id: string) {
     return cart;
 }
 
-export function decreaseQuantity(id: string) {
+export function decreaseQuantity(id: number) {
     const updateQuantity = cart.map(item => {
 
         if (item.id === id && item.quantity !== 1) {

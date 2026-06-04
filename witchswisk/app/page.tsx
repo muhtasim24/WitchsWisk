@@ -6,6 +6,7 @@ import Image from "next/image";
 export default async function Home() {
   const products = await getProducts();
   const firstThree = products.slice(0,3);
+  console.log(firstThree);
   return (
     <div>
       <div className="bg-brand mt-5">
