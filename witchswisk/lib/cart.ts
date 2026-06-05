@@ -18,7 +18,7 @@ export async function getCart() {
 export async function addToCart(id: number) {
     const { data, error } = await supabase
         .from('cart_items')
-        .insert({product_id: id, quantity: 1, user_id: 2})
+        .insert({product_id: id, quantity: 1, user_id: 1})
         .select();
 
     if (error) {
@@ -61,28 +61,61 @@ export async function increaseQuantity(id: number) {
     // cart = updateQuantity;
     // return cart;
 
-    let { data, error } = await supabase
+    const response= await supabase
         .from('cart_items')
         .select('quantity')
         .eq('product_id', id).eq('user_id', 1)
-
-    console.log(data);
-        
-
+    
+    let updatedQuantity = 0;
+    if (response.data) {
+        updatedQuantity = response.data[0].quantity + 1
+    }
+    
+    const { data, error } = await supabase
+        .from('cart_items')
+        .update({quantity: updatedQuantity}) 
+        .eq('product_id', id).eq('user_id', 1)
+        .select()
+    
+    
     if (error) {
         console.log(error)
         return;
     }
+
+    console.log(data);
+    return(data);
 }
 
-export function decreaseQuantity(id: number) {
-    const updateQuantity = cart.map(item => {
+export async function decreaseQuantity(id: number) {
+    const response = await supabase
+        .from('cart_items')
+        .select('quantity')
+        .eq('product_id', id).eq('user_id', 1)
 
-        if (item.id === id && item.quantity !== 1) {
-            return {...item, quantity: item.quantity - 1}
+    let updatedQuantity = 0;
+    if (response.data) {
+        const quantity = response.data[0].quantity
+        if (quantity == 1) {
+            deleteFromCart(id);
         }
-        return item
-    })
-    cart = updateQuantity
-    return cart;
+        else {
+            updatedQuantity = quantity - 1;
+        }
+    }
+
+    const { data , error} = await supabase
+        .from('cart_items')
+        .update({quantity: updatedQuantity})
+        .eq('product_id', id).eq('user_id', 1)
+        .select();
+
+
+    if (error) {
+        console.log(error);
+        return;
+    }
+
+    console.log(data);
+    return data;
 }
