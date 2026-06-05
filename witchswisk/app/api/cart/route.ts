@@ -4,13 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
     console.log("API GET")
-    return NextResponse.json(getCart());
+    const cart = await getCart();
+    return NextResponse.json(cart);
 }
 
 export async function POST(request: NextRequest) {
-    const response = await request.json();
     const { id } = await request.json();
-    console.log("JERE", response);
     const updatedCart = addToCart(id)
     return NextResponse.json(updatedCart);
 
