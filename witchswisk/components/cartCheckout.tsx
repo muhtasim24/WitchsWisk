@@ -17,7 +17,7 @@ export default function CartCheckout( {products} : Props) {
     // start a running total, starts at 0
     // for each matching product to the cartItem, find the price and add to the total
     const totalPrice : number = cartItems.reduce( (sum, item) => {
-        const product = products.find(p => p.id === item.id);
+        const product = products.find(p => p.id === item.product_id);
         if (!product) return sum;
 
         return sum + item.quantity * product.price;
@@ -28,12 +28,12 @@ export default function CartCheckout( {products} : Props) {
         <div className="bg-brand w-100 h-150 rounded-xl flex flex-col">
             <h1 className="text-3xl font-bold">Checkout</h1>
             {cartItems.map(item => {
-                const product = products.find(product => product.id === item.id);
+                const product = products.find(product => product.id === item.product_id);
 
                 if (!product) return null;
               
                 return (
-                    <div key = {item.id} className="flex gap-15">
+                    <div key = {item.product_id} className="flex gap-15">
                         <h1> {product.name} </h1>
                         <h1> {item.quantity}x </h1>
                         <h1> ${item.quantity * product.price}.00</h1>

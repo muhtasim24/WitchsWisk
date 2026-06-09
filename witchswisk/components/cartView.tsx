@@ -17,12 +17,13 @@ export default function CartView( { products } : Props) {
         // everyTime cartItem id matches with a product's id, call Card Item component to display that item in the cart
         <div>
             {cartItems.map(cartItem => {
-                const product = products.find(product => product.id === cartItem.id);
+                console.log("ITME", cartItem.product_id);
+                const product = products.find(product => product.id === cartItem.product_id);
                 console.log(product);
                 if (!product) return null
 
                 return (<CartSlot 
-                            key = {cartItem.id}
+                            key = {cartItem.product_id}
                             item = {cartItem} 
                             product={product} 
                         />

@@ -10,7 +10,8 @@ type Props = {
 }
 
 export default function CartSlot( {item, product}: Props) {
-    const {cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart} = useCart();
+    const {cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart, isLoading} = useCart();
+    console.log(isLoading);
 
     return (
         <div className="bg-brand w-250 h-40 flex  items-center m-8 rounded-xl">
@@ -24,11 +25,11 @@ export default function CartSlot( {item, product}: Props) {
                 <h1 className = "text-lg font-bold">{product.name}</h1>
                 <p>{product.description}</p>
                 <div className = "flex gap-10">
-                    <button className="text-sm" onClick={() => decreaseCartQuantity(item.id)}>Decrease</button>
+                    <button className="text-sm" disabled = {isLoading} onClick={() => decreaseCartQuantity(item.product_id)}>Decrease</button>
                     <h1 className = "font-bold text-lg" >{item.quantity}x</h1>
-                    <button className="text-sm" onClick={() => increaseCartQuantity(item.id)}>Add</button>
+                    <button className="text-sm" disabled = {isLoading} onClick={() => increaseCartQuantity(item.product_id)}>Add</button>
                 </div>
-                <button className = "text-sm" onClick={() => removeFromCart(item.id)}>Remove</button>
+                <button className = "text-sm" onClick={() => removeFromCart(item.product_id)}>Remove</button>
                 <h1 className="flex justify-end ml-200 font-bold text-lg ">Price: ${product.price}.00</h1>
             </div>
         </div>

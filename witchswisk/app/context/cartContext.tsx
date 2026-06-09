@@ -8,7 +8,9 @@ type CartProviderProps = {
 
 // information our cart item holds
 export type CartItem = {
-    id: number // if we use id, we can associate id with name, and if the name changes in our data, this will update as well
+    //id: number // if we use id, we can associate id with name, and if the name changes in our data, this will update as well
+    product_id: number
+    //user_id: number
     quantity: number // can get price from price X quantity
 }
 
@@ -22,6 +24,7 @@ type CartContextType = {
     cartItems: CartItem[]
     addToCart: (id: number) => void
     loadCart: () => Promise<void>
+    isLoading: boolean;
 }
 
 
@@ -36,7 +39,9 @@ export function useCart() {
 export function CartProvider( { children } : CartProviderProps) {
     // need a place to store our cart information, for now using useState to store that
     const[cartItems, setCartItems] = useState<CartItem[]>([])
-    console.log(cartItems);
+    const[isLoading, setIsLoading] = useState(false);
+    console.log("LOADING:", isLoading);
+    console.log("CONTEXT cartItems:", cartItems);
 
     useEffect( () => {
         loadCart();
@@ -58,14 +63,15 @@ export function CartProvider( { children } : CartProviderProps) {
         }
     }
 
+    // we get the product.id
     async function addToCart(id: number) {
-        console.log("ADDING TO CART: ", id);
+        console.log("ADDING TO CART: producct_id:", id);
         setCartItems(currItems => {
             // if we dont find the item, in the arrayList add it
-            const findItem = currItems.find(item => item.id === id);
+            const findItem = currItems.find(item => item.product_id === id);
 
             if (!findItem) {
-                return [...currItems, {id, quantity: 1}]
+                return [...currItems, {product_id: id, quantity: 1}]
             } else {
                 return currItems;
             }
@@ -90,9 +96,10 @@ export function CartProvider( { children } : CartProviderProps) {
 
     async function increaseCartQuantity(id: number) {
         console.log("increasing count for: ", id);
+        setIsLoading(true);
         setCartItems(currItems => {
             return currItems.map(item => {
-                if (item.id === id) {
+                if (item.product_id === id) {
                     return {...item, quantity: item.quantity + 1}
                 } else {
                     return item
@@ -114,13 +121,15 @@ export function CartProvider( { children } : CartProviderProps) {
             console.log("Failed to increase item", error);
             loadCart();
         }
+        setIsLoading(false);
     }
 
     async function decreaseCartQuantity(id: number) {
         console.log("decreasing count for: ", id);
+        setIsLoading(true);
         setCartItems(currItems => {
             return currItems.map(item => {
-                if (item.id === id && item.quantity !== 1) {
+                if (item.product_id === id && item.quantity !== 1) {
                     return {...item, quantity: item.quantity - 1}
                 } else {
                     return item;
@@ -142,12 +151,13 @@ export function CartProvider( { children } : CartProviderProps) {
             console.log("FAILED TO DECREASE", error);
             loadCart();
         }
+        setIsLoading(false);
     }
 
     async function removeFromCart(id: number) {
         console.log("REMOVING FROM CART", id)
         setCartItems(currItems => {
-            return currItems.filter(item => item.id !== id)
+            return currItems.filter(item => item.product_id !== id)
         })
         
         // make backend request to delete
@@ -168,7 +178,7 @@ export function CartProvider( { children } : CartProviderProps) {
     }
 
     return (
-        <CartContext.Provider value = { { cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart, loadCart } }>
+        <CartContext.Provider value = { { cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart, loadCart, isLoading } }>
             {children}
         </CartContext.Provider>
     )
