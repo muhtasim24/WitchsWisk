@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/lib/supabase/client";
+
 
 export default function UserForm() {
+    const [loginMode, setLoginMode] = useState("signup");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [userEmail, setUserEmail] = useState("");
@@ -53,6 +55,10 @@ export default function UserForm() {
         }
     }
 
+    async function handleSignIn(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+    }
+
     async function createUser(userId:string) {
         const {data, error} = await supabase
         .from("users")
@@ -72,10 +78,25 @@ export default function UserForm() {
         return data;
     }
 
-
+    function handleLoginMode(mode: string) {
+        if(mode === "signin") {
+            setLoginMode("signin");
+        } else {
+            setLoginMode("signup");
+        }
+        setFirstName("");
+        setLastName("");
+        setUserEmail("");
+        setUserPassword("");
+    }
     
     return (
         <div>
+            <button onClick={() => handleLoginMode("signin")}>Sign In</button>
+            <br></br>
+            <button onClick={() => handleLoginMode("signup")}>Sign Up</button>
+    
+            {loginMode === "signup" && (
             <form onSubmit={handleSignUp}>
                 <h1>First Name:</h1>
                 <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="text" value={firstName} onChange={ (e) => setFirstName(e.target.value)}></input>
@@ -91,6 +112,17 @@ export default function UserForm() {
                 
                 <button type="submit">Submit</button>
             </form>
+            )}
+
+            {loginMode === "signin" && (
+            <form onSubmit={handleSignIn}>
+                <h1>Email:</h1>
+                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
+
+                <h1>Password:</h1>
+                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
+            </form>
+            )}
         </div>
 
     )

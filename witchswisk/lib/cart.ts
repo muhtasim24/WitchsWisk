@@ -1,17 +1,23 @@
+import { createServerSupabase } from "./supabase/server";
 import { CartItem } from "./types";
-import { supabase } from "./supabaseClient";
 import CartSlot from "@/components/cartSlot";
 
 let cart: CartItem[] = [];
-let userId:string;
+let userId = "";
 
 export async function getCart() {
+    const supabase = await createServerSupabase();
+    const {data, error} = await supabase.auth.getSession();
+    console.log("SESSIOn", data);
     const user = (await supabase.auth.getUser()).data.user;
+    console.log(user);
+    let user_Id : string | null = null;
     if (user) {
-        userId = user.id;
-    };
+        user_Id = user.id;
+    }
+    console.log("HELLO", user_Id)
 
-    const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', userId);
+    // const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user_Id);
     
     if (error) {
         console.error(error);
@@ -22,6 +28,11 @@ export async function getCart() {
 }
 
 export async function addToCart(id: number) {
+    const user = (await supabase.auth.getUser()).data.user;
+    if (user) {
+        userId = user.id;
+    };
+    
     const { data, error } = await supabase
         .from('cart_items')
         .insert({product_id: id, quantity: 1, user_id: userId})
