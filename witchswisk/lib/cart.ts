@@ -3,9 +3,10 @@ import { supabase } from "./supabaseClient";
 import CartSlot from "@/components/cartSlot";
 
 let cart: CartItem[] = [];
+const userId = supabase.auth.getUser();
 
 export async function getCart() {
-    const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', 1);
+    const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', userId);
     
     if (error) {
         console.error(error);
@@ -18,7 +19,7 @@ export async function getCart() {
 export async function addToCart(id: number) {
     const { data, error } = await supabase
         .from('cart_items')
-        .insert({product_id: id, quantity: 1, user_id: 1})
+        .insert({product_id: id, quantity: 1, user_id: userId})
         .select();
 
     if (error) {
@@ -36,7 +37,7 @@ export async function deleteFromCart(id: number) {
     const { data, error } = await supabase
         .from('cart_items')
         .delete()
-        .eq('product_id', id).eq('user_id', 1)
+        .eq('product_id', id).eq('user_id', userId)
         .select()
 
     if (error) {
@@ -64,7 +65,7 @@ export async function increaseQuantity(id: number) {
     const response= await supabase
         .from('cart_items')
         .select('quantity')
-        .eq('product_id', id).eq('user_id', 1)
+        .eq('product_id', id).eq('user_id', userId)
     
     let updatedQuantity = 0;
     if (response.data) {
@@ -74,7 +75,7 @@ export async function increaseQuantity(id: number) {
     const { data, error } = await supabase
         .from('cart_items')
         .update({quantity: updatedQuantity}) 
-        .eq('product_id', id).eq('user_id', 1)
+        .eq('product_id', id).eq('user_id', userId)
         .select()
     
     
@@ -91,7 +92,7 @@ export async function decreaseQuantity(id: number) {
     const response = await supabase
         .from('cart_items')
         .select('quantity')
-        .eq('product_id', id).eq('user_id', 1)
+        .eq('product_id', id).eq('user_id', userId)
 
     let updatedQuantity = 0;
     if (response.data) {
@@ -107,7 +108,7 @@ export async function decreaseQuantity(id: number) {
     const { data , error} = await supabase
         .from('cart_items')
         .update({quantity: updatedQuantity})
-        .eq('product_id', id).eq('user_id', 1)
+        .eq('product_id', id).eq('user_id', userId)
         .select();
 
 

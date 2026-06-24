@@ -9,7 +9,7 @@ export default function UserForm() {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const {data, error} = await supabase.auth.signUp(
             {
@@ -26,11 +26,38 @@ export default function UserForm() {
 
         console.log(userEmail);
         console.log(data);
+        console.log(data.user?.id);
+        if (data.user) {
+            return createUser(data.user.id);
+        } else {
+            console.log(error);
+        }
     }
+
+    async function createUser(userId:string) {
+        const {data, error} = await supabase
+        .from("users")
+        .insert( {id: userId, first_name: firstName, last_name: lastName})
+        .select()
+
+        if (error) {
+            console.log(error);
+            return;
+        }
+        
+        console.log(data);
+        setFirstName("");
+        setLastName("");
+        setUserEmail("");
+        setUserPassword("");
+        return data;
+    }
+
+
     
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSignUp}>
                 <h1>First Name:</h1>
                 <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="text" value={firstName} onChange={ (e) => setFirstName(e.target.value)}></input>
 
