@@ -3,9 +3,14 @@ import { supabase } from "./supabaseClient";
 import CartSlot from "@/components/cartSlot";
 
 let cart: CartItem[] = [];
-const userId = supabase.auth.getUser();
+let userId:string;
 
 export async function getCart() {
+    const user = (await supabase.auth.getUser()).data.user;
+    if (user) {
+        userId = user.id;
+    };
+
     const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', userId);
     
     if (error) {

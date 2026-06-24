@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
 export default function UserForm() {
@@ -8,6 +8,25 @@ export default function UserForm() {
     const [lastName, setLastName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
+
+    useEffect( () => {
+        getUser();
+    }, []);
+
+    async function getUser() {
+        try {
+            const res = await supabase.auth.getUser();
+            const user = res.data.user;
+            if (user) {
+                console.log(user);
+                console.log(user.id);
+                return user.id
+            }
+            
+        } catch(error) {
+            console.log("LOAD CART FAILED", error);
+        }
+    }
 
     async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
