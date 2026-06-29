@@ -1,9 +1,11 @@
 import CartCheckout from "@/components/cartCheckout";
 import CartView from "@/components/cartView";
 import { getProducts } from "@/lib/getProducts";
+import { getCart } from "@/lib/cart";
 
     
 export default async function Cart() {
+    const cart = await getCart();
     const products = await getProducts();
 
     return (

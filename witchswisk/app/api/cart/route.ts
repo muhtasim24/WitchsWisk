@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
     console.log("API GET")
     const cart = await getCart();
+    console.log(cart);
     return NextResponse.json(cart);
 }
 

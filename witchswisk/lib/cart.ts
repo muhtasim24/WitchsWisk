@@ -1,25 +1,21 @@
+import { cookies } from "next/headers";
 import { createServerSupabase } from "./supabase/server";
 import { CartItem } from "./types";
 import CartSlot from "@/components/cartSlot";
 
-let cart: CartItem[] = [];
-let userId = "";
 
 export async function getCart() {
     const supabase = await createServerSupabase();
-    const {data, error} = await supabase.auth.getSession();
-    console.log("SESSIOn", data);
-    const user = (await supabase.auth.getUser()).data.user;
-    console.log(user);
-    let user_Id : string | null = null;
-    if (user) {
-        user_Id = user.id;
-    }
-    console.log("HELLO", user_Id)
 
-    // const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user_Id);
+    const { data: { user }} = await supabase.auth.getUser();
+
+    // if user doesnt exist, reutnr []
+    if (!user) return [];
+
+    const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user.id);
+    console.log(user.id);
     
-    if (error) {
+    if (error || !data) {
         console.error(error);
         return [];
     }
@@ -28,17 +24,18 @@ export async function getCart() {
 }
 
 export async function addToCart(id: number) {
-    const user = (await supabase.auth.getUser()).data.user;
-    if (user) {
-        userId = user.id;
-    };
+    const supabase = await createServerSupabase();
+    const { data: { user }} = await supabase.auth.getUser();
+    
+    // if user doesnt exist, reutnr []
+    if (!user) return [];
     
     const { data, error } = await supabase
         .from('cart_items')
-        .insert({product_id: id, quantity: 1, user_id: userId})
+        .insert({product_id: id, quantity: 1, user_id: user.id})
         .select();
 
-    if (error) {
+    if (error || !data) {
         console.log(error);
         return;
     }
@@ -50,10 +47,16 @@ export async function deleteFromCart(id: number) {
     // create a new list and filter the old list by id
     // keep only the id's that dont match the given id
 
+    const supabase = await createServerSupabase();
+    const { data: { user }} = await supabase.auth.getUser();
+    
+    // if user doesnt exist, reutnr []
+    if (!user) return [];
+
     const { data, error } = await supabase
         .from('cart_items')
         .delete()
-        .eq('product_id', id).eq('user_id', userId)
+        .eq('product_id', id).eq('user_id', user.id)
         .select()
 
     if (error) {
@@ -77,11 +80,16 @@ export async function increaseQuantity(id: number) {
     // })
     // cart = updateQuantity;
     // return cart;
+    const supabase = await createServerSupabase();
+    const { data: { user }} = await supabase.auth.getUser();
+    
+    // if user doesnt exist, reutnr []
+    if (!user) return [];
 
     const response= await supabase
         .from('cart_items')
         .select('quantity')
-        .eq('product_id', id).eq('user_id', userId)
+        .eq('product_id', id).eq('user_id', user.id)
     
     let updatedQuantity = 0;
     if (response.data) {
@@ -91,7 +99,7 @@ export async function increaseQuantity(id: number) {
     const { data, error } = await supabase
         .from('cart_items')
         .update({quantity: updatedQuantity}) 
-        .eq('product_id', id).eq('user_id', userId)
+        .eq('product_id', id).eq('user_id', user.id)
         .select()
     
     
@@ -105,10 +113,16 @@ export async function increaseQuantity(id: number) {
 }
 
 export async function decreaseQuantity(id: number) {
+    const supabase = await createServerSupabase();
+    const { data: { user }} = await supabase.auth.getUser();
+    
+    // if user doesnt exist, reutnr []
+    if (!user) return [];
+
     const response = await supabase
         .from('cart_items')
         .select('quantity')
-        .eq('product_id', id).eq('user_id', userId)
+        .eq('product_id', id).eq('user_id', user.id)
 
     let updatedQuantity = 0;
     if (response.data) {
@@ -124,7 +138,7 @@ export async function decreaseQuantity(id: number) {
     const { data , error} = await supabase
         .from('cart_items')
         .update({quantity: updatedQuantity})
-        .eq('product_id', id).eq('user_id', userId)
+        .eq('product_id', id).eq('user_id', user.id)
         .select();
 
 

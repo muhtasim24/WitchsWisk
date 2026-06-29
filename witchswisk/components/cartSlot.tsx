@@ -11,7 +11,6 @@ type Props = {
 
 export default function CartSlot( {item, product}: Props) {
     const {cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart, isLoading} = useCart();
-    console.log(isLoading);
 
     return (
         <div className="bg-brand w-250 h-40 flex  items-center m-8 rounded-xl">

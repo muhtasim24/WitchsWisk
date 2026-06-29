@@ -57,6 +57,24 @@ export default function UserForm() {
 
     async function handleSignIn(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
+        const { data, error } = await supabase.auth.signInWithPassword( {
+            email: userEmail,
+            password: userPassword
+        })
+
+        if (error) {
+            console.log(error)
+        } else {
+            alert('user logged in');
+        }
+
+        console.log(data);
+        setFirstName("");
+        setLastName("");
+        setUserEmail("");
+        setUserPassword("");
+        
+        return data;
     }
 
     async function createUser(userId:string) {
@@ -121,6 +139,7 @@ export default function UserForm() {
 
                 <h1>Password:</h1>
                 <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
+                <button type="submit">Log In</button>
             </form>
             )}
         </div>
