@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
 
 
 export default function UserForm() {
+    const router = useRouter();
     const [loginMode, setLoginMode] = useState("signup");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -42,7 +44,7 @@ export default function UserForm() {
         if(error) {
             console.log(error);
         } else{
-            alert('user registered');
+            console.log("USER REGISTERED")
         }
 
         console.log(userEmail);
@@ -65,7 +67,7 @@ export default function UserForm() {
         if (error) {
             console.log(error)
         } else {
-            alert('user logged in');
+            console.log('user logged in');
         }
 
         console.log(data);
@@ -73,7 +75,9 @@ export default function UserForm() {
         setLastName("");
         setUserEmail("");
         setUserPassword("");
-        
+
+        router.push("/");
+        router.refresh();
         return data;
     }
 
@@ -93,6 +97,9 @@ export default function UserForm() {
         setLastName("");
         setUserEmail("");
         setUserPassword("");
+        
+        router.push("/");
+        router.refresh();
         return data;
     }
 
