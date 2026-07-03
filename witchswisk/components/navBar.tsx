@@ -1,21 +1,20 @@
 'use client'
 
+import { useCart } from "@/app/context/cartContext";
 import { supabase } from "@/lib/supabase/client"
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 
 export default function NavBar() {
 
-
+    const {loadCart} = useCart() 
     const router = useRouter();
 
     async function signOut() {
         const { error } = await supabase.auth.signOut()
         console.log("USER SIGNED OUT");
-        router.push("/");
-        setTimeout(() => {
-            router.refresh()
-        }, 0)
+        router.replace("/signUp");
+        loadCart();
         console.log(error)
         return error;
     }

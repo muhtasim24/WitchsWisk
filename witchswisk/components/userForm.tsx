@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/app/context/cartContext";
 
 
 export default function UserForm() {
+    const {loadCart} = useCart() 
     const router = useRouter();
     const [loginMode, setLoginMode] = useState("signup");
     const [firstName, setFirstName] = useState("");
@@ -76,8 +78,8 @@ export default function UserForm() {
         setUserEmail("");
         setUserPassword("");
 
-        router.push("/");
-        router.refresh();
+        router.replace("/")
+        loadCart();
         return data;
     }
 
@@ -98,8 +100,7 @@ export default function UserForm() {
         setUserEmail("");
         setUserPassword("");
         
-        router.push("/");
-        router.refresh();
+        router.replace("/");
         return data;
     }
 
