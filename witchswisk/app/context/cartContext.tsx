@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState, useRef } from "react";
 
 type CartProviderProps = {
     children: ReactNode
@@ -41,6 +41,7 @@ export function CartProvider( { children } : CartProviderProps) {
     // need a place to store our cart information, for now using useState to store that
     const[cartItems, setCartItems] = useState<CartItem[]>([])
     const[isLoading, setIsLoading] = useState(false);
+    const lockButton = useRef(false);
     console.log("LOADING:", isLoading);
     console.log("CONTEXT cartItems:", cartItems);
 
@@ -97,8 +98,12 @@ export function CartProvider( { children } : CartProviderProps) {
     }
 
     async function increaseCartQuantity(id: number) {
+        if (lockButton.current) return;
+
+        lockButton.current = true;
         console.log("increasing count for: ", id);
         setIsLoading(true);
+
         setCartItems(currItems => {
             return currItems.map(item => {
                 if (item.product_id === id) {
@@ -122,11 +127,18 @@ export function CartProvider( { children } : CartProviderProps) {
         catch(error) {
             console.log("Failed to increase item", error);
             loadCart();
+        } finally {
+            setTimeout( () => {
+                lockButton.current = false;
+                setIsLoading(false);
+            }, 300);
         }
-        setIsLoading(false);
     }
 
     async function decreaseCartQuantity(id: number) {
+        if (lockButton.current) return;
+
+        lockButton.current = true;
         console.log("decreasing count for: ", id);
         setIsLoading(true);
         setCartItems(currItems => {
@@ -153,11 +165,20 @@ export function CartProvider( { children } : CartProviderProps) {
             console.log("FAILED TO DECREASE", error);
             loadCart();
         }
-        setIsLoading(false);
+        finally {
+            setTimeout( () => {
+                lockButton.current = false;
+                setIsLoading(false);
+            }, 300);
+        }
     }
 
     async function removeFromCart(id: number) {
+        if (lockButton.current) return;
+
+        lockButton.current = true;
         console.log("REMOVING FROM CART", id)
+        setIsLoading(true);
         setCartItems(currItems => {
             return currItems.filter(item => item.product_id !== id)
         })
@@ -176,6 +197,12 @@ export function CartProvider( { children } : CartProviderProps) {
         catch(error) {
             console.log("Failed to remove", error);
             loadCart();
+        }
+        finally {
+            setTimeout( () => {
+                lockButton.current = false;
+                setIsLoading(false);
+            }, 300);
         }
     }
 
