@@ -150,3 +150,31 @@ export async function decreaseQuantity(id: number) {
     console.log(data);
     return data;
 }
+
+export async function checkoutCart(userId: string) {
+    // so I want to create an entry for orders, so create an insert into 
+    // get everything from cart
+    const supabase = await createServerSupabase();
+    const cart = await supabase.from('cart_items').select('*').eq('user_id', userId);
+
+    if (cart.error || !cart.data) {
+        console.log(cart.error);
+        return;
+    }
+    console.log(cart.data[0])
+
+    const 
+
+    // so got all items in the cart
+
+    const orders = await supabase
+        .from('orders')
+        .insert( {user_id: userId, total_price: totalPrice})
+
+
+        
+    const { data, error } = await supabase
+        .from('cart_items')
+        .insert({product_id: id, quantity: 1, user_id: user.id})
+        .select();
+}

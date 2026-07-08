@@ -1,5 +1,6 @@
 'use client'
 import { useCart } from "@/app/context/cartContext";
+import { supabase } from "@/lib/supabase/client";
 import type { Product } from "@/lib/types";
 
 
@@ -24,6 +25,29 @@ export default function CartCheckout( {products} : Props) {
     }, 0);
 
 
+    async function handleCheckout() {
+        console.log("CHECKING OUT ORDER");
+        const { data: { user }} = await supabase.auth.getUser(); 
+        if (!user) return;
+        console.log(user.id);
+        const userId= user.id;
+
+        try {
+            const res = await fetch("/api/checkout", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify( {userId})
+            })
+            if (!res.ok) {
+                throw new Error("Failed to checkout");
+            }
+        }
+        catch(error) {
+            console.log("CHECKOUT FAILED", error)
+        }
+    }
+
+
     return (
         <div className="bg-brand w-100 h-150 rounded-xl flex flex-col">
             <h1 className="text-3xl font-bold">Checkout</h1>
@@ -42,7 +66,7 @@ export default function CartCheckout( {products} : Props) {
             })}
 
             <h1>Total Price: ${totalPrice}.00</h1>
-            <button>PLACE ORDER</button>
+            <button onClick={handleCheckout}>CHECKOUT</button>
         </div>
     )
 }
