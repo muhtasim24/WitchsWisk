@@ -26,6 +26,7 @@ export default function NavBar() {
             <Link href={"/signUp"}>SIGN UP</Link>
             <Link href={"/cart"}>CART</Link>
             <button onClick={signOut}>Sign Out</button>
+            <Link href={"/profile"}>PROFILE</Link>
         </div>
     )
 }

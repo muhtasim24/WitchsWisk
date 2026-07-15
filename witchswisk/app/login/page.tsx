@@ -44,12 +44,6 @@ export default function Login() {
                 placeholder = "ENTER ITEM"
             />
             <button onClick = {addItem}>ADD ITEM</button>
-
-            <ul>
-                {items.map((item, i) => (
-                    <li key={i}>{item.name}</li>
-                ))}
-            </ul>
         </div>
     )
 
