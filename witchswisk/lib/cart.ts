@@ -225,5 +225,6 @@ export async function checkoutCart(userId: string) {
     }
 
     console.log("DELETED", deleteCart.data);
+    return orders;
 
 }

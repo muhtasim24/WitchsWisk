@@ -51,8 +51,7 @@ export default function CartCheckout( {products} : Props) {
         finally {
             // refrehs the UI , so cart is deleted once order is completed/made
             console.log("CHECKED OUT LOADING CART AGAIN");
-            router.replace("/")
-            loadCart();
+            await loadCart();
         }
     }
 
