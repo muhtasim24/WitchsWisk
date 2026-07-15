@@ -2,6 +2,7 @@
 import { useCart } from "@/app/context/cartContext";
 import { supabase } from "@/lib/supabase/client";
 import type { Product } from "@/lib/types";
+import { useRouter } from "next/navigation";
 
 
 type Props = {
@@ -10,7 +11,8 @@ type Props = {
 
 export default function CartCheckout( {products} : Props) {
 
-    const { cartItems } = useCart();
+    const { cartItems, loadCart } = useCart();
+    const router = useRouter();
 
     // I want to display name, quantity and price here and total price
 
@@ -30,7 +32,7 @@ export default function CartCheckout( {products} : Props) {
         const { data: { user }} = await supabase.auth.getUser(); 
         if (!user) return;
         console.log(user.id);
-        const userId= user.id;
+        const userId = user.id;
 
         try {
             const res = await fetch("/api/checkout", {
@@ -41,9 +43,16 @@ export default function CartCheckout( {products} : Props) {
             if (!res.ok) {
                 throw new Error("Failed to checkout");
             }
+
         }
         catch(error) {
             console.log("CHECKOUT FAILED", error)
+        }
+        finally {
+            // refrehs the UI , so cart is deleted once order is completed/made
+            console.log("CHECKED OUT LOADING CART AGAIN");
+            router.replace("/")
+            loadCart();
         }
     }
 

@@ -156,25 +156,74 @@ export async function checkoutCart(userId: string) {
     // get everything from cart
     const supabase = await createServerSupabase();
     const cart = await supabase.from('cart_items').select('*').eq('user_id', userId);
-
+    console.log(cart.data);
     if (cart.error || !cart.data) {
         console.log(cart.error);
         return;
     }
-    console.log(cart.data[0])
 
-    const 
+    const productsInCart = await supabase.from('cart_items').select('product_id').eq('user_id', userId)
+    if (!productsInCart.data) return;
+    
+    const productIds = productsInCart.data.map(product => product.product_id);
 
-    // so got all items in the cart
+
+    const findProducts = await supabase.from('products').select('*').in('id', productIds)
+    if (!findProducts.data) return findProducts.error;
+
+    // loop through cart, match up product with each product id get the price, calcualte total price 
+    let totalPrice = 0
+    for (const cartItems of cart.data) {
+        const matchedProduct = findProducts.data.find(product => product.id == cartItems.product_id);
+        totalPrice += matchedProduct.price * cartItems.quantity
+    }
+
+    // so got all items in the cart, and total price, need to create orders now
 
     const orders = await supabase
         .from('orders')
-        .insert( {user_id: userId, total_price: totalPrice})
+        .insert( {user_id: userId, total_price: totalPrice, status: "processing"})
+        .select()
 
+    if (!orders.data || orders.error) {
+        console.log(orders.error);
+        return orders.error;
+    }
 
-        
-    const { data, error } = await supabase
+    console.log("ORDERS", orders.data);
+    console.log("ORDER_ID", orders.data[0].id)
+
+    // orders has the order_id, i can create the order_items 
+
+    const orderItems = cart.data.map(cartItem => {
+        const matchedProduct = findProducts.data.find(product => product.id == cartItem.product_id);
+        console.log("THIS IS CARTITEM", cartItem);
+        return {order_id: orders.data[0].id, checkout_price: matchedProduct.price, product_id: cartItem.product_id, quantity: cartItem.quantity}
+    })
+    console.log("ORDER ITEMS", orderItems);
+    
+    const orderReciept = await supabase
+        .from('order_items')
+        .insert(orderItems)
+        .select()
+
+    if (!orderReciept.data || orderReciept.error) {
+        console.log(orderReciept.error);
+        return orderReciept.error;
+    }
+    // already have list of product_ids that are in the cart, use that to call deletefromCart on the product id
+    
+    const deleteCart = await supabase
         .from('cart_items')
-        .insert({product_id: id, quantity: 1, user_id: user.id})
+        .delete()
+        .eq('user_id', userId)
         .select();
+
+    if (!deleteCart.data || deleteCart.error) {
+        console.log(deleteCart.error);
+        return deleteCart.error;
+    }
+
+    console.log("DELETED", deleteCart.data);
+
 }
