@@ -18,3 +18,10 @@ export type CartItem = {
     //user_id: number
     quantity: number // can get price from price X quantity
 }
+
+export type Order = {
+    id: string,
+    total_price: number,
+    created_at: string,
+    status: string
+}

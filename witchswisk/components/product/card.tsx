@@ -1,7 +1,7 @@
 'use client';
 import type { Product } from "@/lib/types";
 import Image from "next/image";
-import AddCartBtn from "./addCartBtn";
+import AddCartBtn from "../cart/addCartBtn";
 
 
 type Props = {

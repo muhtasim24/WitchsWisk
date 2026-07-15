@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { createServerSupabase } from "./supabase/server";
 import { CartItem } from "./types";
-import CartSlot from "@/components/cartSlot";
+import CartSlot from "@/components/cart/cartSlot";
 
 
 export async function getCart() {

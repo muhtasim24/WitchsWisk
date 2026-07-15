@@ -1,5 +1,5 @@
-import Card from "@/components/card";
-import ProductGrid from "@/components/productGrid";
+import Card from "@/components/product/card";
+import ProductGrid from "@/components/product/productGrid";
 import { getProducts } from "@/lib/getProducts";
 import Image from "next/image";
 

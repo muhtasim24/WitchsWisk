@@ -1,5 +1,5 @@
-import Card from "@/components/card";
-import Search from "@/components/search";
+import Card from "@/components/product/card";
+import Search from "@/components/product/search";
 import { getProducts } from "@/lib/getProducts"
 
 export default async function Cookies() {

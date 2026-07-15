@@ -1,5 +1,5 @@
-import CartCheckout from "@/components/cartCheckout";
-import CartView from "@/components/cartView";
+import CartCheckout from "@/components/cart/cartCheckout";
+import CartView from "@/components/cart/cartView";
 import { getProducts } from "@/lib/getProducts";
 import { getCart } from "@/lib/cart";
 
