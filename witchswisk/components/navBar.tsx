@@ -19,7 +19,7 @@ export default function NavBar() {
         return error;
     }
     return (
-        <div className="bg-brand h-12 text-4xl flex justify-between">
+        <div className="bg-brand">
             <Link href={"/"}>HOME</Link>
             <Link href={"/cookies"}>COOKIES</Link>
             <Link href={"/contact"}>CONTACT</Link>

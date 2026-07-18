@@ -27,13 +27,13 @@ export default async function Profile() {
             <h1>user profile</h1>
             <h1>Orders</h1>
             <h1>{user.email}</h1>
-            <h1>{userInfo.data[0].first_name}</h1>
+            <h1>{userInfo.data[0].first_name.toUpperCase()}</h1>
             <h1>{userInfo.data[0].last_name}</h1>
             {orders.map(orderItem => {
-                console.log(order)
+                console.log(orderItem)
                 return (
                     <div>
-                        <OrderSlot order = {orderItem} />
+                        <OrderSlot key = {orderItem.id} order = {orderItem} />
                     </div>
                 )
             })}
