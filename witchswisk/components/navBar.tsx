@@ -47,11 +47,12 @@ export default function NavBar() {
 
 
     return (
-        <div className="relative bg-brand flex items-center justify-between px-6 h-16">
+        <div className="relative bg-brand flex items-center justify-between px-6 h-14 rounded">
             <Link href={"/"} className="text-lg">HOME</Link>
             <Link href={"/cookies"} className="text-lg">COOKIES</Link>
 
             <div className="flex items-center gap-4">
+                <Link href={"/signUp"}>SIGN IN</Link>
                 <Link href={"/cart"} className="relative">
                     <ShoppingCart size={30}/>
 
@@ -67,20 +68,17 @@ export default function NavBar() {
                     </button>
 
                     {menuOpen && (
-                        <div className="absolute right-0 top-full mt-2 w-48 bg-brand rounded-lg shadow-lg p-4">
+                        <div className="absolute right-0 top-full mt-4 w-48 bg-brand rounded-lg shadow-lg p-4">
                             <div className="flex flex-col gap-3">
                                 <Link href={"/profile"}>PROFILE</Link>
                                 <Link href={"/contact"}>CONTACT</Link>
 
-                                {!loggedIn && (
-                                    <Link href={"/signUp"} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-semibold active:scale-95">SIGN UP</Link>
+                                {loggedIn ? (
+                                <button onClick={signOut} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-semibold active:scale-95">Sign Out</button>
+                                ) : (
+                                    <button><Link href={"/signUp"} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-semibold active:scale-95">SIGN UP</Link></button>
                                 )}
 
-                                
-                                {loggedIn && (
-                                <button onClick={signOut} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-semibold active:scale-95">Sign Out</button>
-                                )
-}
                             </div>
 
 

@@ -5,7 +5,7 @@ import type { Product } from "@/lib/types";
 import Card from "./card";
 import CardModal from "./cardModal";
 import ProductGrid from "./productGrid";
-
+import { SearchIcon } from "lucide-react";
 
 type Props = {
     products: Product[];
@@ -20,7 +20,7 @@ export default function Search({ products } : Props) {
     
     return (
         <div>
-            <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="search" placeholder="Search Cookie..." value={searchQuery} onChange={ (e) => setSearchQuery(e.target.value)}></input>
+            <input className="w-4/5 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="search" placeholder="Search Cookie..." value={searchQuery} onChange={ (e) => setSearchQuery(e.target.value)}></input>
             <ProductGrid products={filteredProducts} />
         </div>
 

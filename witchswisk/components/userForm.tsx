@@ -117,38 +117,44 @@ export default function UserForm() {
     }
     
     return (
-        <div>
-            <button onClick={() => handleLoginMode("signin")}>Sign In</button>
-            <br></br>
-            <button onClick={() => handleLoginMode("signup")}>Sign Up</button>
-    
+        <div className="flex flex-col items-center gap-6 w-full max-w-md">
             {loginMode === "signup" && (
-            <form onSubmit={handleSignUp}>
-                <h1>First Name:</h1>
-                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="text" value={firstName} onChange={ (e) => setFirstName(e.target.value)}></input>
+            <div className="flex flex-col gap-6">
+                <h1 className="text-lg font-bold flex items-center justify-center">CREATE AN ACCOUNT</h1>
+                <form onSubmit={handleSignUp}>
+                    <h1>First Name:</h1>
+                    <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={firstName} onChange={ (e) => setFirstName(e.target.value)}></input>
 
-                <h1>Last Name:</h1>
-                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="text" value={lastName} onChange={ (e) => setLastName(e.target.value)}></input>
+                    <h1>Last Name:</h1>
+                    <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={lastName} onChange={ (e) => setLastName(e.target.value)}></input>
 
-                <h1>Email:</h1>
-                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
+                    <h1>Email:</h1>
+                    <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
 
-                <h1>Password:</h1>
-                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
-                
-                <button type="submit">Submit</button>
-            </form>
+                    <h1>Password:</h1>
+                    <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
+                    
+                    <button type="submit" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">Sign Up</button>
+                </form>
+                <button onClick={() => handleLoginMode("signin")} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Log In</button>
+            </div>
             )}
 
             {loginMode === "signin" && (
-            <form onSubmit={handleSignIn}>
-                <h1>Email:</h1>
-                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
+            <div className="flex flex-col gap-6">
+                <h1 className="text-lg font-bold flex items-center justify-center">LOGIN TO YOUR ACCOUNT</h1>
+                <form onSubmit={handleSignIn}>
+                    <h1>Email:</h1>
+                    <input className="w-full bg-purple-400 rounded-md  h-8 text-black border border-black px-2" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
 
-                <h1>Password:</h1>
-                <input className="w-4/5 bg-purple-400 rounded-md ml-5 h-8 text-black border border-black" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
-                <button type="submit">Log In</button>
-            </form>
+                    <h1>Password:</h1>
+                    <input className="w-full bg-purple-400 rounded-md  h-8 text-black border border-black px-2" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
+                    <button type="submit" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Log In</button>
+                </form>
+                <button onClick={() => handleLoginMode("signup")} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Create An Account</button>
+            </div>
+
+            
             )}
         </div>
 

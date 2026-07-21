@@ -57,8 +57,7 @@ export default function CartCheckout( {products} : Props) {
 
 
     return (
-        <div className="bg-brand w-100 h-150 rounded-xl flex flex-col">
-            <h1 className="text-3xl font-bold">Checkout</h1>
+        <div>
             {cartItems.map(item => {
                 const product = products.find(product => product.id === item.product_id);
 
