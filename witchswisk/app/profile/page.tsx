@@ -32,8 +32,8 @@ export default async function Profile() {
             {orders.map(orderItem => {
                 console.log(orderItem)
                 return (
-                    <div>
-                        <OrderSlot key = {orderItem.id} order = {orderItem} />
+                    <div >
+                        <OrderSlot key={orderItem.id} order = {orderItem} />
                     </div>
                 )
             })}

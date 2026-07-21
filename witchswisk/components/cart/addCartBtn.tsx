@@ -34,7 +34,11 @@ export default function AddCartBtn( { product } : Props) {
     }
 
     return (
-        <button onClick={handleClick} disabled={clicked} className= {inCart ? "opacity-50 cursor-not-allowed": ""}>
+        <button onClick={handleClick} disabled={clicked} className={`px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 ${
+            inCart
+            ? "bg-white text-brand cursor-not-allowed"
+            : "bg-white text-brand hover:text-bg-brand"
+        }`}>
             {inCart ? "Added" : "Add to Cart"}
         </button>
     )
