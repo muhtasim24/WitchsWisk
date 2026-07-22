@@ -122,16 +122,16 @@ export default function UserForm() {
             <div className="flex flex-col gap-6">
                 <h1 className="text-lg font-bold flex items-center justify-center">CREATE AN ACCOUNT</h1>
                 <form onSubmit={handleSignUp}>
-                    <h1>First Name:</h1>
+                    <label>First Name:</label>
                     <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={firstName} onChange={ (e) => setFirstName(e.target.value)}></input>
 
-                    <h1>Last Name:</h1>
+                    <label>Last Name:</label>
                     <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={lastName} onChange={ (e) => setLastName(e.target.value)}></input>
 
-                    <h1>Email:</h1>
+                    <label>Email:</label>
                     <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
 
-                    <h1>Password:</h1>
+                    <label>Password:</label>
                     <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
                     
                     <button type="submit" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">Sign Up</button>
@@ -144,10 +144,10 @@ export default function UserForm() {
             <div className="flex flex-col gap-6">
                 <h1 className="text-lg font-bold flex items-center justify-center">LOGIN TO YOUR ACCOUNT</h1>
                 <form onSubmit={handleSignIn}>
-                    <h1>Email:</h1>
+                    <label>Email:</label>
                     <input className="w-full bg-purple-400 rounded-md  h-8 text-black border border-black px-2" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
 
-                    <h1>Password:</h1>
+                    <label>Password:</label>
                     <input className="w-full bg-purple-400 rounded-md  h-8 text-black border border-black px-2" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
                     <button type="submit" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Log In</button>
                 </form>
