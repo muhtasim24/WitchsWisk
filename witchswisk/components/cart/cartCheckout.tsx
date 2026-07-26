@@ -17,6 +17,7 @@ export default function CartCheckout( {products} : Props) {
     const [fullName, setFullName] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
     const [city, setCity] = useState("");
+    const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState("");
 
     // I want to display name, quantity and price here and total price
@@ -86,10 +87,14 @@ export default function CartCheckout( {products} : Props) {
                 <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={streetAddress} onChange={ (e) => setStreetAddress(e.target.value)}></input>
             
                 <label>City:</label>
-                <input className="w-1/4 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={streetAddress} onChange={ (e) => setStreetAddress(e.target.value)}></input>
+                <input className="w-1/3 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={city} onChange={ (e) => setCity(e.target.value)}></input>
 
+                <label>State:</label>
+                <input className="w-1/3 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={state} onChange={ (e) => setState(e.target.value)}></input>
+
+                <br></br>
                 <label>Zip Code:</label>
-                <input className="w-1/4 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={zipCode} onChange={ (e) => setZipCode(e.target.value)}></input>
+                <input className="w-1/2 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={zipCode} onChange={ (e) => setZipCode(e.target.value)}></input>
             </form>
             <h1 className="text-xl font-semibold">Total Price: ${totalPrice}.00</h1>
             <button onClick={handleCheckout} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">PLACE ORDER</button>
