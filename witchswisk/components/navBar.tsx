@@ -47,7 +47,7 @@ export default function NavBar() {
 
 
     return (
-        <div className="relative bg-brand flex items-center justify-between px-6 h-14 rounded">
+        <div className="relative bg-brand flex items-center justify-between px-6 h-14">
             <Link href={"/"} className="text-lg">HOME</Link>
             <Link href={"/cookies"} className="text-lg">COOKIES</Link>
 

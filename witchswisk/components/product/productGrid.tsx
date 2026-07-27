@@ -17,24 +17,24 @@ export default function ProductGrid( {products} : Props) {
     };
 
     return (
-        <div className="flex gap-3 grid grid-cols-3 ">
-        {products.length === 0 ? (
-            <p>No cookies found</p>
-        ) : (
-        products.map(product => (
-            <Card 
-                key={product.id} 
-                product={product} 
-                onClick={ () => handleCardClick(product)}
-            />
-        )))}
+        <div className="gap-3 grid grid-cols-3 justify-items-center">
+            {products.length === 0 ? (
+                <p className="text-2xl font-bold">No cookies found</p>
+            ) : (
+            products.map(product => (
+                <Card 
+                    key={product.id} 
+                    product={product} 
+                    onClick={ () => handleCardClick(product)}
+                />
+            )))}
 
-        {selectedProduct && (
-            <CardModal 
-                product={selectedProduct}
-                onClose={ () => setSelectedProduct(null)}
-            />
-        )}
+            {selectedProduct && (
+                <CardModal 
+                    product={selectedProduct}
+                    onClose={ () => setSelectedProduct(null)}
+                />
+            )}
     </div>
     )
 }

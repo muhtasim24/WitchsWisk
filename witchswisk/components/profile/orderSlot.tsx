@@ -7,8 +7,10 @@ type OrderSlotProps = {
 
 export default function OrderSlot( { order } : OrderSlotProps ) {
     return (
-        <div className="bg-brand flex flex-col items-center m-8 rounded-xl">
-            <h1>ORDER #:{order.id}</h1>
+        <div className="flex flex-col items-center rounded-xl bg-purple-500">
+            <div className="w-full">
+                <h1 className="text-xl font-bold p-2">#:{order.id}</h1>
+            </div>
             <h1>Date Ordered: {order.created_at}</h1>
             <h1>Total Price: ${order.total_price}.00</h1>
             <h1>Status: {order.status.toUpperCase()}</h1>

@@ -57,13 +57,18 @@ export default function CartCheckout( {products} : Props) {
         finally {
             // refrehs the UI , so cart is deleted once order is completed/made
             console.log("CHECKED OUT LOADING CART AGAIN");
+            setFullName("");
+            setStreetAddress("");
+            setCity("");
+            setState("");
+            setZipCode("");
             await loadCart();
         }
     }
 
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
             {cartItems.map(item => {
                 const product = products.find(product => product.id === item.product_id);
 
@@ -78,23 +83,37 @@ export default function CartCheckout( {products} : Props) {
                 );
             })}
 
-            <h1>Shipping Info</h1>
-            <form>
-                <label>Full Name</label>
-                <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={fullName} onChange={ (e) => setFullName(e.target.value)}></input>
+            <h1 className="text-xl font-bold">Shipping Info</h1>
+            <form className="flex flex-col mt-2 gap-2">
+                <div>
+                    <label>Full Name:</label>
+                    <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={fullName} onChange={ (e) => setFullName(e.target.value)}></input>
+                </div>
+
+                <div>
+                    <label>Address:</label>
+                    <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={streetAddress} onChange={ (e) => setStreetAddress(e.target.value)}></input>
+                </div>
                 
-                <label>Address:</label>
-                <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={streetAddress} onChange={ (e) => setStreetAddress(e.target.value)}></input>
-            
-                <label>City:</label>
-                <input className="w-1/3 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={city} onChange={ (e) => setCity(e.target.value)}></input>
 
-                <label>State:</label>
-                <input className="w-1/3 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={state} onChange={ (e) => setState(e.target.value)}></input>
 
-                <br></br>
-                <label>Zip Code:</label>
-                <input className="w-1/2 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={zipCode} onChange={ (e) => setZipCode(e.target.value)}></input>
+                <div className="flex">
+                    <div className="flex-1">
+                        <label>City:</label>
+                        <input className="w-1/2 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={city} onChange={ (e) => setCity(e.target.value)}></input>
+                    </div>
+
+                    <div className="">
+                    <label>State:</label>
+                        <input className="bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={state} onChange={ (e) => setState(e.target.value)}></input>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label>Zip Code:</label>
+                    <input className="w-1/6 bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={zipCode} onChange={ (e) => setZipCode(e.target.value)}></input>
+                </div>
             </form>
             <h1 className="text-xl font-semibold">Total Price: ${totalPrice}.00</h1>
             <button onClick={handleCheckout} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">PLACE ORDER</button>
