@@ -23,5 +23,6 @@ export type Order = {
     id: string,
     total_price: number,
     created_at: string,
-    status: string
+    status: string,
+    address: string
 }
