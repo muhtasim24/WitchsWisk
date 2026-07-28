@@ -39,12 +39,16 @@ export default function CartCheckout( {products} : Props) {
         if (!user) return;
         console.log(user.id);
         const userId = user.id;
+        const address = streetAddress + " " + city + " " + state + " " + zipCode;
+
+        console.log("ADDRESS", address)
+        console.log("FULL NAME IN ORDEr", fullName);
 
         try {
             const res = await fetch("/api/checkout", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify( {userId})
+                body: JSON.stringify( {userId, address, fullName})
             })
             if (!res.ok) {
                 throw new Error("Failed to checkout");

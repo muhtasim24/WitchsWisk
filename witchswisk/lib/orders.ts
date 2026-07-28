@@ -7,7 +7,7 @@ export async function getOrder() {
     const { data: { user }} = await supabase.auth.getUser();
     if (!user) return [];
 
-    const { data, error } = await supabase.from('orders').select('*').eq('user_id', user.id);
+    const { data, error } = await supabase.from('orders').select('*').eq('user_id', user.id).order('created_at', { ascending: false});
     console.log(data);
     
     if (error || !data) {
