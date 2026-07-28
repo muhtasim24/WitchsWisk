@@ -58,11 +58,11 @@ export default async function Home() {
           </div>
       </div>
 
-    <div className="flex justify-center w-full mt-6 mb-10">
+    {/* <div className="flex justify-center w-full mt-6 mb-10">
       <div className="bg-brand w-1/3 flex justify-center items-center rounded-xl">
           <CustomForm />
       </div>
-</div>
+    </div> */}
 
 
 
