@@ -14,6 +14,12 @@ export default function UserForm() {
     const [lastName, setLastName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
+    const [errors, setErrors] = useState( {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+    })
 
     useEffect( () => {
         getUser();
@@ -32,6 +38,33 @@ export default function UserForm() {
         } catch(error) {
             console.log("LOAD CART FAILED", error);
         }
+    }
+
+    function validateSignUp() {
+        const errors = {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+        }
+        const emailParts = userEmail.split("@");
+        if (!userEmail.includes("@") || userEmail.trim() === "" || emailParts.length !== 2 || emailParts[0] === "" || emailParts[1] === "") {
+            errors.email = "Invalid email";
+        }
+        if (userPassword.length < 8) {
+            errors.password = "Password must be at least 8 characters";
+        }
+        if (firstName.trim() === "") {
+            errors.firstName = "First name is required"
+        }
+        if (lastName.trim() === "") {
+            errors.lastName = "Last name is required"
+        }
+        
+        return {
+            isValid: Object.values(errors).every(error => error === ""),
+            errors
+        };
     }
 
     async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
@@ -84,6 +117,7 @@ export default function UserForm() {
     }
 
     async function createUser(userId:string) {
+        const name: string = firstName + " " + lastName
         const {data, error} = await supabase
         .from("users")
         .insert( {id: userId, first_name: firstName, last_name: lastName})
@@ -114,6 +148,7 @@ export default function UserForm() {
         setLastName("");
         setUserEmail("");
         setUserPassword("");
+        return;
     }
     
     return (

@@ -1,0 +1,42 @@
+Cart Items
+DELETE ITEMS BASED ON USER_ID
+
+alter policy "Enable delete for users based on user_id"
+on "public"."cart_items"
+to public
+using (
+
+  (( SELECT auth.uid() AS uid) = user_id)
+
+);
+
+INSERT ITEMS BASED ON USER_ID
+alter policy "Enable insert for users based on user_id"
+on "public"."cart_items"
+to public
+with check (
+  (( SELECT auth.uid() AS uid) = user_id)
+
+);
+
+
+UPDATE ITEMS BASED ON USER_ID: 
+alter policy "Enable update for users based on user_id"
+on "public"."cart_items"
+to public
+using (
+  (( SELECT auth.uid() AS uid) = user_id)
+
+) with check (
+  (( SELECT auth.uid() AS uid) = user_id)
+);
+
+User Table
+Users view only their own data
+alter policy "Enable users to view their own data only"
+on "public"."users"
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) = id)
+
+);
