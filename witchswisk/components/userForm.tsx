@@ -69,6 +69,13 @@ export default function UserForm() {
 
     async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        const valid = validateSignUp();
+        setErrors(valid.errors);
+
+        if (!valid) {
+            return console.log("Invalid sign up");
+        }
+
         const {data, error} = await supabase.auth.signUp(
             {
                 email: userEmail,
@@ -158,17 +165,31 @@ export default function UserForm() {
                 <h1 className="text-lg font-bold flex items-center justify-center">CREATE AN ACCOUNT</h1>
                 <form onSubmit={handleSignUp}>
                     <label>First Name:</label>
-                    <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={firstName} onChange={ (e) => setFirstName(e.target.value)}></input>
+                    <input className={`w-full bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.firstName ? "border-red-500" : "border-black"}`} type="text" value={firstName} onChange={ (e) => setFirstName(e.target.value)}></input>
+                    {errors.firstName && (
+                        <p className="text-red-500 text-sm">{errors.firstName}</p>
+                    )}
 
                     <label>Last Name:</label>
                     <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="text" value={lastName} onChange={ (e) => setLastName(e.target.value)}></input>
+                    {errors.lastName && (
+                        <p className="text-red-500 text-sm">{errors.lastName}</p>
+                    )}
 
                     <label>Email:</label>
                     <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
+                    {errors.email && (
+                        <p className="text-red-500 text-sm">{errors.email}</p>
+                    )}
+
 
                     <label>Password:</label>
                     <input className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2" type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
-                    
+                    {errors.password && (
+                        <p className = "text-red-500 text-sm">{errors.password}</p>
+                    )}
+
+
                     <button type="submit" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">Sign Up</button>
                 </form>
                 <button onClick={() => handleLoginMode("signin")} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Log In</button>
