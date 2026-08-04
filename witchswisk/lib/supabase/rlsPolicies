@@ -40,3 +40,12 @@ using (
   (( SELECT auth.uid() AS uid) = id)
 
 );
+
+Products Table
+Use options above to edit
+alter policy "Enable read access for all users"
+on "public"."products"
+to public
+using (
+  true
+);

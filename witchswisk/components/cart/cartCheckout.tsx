@@ -20,8 +20,6 @@ export default function CartCheckout( {products} : Props) {
     const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState("");
 
-    console.log("CARTITMES SIZE", cartItems.length);
-    
     const [errors, setErrors] = useState( {
         fullName: "",
         streetAddress: "",
@@ -93,10 +91,12 @@ export default function CartCheckout( {products} : Props) {
 
         console.log("CHECKING OUT ORDER");
         const { data: { user }} = await supabase.auth.getUser(); 
+        console.log("CART CHECKOUT USER", user);
         if (!user) return;
         console.log(user.id);
         const userId = user.id;
         const address = streetAddress + " " + city + " " + state + " " + zipCode;
+        const userEmail = user.email;
 
         console.log("ADDRESS", address)
         console.log("FULL NAME IN ORDEr", fullName);
@@ -105,7 +105,7 @@ export default function CartCheckout( {products} : Props) {
             const res = await fetch("/api/checkout", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify( {userId, address, fullName})
+                body: JSON.stringify( {userId, address, fullName, userEmail})
             })
             if (!res.ok) {
                 throw new Error("Failed to checkout");

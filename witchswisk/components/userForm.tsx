@@ -132,10 +132,10 @@ export default function UserForm() {
     }
 
     async function createUser(userId:string) {
-        const name: string = firstName + " " + lastName
+        const fullName: string = firstName + " " + lastName
         const {data, error} = await supabase
         .from("users")
-        .insert( {id: userId, first_name: firstName, last_name: lastName})
+        .insert( {id: userId, name: fullName, email: userEmail})
         .select()
 
         if (error) {

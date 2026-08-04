@@ -151,7 +151,7 @@ export async function decreaseQuantity(id: number) {
     return data;
 }
 
-export async function checkoutCart(userId: string, address: string, name: string) {
+export async function checkoutCart(userId: string, address: string, name: string, email: string) {
     // so I want to create an entry for orders, so create an insert into 
     // get everything from cart
     const supabase = await createServerSupabase();
@@ -182,7 +182,7 @@ export async function checkoutCart(userId: string, address: string, name: string
 
     const orders = await supabase
         .from('orders')
-        .insert( {user_id: userId, total_price: totalPrice, status: "processing", address: address, name: name})
+        .insert( {user_id: userId, total_price: totalPrice, status: "Processing", address: address, name: name, email: email})
         .select()
 
     if (!orders.data || orders.error) {
@@ -198,7 +198,7 @@ export async function checkoutCart(userId: string, address: string, name: string
     const orderItems = cart.data.map(cartItem => {
         const matchedProduct = findProducts.data.find(product => product.id == cartItem.product_id);
         console.log("THIS IS CARTITEM", cartItem);
-        return {order_id: orders.data[0].id, checkout_price: matchedProduct.price, product_id: cartItem.product_id, quantity: cartItem.quantity}
+        return {order_id: orders.data[0].id, product_name: matchedProduct.name, checkout_price: matchedProduct.price, product_id: cartItem.product_id, quantity: cartItem.quantity}
     })
     console.log("ORDER ITEMS", orderItems);
     
