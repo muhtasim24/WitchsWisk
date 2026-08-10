@@ -12,7 +12,6 @@ type Props = {
 
 
 export default function AddCartBtn( { product } : Props) {
-    const [clicked, setClicked] = useState(false);
     const {addToCart, cartItems} = useCart()
     const inCart = cartItems.find(item => item.product_id === product.id);
     const router = useRouter();
@@ -27,14 +26,15 @@ export default function AddCartBtn( { product } : Props) {
             router.push("/signUp");
             return;
         }
-        
-        setClicked(true);
+
+
+        if (inCart) return;
         addToCart(product.id)
     
     }
 
     return (
-        <button onClick={handleClick} disabled={clicked} className={`px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 ${
+        <button onClick={handleClick} disabled={!!inCart} className={`px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 ${
             inCart
             ? "bg-white text-brand cursor-not-allowed"
             : "bg-white text-brand hover:text-bg-brand"
