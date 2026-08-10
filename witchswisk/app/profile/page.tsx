@@ -2,6 +2,7 @@ import OrderSlot from "@/components/profile/orderSlot";
 import { getOrder, getOrderReciept } from "@/lib/orders"
 import { createServerSupabase } from "@/lib/supabase/server";
 import { User } from "lucide-react";
+import Link from "next/link";
 
 
 export default async function Profile() {
@@ -45,12 +46,14 @@ export default async function Profile() {
                 </h1>
     
                 {orders.map(orderItem => (
-                    <div 
-                        key={orderItem.id} 
-                        className="rounded-lg p-2 mb-2"
-                    >
-                        <OrderSlot order={orderItem} />
-                    </div>
+                    <Link key = {orderItem.id} href={`/profile/orders/${orderItem.id}`}>
+                        <div 
+                            key={orderItem.id} 
+                            className="rounded-lg p-2 mb-2"
+                        >
+                            <OrderSlot order={orderItem} />
+                        </div>
+                    </Link>
                 ))}
     
             </div>

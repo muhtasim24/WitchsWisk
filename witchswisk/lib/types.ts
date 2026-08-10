@@ -26,3 +26,9 @@ export type Order = {
     status: string,
     address: string
 }
+
+export type OrderItem = {
+    name: string
+    checkout_price: number,
+    
+}

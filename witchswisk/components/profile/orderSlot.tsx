@@ -16,7 +16,7 @@ export default function OrderSlot( { order } : OrderSlotProps ) {
     return (
         <div className="flex flex-col items-center rounded-xl bg-purple-500">
             <div className="w-full">
-                <h1 className="text-xl font-bold p-2">#:{order.id}</h1>
+                <h1 className="text-xl font-bold p-2">#{order.id}</h1>
             </div>
             <h1>Date Ordered: {formattedDate}</h1>
             <h1>Shipping Address: {order.address}</h1>
