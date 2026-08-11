@@ -12,7 +12,6 @@ export default async function Profile() {
     if (!user) return [];
     console.log("USER", user);
     const orders = await getOrder();
-    const orderRecipet = await getOrderReciept();
     
     console.log("ORDERS", orders);
     
