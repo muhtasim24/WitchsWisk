@@ -132,6 +132,7 @@ export default function UserForm() {
     }
 
     async function createUser(userId:string) {
+        // make this an api call instead
         const fullName: string = firstName + " " + lastName
         const {data, error} = await supabase
         .from("users")
