@@ -12,8 +12,11 @@ export async function getCart() {
     // if user doesnt exist, reutnr []
     if (!user) return [];
 
-    const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user.id);
+    //const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user.id);
+    const { data, error } = await supabase.from('cart_items').select('quantity, products(*)').eq('user_id', user.id);
+
     console.log(user.id);
+    console.log("TRYING TO GET PROPUDFG", data);
     
     if (error || !data) {
         console.error(error);
@@ -169,6 +172,7 @@ export async function checkoutCart(userId: string, address: string, name: string
 
 
     const findProducts = await supabase.from('products').select('*').in('id', productIds)
+    console.log("YO", findProducts);
     if (!findProducts.data) return findProducts.error;
 
     // loop through cart, match up product with each product id get the price, calcualte total price 

@@ -6,6 +6,7 @@ import { getCart } from "@/lib/cart";
     
 export default async function Cart() {
     const cart = await getCart();
+    console.log(cart);
     const products = await getProducts();
 
     return (

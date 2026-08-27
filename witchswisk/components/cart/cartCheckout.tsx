@@ -102,7 +102,7 @@ export default function CartCheckout( {products} : Props) {
         console.log("FULL NAME IN ORDEr", fullName);
 
         try {
-            const res = await fetch("/api/checkout", {
+            const res = await fetch("/api/webhook", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify( {userId, address, fullName, userEmail})
