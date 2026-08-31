@@ -1,14 +1,7 @@
+import { Tables } from "./database.types"
 
 
-export type Product = {
-    id: number
-    name: string
-    price: number
-    type: string
-    image: string
-    description: string
-    ingredients: string
-}
+export type Product = Tables<'products'>;
 
 
 // information our cart item holds
@@ -19,16 +12,25 @@ export type CartItem = {
     quantity: number // can get price from price X quantity
 }
 
-export type Order = {
-    id: string,
-    total_price: number,
-    created_at: string,
-    status: string,
-    address: string
-}
+// export type Order = {
+//     id: string,
+//     total_price: number,
+//     created_at: string,
+//     status: string,
+//     address: string
+// }
+
+export type Order = Tables<'orders'>;
 
 export type OrderItem = {
     name: string
     checkout_price: number,
     
+}
+
+export type CartProduct = {
+    quantity: number;
+    products: {
+        name: string
+    };
 }

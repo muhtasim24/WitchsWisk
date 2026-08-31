@@ -16,8 +16,8 @@ export default function CartSlot( {item, product}: Props) {
     return (
         <div className="bg-purple-500 w-250 h-40 flex items-center m-8 rounded-xl">
             <Image
-                src={product.image} 
-                alt={product.image} 
+                src={product.image ?? "/game.png"} 
+                alt={product.name} 
                 width = {100}
                 height = {100}
             />

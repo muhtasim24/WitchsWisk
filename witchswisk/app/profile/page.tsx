@@ -22,14 +22,13 @@ export default async function Profile() {
     }
 
 
-
     return (
         <div className="flex gap-2 p-8">
     
             {/* Left side - User Info */}
             <div className="w-1/3 bg-brand flex flex-col justify-center items-center">
                 <h1 className="text-3xl font-bold">
-                    Welcome {userInfo.data[0].first_name} {userInfo.data[0].last_name}!
+                    Welcome {userInfo.data[0].name}
                 </h1>
                 <h1>{user.email}</h1>
     

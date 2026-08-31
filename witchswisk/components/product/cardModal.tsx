@@ -20,8 +20,8 @@ export default function CardModal( {product, onClose} : Props) {
                 <div className="flex gap-8 items-center justify-center pt-8">
                     <div className="flex-shrink-0">
                         <Image 
-                            src={product.image} 
-                            alt={product.image} 
+                            src={product.image ?? "/game.png"} 
+                            alt={product.name} 
                             width = {100}
                             height = {100}
                         />

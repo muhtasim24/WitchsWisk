@@ -13,8 +13,8 @@ export default function Card( { product, onClick } : Props) {
     return (
         <div onClick = {onClick} className="bg-brand w-80 h-80 flex flex-col items-center m-8 rounded-xl cursor-pointer hover:">
             <Image 
-                src={product.image} 
-                alt={product.image} 
+                src={product.image ?? "/game.png"} 
+                alt={product.name} 
                 width = {150}
                 height = {150}
             />

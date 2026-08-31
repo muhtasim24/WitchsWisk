@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerSupabase } from "./supabase/server";
-import { CartItem } from "./types";
+import { CartItem, CartProduct } from "./types";
 import CartSlot from "@/components/cart/cartSlot";
 
 
@@ -12,12 +12,14 @@ export async function getCart() {
     // if user doesnt exist, reutnr []
     if (!user) return [];
 
-    //const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user.id);
-    const { data, error } = await supabase.from('cart_items').select('quantity, products(*)').eq('user_id', user.id);
-
+    const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user.id);
+    //const { data, error } = await supabase.from('cart_items').select('quantity, products(*)').eq('user_id', user.id);
+    //= const line_items = data?.map(cartItem => console.log(cartItem.products[0].name))
+    // console.log("LINE", line_items)
     console.log(user.id);
     console.log("TRYING TO GET PROPUDFG", data);
-    
+    if (!data) return;
+
     if (error || !data) {
         console.error(error);
         return [];
@@ -179,6 +181,7 @@ export async function checkoutCart(userId: string, address: string, name: string
     let totalPrice = 0
     for (const cartItems of cart.data) {
         const matchedProduct = findProducts.data.find(product => product.id == cartItems.product_id);
+        if (!matchedProduct) return;
         totalPrice += matchedProduct.price * cartItems.quantity
     }
 
@@ -201,6 +204,7 @@ export async function checkoutCart(userId: string, address: string, name: string
 
     const orderItems = cart.data.map(cartItem => {
         const matchedProduct = findProducts.data.find(product => product.id == cartItem.product_id);
+        if (!matchedProduct) return;
         console.log("THIS IS CARTITEM", cartItem);
         return {order_id: orders.data[0].id, product_name: matchedProduct.name, checkout_price: matchedProduct.price, product_id: cartItem.product_id, quantity: cartItem.quantity}
     })
