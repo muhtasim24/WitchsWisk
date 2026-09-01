@@ -10,10 +10,7 @@ export default async function Profile() {
     const supabase = await createServerSupabase();
     const { data: { user }} = await supabase.auth.getUser();
     if (!user) return [];
-    console.log("USER", user);
     const orders = await getOrder();
-    
-    console.log("ORDERS", orders);
     
     const userInfo = await supabase.from('users').select('*').eq('id', user.id);
     console.log("USER INFO", userInfo);

@@ -13,11 +13,6 @@ export async function getCart() {
     if (!user) return [];
 
     const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user.id);
-    //const { data, error } = await supabase.from('cart_items').select('quantity, products(*)').eq('user_id', user.id);
-    //= const line_items = data?.map(cartItem => console.log(cartItem.products[0].name))
-    // console.log("LINE", line_items)
-    console.log(user.id);
-    console.log("TRYING TO GET PROPUDFG", data);
     if (!data) return;
 
     if (error || !data) {
@@ -160,29 +155,19 @@ export async function checkoutCart(userId: string, address: string, name: string
     // so I want to create an entry for orders, so create an insert into 
     // get everything from cart
     const supabase = await createServerSupabase();
-    const cart = await supabase.from('cart_items').select('*').eq('user_id', userId);
-    console.log(cart.data);
+    //const cart = await supabase.from('cart_items').select('*').eq('user_id', userId);
+    const cart = await supabase.from('cart_items').select('quantity, product_id, products(*)').eq('user_id', userId);
+    console.log("CART FORM CHECKOUT", cart.data);
     if (cart.error || !cart.data) {
         console.log(cart.error);
         return;
     }
 
-    const productsInCart = await supabase.from('cart_items').select('product_id').eq('user_id', userId)
-    if (!productsInCart.data) return;
-    
-    const productIds = productsInCart.data.map(product => product.product_id);
-
-
-    const findProducts = await supabase.from('products').select('*').in('id', productIds)
-    console.log("YO", findProducts);
-    if (!findProducts.data) return findProducts.error;
-
     // loop through cart, match up product with each product id get the price, calcualte total price 
     let totalPrice = 0
     for (const cartItems of cart.data) {
-        const matchedProduct = findProducts.data.find(product => product.id == cartItems.product_id);
-        if (!matchedProduct) return;
-        totalPrice += matchedProduct.price * cartItems.quantity
+        const price = cartItems.products.price * cartItems.quantity
+        totalPrice += price
     }
 
     // so got all items in the cart, and total price, need to create orders now
@@ -197,18 +182,12 @@ export async function checkoutCart(userId: string, address: string, name: string
         return orders.error;
     }
 
-    console.log("ORDERS", orders.data);
-    console.log("ORDER_ID", orders.data[0].id)
 
     // orders has the order_id, i can create the order_items 
 
     const orderItems = cart.data.map(cartItem => {
-        const matchedProduct = findProducts.data.find(product => product.id == cartItem.product_id);
-        if (!matchedProduct) return;
-        console.log("THIS IS CARTITEM", cartItem);
-        return {order_id: orders.data[0].id, product_name: matchedProduct.name, checkout_price: matchedProduct.price, product_id: cartItem.product_id, quantity: cartItem.quantity}
+        return {order_id: orders.data[0].id, product_name: cartItem.products.name, checkout_price: cartItem.products.price, product_id: cartItem.product_id, quantity: cartItem.quantity}
     })
-    console.log("ORDER ITEMS", orderItems);
     
     const orderReciept = await supabase
         .from('order_items')
@@ -232,7 +211,6 @@ export async function checkoutCart(userId: string, address: string, name: string
         return deleteCart.error;
     }
 
-    console.log("DELETED", deleteCart.data);
     return orders;
 
 }

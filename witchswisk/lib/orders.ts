@@ -8,7 +8,6 @@ export async function getOrder() {
     if (!user) return [];
 
     const { data, error } = await supabase.from('orders').select('*').eq('user_id', user.id).order('created_at', { ascending: false});
-    console.log(data);
     
     if (error || !data) {
         console.error(error);

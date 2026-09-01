@@ -25,8 +25,8 @@ export async function POST() {
                     currency: "usd",
                     product_data: {
                         name: cartItem.products.name,
-                        description: cartItem.products.description,
-                        images: cartItem.products.image
+                        // description: cartItem.products.description,
+                        // images: cartItem.products.image
                     },
                     unit_amount: cartItem.products.price * 100 //cents
                 },
