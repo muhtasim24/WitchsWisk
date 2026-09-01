@@ -26,7 +26,7 @@ export async function POST() {
                     product_data: {
                         name: cartItem.products.name,
                         // description: cartItem.products.description,
-                        // images: cartItem.products.image
+                        //images: [cartItem.products.image] ?? undefined
                     },
                     unit_amount: cartItem.products.price * 100 //cents
                 },
@@ -34,9 +34,25 @@ export async function POST() {
             })
             ),
             mode: 'payment',
+            metadata: {
+                user_id: user.id
+            },
+            shipping_address_collection: {
+                allowed_countries: ["US"],
+            },
+            phone_number_collection: {
+                enabled: true,
+            },
+            customer_email: user.email,
+            
             success_url: `${origin}/profile`,
-            cancel_url: `${origin}/cart`
+            cancel_url: `${origin}/cart`,
+            
         })
+        if (!session.url) {
+            console.log("Stripe session created but no URL returned");
+            return NextResponse.json( {error: "Failed to create checkout session"}, { status: 500});
+        }
         return NextResponse.redirect(session.url, 303);
     } catch (err) {
 

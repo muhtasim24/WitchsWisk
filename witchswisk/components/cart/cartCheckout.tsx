@@ -191,7 +191,11 @@ export default function CartCheckout( {products} : Props) {
                 </div>
             </form>
             <h1 className="text-xl font-semibold">Total Price: ${totalPrice}.00</h1>
-            <button onClick={handleCheckout} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">PLACE ORDER</button>
+            <form action="/api/checkout_session" method="POST">
+                <button type="submit" role="link" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">PLACE ORDER</button>
+
+            </form>
+            {/* <button onClick={handleCheckout} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">PLACE ORDER</button> */}
             {errors.cartSize && (
                 <p className="text-red-500 text-xl flex justify-center items-center">{errors.cartSize}</p>
             )} 
