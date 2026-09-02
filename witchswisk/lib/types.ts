@@ -2,7 +2,11 @@ import { Tables } from "./database.types"
 
 
 export type Product = Tables<'products'>;
-
+export type ProductWithImages = Product & {
+    product_images: {
+        image: string,
+    }[],
+}
 
 // information our cart item holds
 export type CartItem = {

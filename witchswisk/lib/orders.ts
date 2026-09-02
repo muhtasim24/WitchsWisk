@@ -1,7 +1,8 @@
 import { createServerSupabase } from "./supabase/server";
+import { Order } from "./types";
 
 
-export async function getOrder() {
+export async function getOrder(): Promise<Order[]> {
     const supabase = await createServerSupabase();
 
     const { data: { user }} = await supabase.auth.getUser();

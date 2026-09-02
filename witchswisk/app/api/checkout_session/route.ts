@@ -25,8 +25,8 @@ export async function POST() {
                     currency: "usd",
                     product_data: {
                         name: cartItem.products.name,
-                        // description: cartItem.products.description,
-                        //images: [cartItem.products.image] ?? undefined
+                        description: cartItem.products.description,
+                        images: [cartItem.products.image] 
                     },
                     unit_amount: cartItem.products.price * 100 //cents
                 },
@@ -44,6 +44,18 @@ export async function POST() {
                 enabled: true,
             },
             customer_email: user.email,
+
+            shipping_options: [
+                {
+                    shipping_rate_data: {
+                        type: "fixed_amount",
+                        fixed_amount: { amount: 1500, currency: "usd"},
+                        display_name: "Standard Shipping",
+                    }
+                }
+            ],
+
+            //automatic_tax: { enabled: true},
             
             success_url: `${origin}/profile`,
             cancel_url: `${origin}/cart`,
