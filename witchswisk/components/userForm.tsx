@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/app/context/cartContext";
+import Link from "next/link";
 
 
 export default function UserForm() {
@@ -225,6 +226,7 @@ export default function UserForm() {
                     )}
                     
                     <button type="submit" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Log In</button>
+                    <Link href="/forgotPassword">Forgot Password</Link>
                 </form>
                 <button onClick={() => handleLoginMode("signup")} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Create An Account</button>
             </div>

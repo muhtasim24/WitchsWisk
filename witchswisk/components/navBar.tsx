@@ -71,7 +71,7 @@ export default function NavBar() {
                         <div className="absolute right-0 top-full mt-4 w-48 bg-brand rounded-lg shadow-lg p-4">
                             <div className="flex flex-col gap-3">
                                 <Link href={"/profile"}>PROFILE</Link>
-                                <Link href={"/contact"}>CONTACT</Link>
+                                
 
                                 {loggedIn ? (
                                 <button onClick={signOut} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-semibold active:scale-95">Sign Out</button>

@@ -41,53 +41,9 @@ export default function CartCheckout( {products} : Props) {
         return sum + item.quantity * product.price;
     }, 0);
 
-    function validateCheckout() {
-        const errors = {
-            fullName: "",
-            streetAddress: "",
-            city: "",
-            state: "",
-            zipCode: "",
-            cartSize: "",
-        }
-        
-        if (fullName.trim() === "" || fullName.length < 2) {
-            errors.fullName = "Please enter your name";
-        }
-
-        if (streetAddress.trim() === "" || streetAddress.length < 3) {
-            errors.streetAddress = "Please enter a valid street address";
-        }
-
-        if (city.trim() === "" || city.length < 3) {
-            errors.city = "Please enter a valid city";
-        }
-
-        if (state.trim() === "" || state.length < 2) {
-            errors.state = "Please enter a valid state";
-        }
-
-        if (zipCode.trim() === "" || zipCode.length < 5) {
-            errors.zipCode = "Please enter a valid zipcode"
-        }
-
-        if (cartItems.length <  1) {
-            errors.cartSize = "Cart is empty!"
-        }
- 
-        return {
-            isValid: Object.values(errors).every(error => error === ""),
-            errors
-        }
-    }
+    
 
     async function handleCheckout() {
-        const valid = validateCheckout();
-        setErrors(valid.errors)
-
-        if (!valid.isValid) {
-            return;
-        }
 
         console.log("CHECKING OUT ORDER");
         const { data: { user }} = await supabase.auth.getUser(); 
@@ -118,11 +74,6 @@ export default function CartCheckout( {products} : Props) {
         finally {
             // refrehs the UI , so cart is deleted once order is completed/made
             console.log("CHECKED OUT LOADING CART AGAIN");
-            setFullName("");
-            setStreetAddress("");
-            setCity("");
-            setState("");
-            setZipCode("");
             await loadCart();
         }
     }
@@ -144,52 +95,6 @@ export default function CartCheckout( {products} : Props) {
                 );
             })}
 
-            <h1 className="text-xl font-bold">Shipping Info</h1>
-            <form className="flex flex-col mt-2 gap-2">
-                <div>
-                    <label>Full Name:</label>
-                    <input className={`w-full bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.fullName ? "border-red-500" : "border-black"}`} type="text" value={fullName} onChange={ (e) => setFullName(e.target.value)}></input>
-                    {errors.fullName && (
-                        <p className="text-red-500 text-sm">{errors.fullName}</p>
-                    )}
-                </div>
-
-                <div>
-                    <label>Address:</label>
-                    <input className={`w-full bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.streetAddress ? "border-red-500" : "border-black"}`} type="text" value={streetAddress} onChange={ (e) => setStreetAddress(e.target.value)}></input>
-                    {errors.streetAddress && (
-                        <p className = "text-red-500 text-sm">{errors.streetAddress}</p>
-                    )}
-                </div>
-                
-
-
-                <div className="flex">
-                    <div className="flex-1">
-                        <label>City:</label>
-                        <input className={`w-1/2 bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.city ? "border-red-500" : "border-black"}`} type="text" value={city} onChange={ (e) => setCity(e.target.value)}></input>
-                        {errors.city && (
-                            <p className = "text-red-500 text-sm">{errors.city}</p>
-                        )}
-                    </div>
-
-                    <div className="">
-                        <label>State:</label>
-                        <input className={`bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.state ? "border-red-500" : "border-black"}`} type="text" value={state} onChange={ (e) => setState(e.target.value)}></input>
-                        {errors.state && (
-                            <p className = "text-red-500 text-sm">{errors.state}</p>
-                        )}
-                    </div>
-                </div>
-
-                <div>
-                    <label>Zip Code:</label>
-                    <input className={`w-1/6 bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.zipCode ? "border-red-500" : "border-black"}`} type="text" value={zipCode} onChange={ (e) => setZipCode(e.target.value)}></input>
-                    {errors.zipCode && (
-                        <p className = "text-red-500 text-sm">{errors.zipCode}</p>
-                    )}
-                </div>
-            </form>
             <h1 className="text-xl font-semibold">Total Price: ${totalPrice}.00</h1>
             <form action="/api/checkout_session" method="POST">
                 <button type="submit" role="link" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand items-center">PLACE ORDER</button>
