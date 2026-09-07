@@ -20,9 +20,9 @@ export async function POST(request: NextRequest) {
         if (paymentStatus === "paid") {
             const checkout = await checkoutCart(userId, fullAddress, fullName, userEmail)
             return NextResponse.json(checkout);
-        }
-
-        return NextResponse.json(data);
-        
+        }        
     } 
+    
+    return NextResponse.json(data);
+
 }
