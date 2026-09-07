@@ -4,9 +4,9 @@ import { stripe } from "@/lib/stripe";
 
 export async function POST(request: NextRequest) {
     const response  = await request.json();
-    const data = response.data.object
 
     if (response.type == "checkout.session.completed") {
+        const data = response.data.object
         console.log(response);
         console.log("GIVE ME SHIPPING", response.data.object.collected_information);
         const address = data.collected_information.shipping_details.address
@@ -23,6 +23,6 @@ export async function POST(request: NextRequest) {
         }        
     } 
     
-    return NextResponse.json(data);
+    return NextResponse.json(response);
 
 }
