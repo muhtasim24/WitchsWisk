@@ -37,16 +37,12 @@ export function useCart() {
 
 
 export function CartProvider( { children } : CartProviderProps) {
-    console.log("IN CART PROVIDER");
     // need a place to store our cart information, for now using useState to store that
     const[cartItems, setCartItems] = useState<CartItem[]>([])
     const[isLoading, setIsLoading] = useState(false);
     const lockButton = useRef(false);
-    console.log("LOADING:", isLoading);
-    console.log("CONTEXT cartItems:", cartItems);
 
     useEffect( () => {
-        console.log("USE EFFECT FIRE");
         loadCart();
     }, []);
 
