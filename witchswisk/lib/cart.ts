@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { createServerSupabase } from "./supabase/server";
 import { CartItem, CartProduct } from "./types";
 import CartSlot from "@/components/cart/cartSlot";
+import { supabaseAdmin } from "./supabase/admin";
 
 
 export async function getCart() {
@@ -154,7 +155,7 @@ export async function decreaseQuantity(id: number) {
 export async function checkoutCart(userId: string, address: string, name: string, email: string) {
     // so I want to create an entry for orders, so create an insert into 
     // get everything from cart
-    const supabase = await createServerSupabase();
+    const supabase = supabaseAdmin;
     //const cart = await supabase.from('cart_items').select('*').eq('user_id', userId);
     const cart = await supabase.from('cart_items').select('quantity, product_id, products(*)').eq('user_id', userId);
     console.log("CART FORM CHECKOUT", cart.data);
@@ -174,7 +175,7 @@ export async function checkoutCart(userId: string, address: string, name: string
 
     const orders = await supabase
         .from('orders')
-        .insert( {user_id: userId, total_price: totalPrice, status: "Processing", address: address, name: name, email: email})
+        .insert( {user_id: userId, total_price: totalPrice, status: "Paid", address: address, name: name, email: email})
         .select()
 
     if (!orders.data || orders.error) {

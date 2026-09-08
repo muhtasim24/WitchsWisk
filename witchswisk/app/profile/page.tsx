@@ -28,8 +28,6 @@ export default async function Profile() {
                     Welcome {userInfo.data[0].name}
                 </h1>
                 <h1>{user.email}</h1>
-    
-                <h1>Address HERE</h1>
             </div>
     
     
