@@ -86,6 +86,7 @@ export default function UserForm() {
 
         if(error) {
             console.log(error);
+            return;
         } else{
             console.log("USER REGISTERED")
         }
@@ -102,13 +103,10 @@ export default function UserForm() {
 
     async function handleSignIn(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        const valid = validateSignUp();
-        setErrors(valid.errors);
-
-        if (!valid.isValid) {
-            return;
-        }
-
+        const errors = { 
+            email: "",
+            password: "",
+        };
 
         const { data, error } = await supabase.auth.signInWithPassword( {
             email: userEmail,
@@ -116,9 +114,16 @@ export default function UserForm() {
         })
 
         if (error) {
+            setErrors(prev => ( {
+                ...prev,
+                email: "Invalid email or password",
+                password: "Invalid email or password"
+            }));
+            console.log("Invalid Login");
             console.log(error)
+            return;
         } else {
-            console.log('user logged in');
+            console.log('User logged in');
         }
 
         console.log(data);
@@ -218,6 +223,9 @@ export default function UserForm() {
                 <form onSubmit={handleSignIn}>
                     <label>Email:</label>
                     <input className={`w-full bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.email ? "border-red-500" : "border-black"}`} type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
+                    {errors.email && (
+                        <p className = "text-red-500 text-sm">{errors.email}</p>
+                    )}
 
                     <label>Password:</label>
                     <input className={`w-full bg-purple-400 rounded-md h-8 text-black border px-2 ${errors.password ? "border-red-500" : "border-black"}`}  type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
@@ -226,7 +234,7 @@ export default function UserForm() {
                     )}
                     
                     <button type="submit" className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Log In</button>
-                    <Link href="/forgotPassword">Forgot Password</Link>
+                    {/* <Link href="/forgotPassword">Forgot Password</Link> */}
                 </form>
                 <button onClick={() => handleLoginMode("signup")} className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">Create An Account</button>
             </div>
