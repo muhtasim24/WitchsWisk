@@ -43,40 +43,40 @@ export default function CartCheckout( {products} : Props) {
 
     
 
-    async function handleCheckout() {
+    // async function handleCheckout() {
 
-        console.log("CHECKING OUT ORDER");
-        const { data: { user }} = await supabase.auth.getUser(); 
-        console.log("CART CHECKOUT USER", user);
-        if (!user) return;
-        console.log(user.id);
-        const userId = user.id;
-        const address = streetAddress + " " + city + " " + state + " " + zipCode;
-        const userEmail = user.email;
+    //     console.log("CHECKING OUT ORDER");
+    //     const { data: { user }} = await supabase.auth.getUser(); 
+    //     console.log("CART CHECKOUT USER", user);
+    //     if (!user) return;
+    //     console.log(user.id);
+    //     const userId = user.id;
+    //     const address = streetAddress + " " + city + " " + state + " " + zipCode;
+    //     const userEmail = user.email;
 
-        console.log("ADDRESS", address)
-        console.log("FULL NAME IN ORDEr", fullName);
+    //     console.log("ADDRESS", address)
+    //     console.log("FULL NAME IN ORDEr", fullName);
 
-        try {
-            const res = await fetch("/api/webhook", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify( {userId, address, fullName, userEmail})
-            })
-            if (!res.ok) {
-                throw new Error("Failed to checkout");
-            }
+    //     try {
+    //         const res = await fetch("/api/webhook", {
+    //             method: "POST",
+    //             headers: {"Content-Type": "application/json"},
+    //             body: JSON.stringify( {userId, address, fullName, userEmail})
+    //         })
+    //         if (!res.ok) {
+    //             throw new Error("Failed to checkout");
+    //         }
 
-        }
-        catch(error) {
-            console.log("CHECKOUT FAILED", error)
-        }
-        finally {
-            // refrehs the UI , so cart is deleted once order is completed/made
-            console.log("CHECKED OUT LOADING CART AGAIN");
-            await loadCart();
-        }
-    }
+    //     }
+    //     catch(error) {
+    //         console.log("CHECKOUT FAILED", error)
+    //     }
+    //     finally {
+    //         // refrehs the UI , so cart is deleted once order is completed/made
+    //         console.log("CHECKED OUT LOADING CART AGAIN");
+    //         await loadCart();
+    //     }
+    // }
 
 
     return (

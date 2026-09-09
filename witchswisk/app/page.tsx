@@ -13,8 +13,8 @@ export default async function Home() {
   return (
     <div className="flex flex-col items-center">
       <div className="mt-5 flex flex-col items-center">
-        <h1 className="text-4xl"><strong>WELCOME TO A WITCHS WHISK</strong></h1>
-        <h2 className="text-2xl font-bold">Sweets so good, they're practically magic!</h2>
+        <h1 className="text-4xl font-dancing font-extrabold"><strong>WELCOME TO A WITCHS WHISK</strong></h1>
+        <h2 className="text-3xl font-bold font-dancing">Sweets so good, they're practically magic!</h2>
         <h3>Check us out in person at conventions in the NYC, NJ, PA Area!</h3>
       </div>
 

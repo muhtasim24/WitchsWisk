@@ -17,9 +17,9 @@ export default function ProductGrid( {products} : Props) {
     };
 
     return (
-        <div className="gap-3 grid grid-cols-3 justify-items-center">
+        <div className="gap-6 grid sm:grid-cols-2 lg:grid-cols-3 items-stretch">
             {products.length === 0 ? (
-                <p className="text-2xl font-bold">No cookies found</p>
+                <p className="text-2xl font-bold col-span-full">No cookies found</p>
             ) : (
             products.map(product => (
                 <Card 

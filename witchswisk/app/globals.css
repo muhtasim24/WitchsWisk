@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
   --foreground: #ffffff;
   --bg-gradient-start: #BC86CE;
@@ -26,5 +27,17 @@ body {
     var(--bg-gradient-end) 100%
   );
   color: var(--foreground);
-  font-family: 'Arial, Helvetica, sans-serif';
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.logo-text {
+  font-family: var(--font-script);
+}
+
+.font-dancing {
+  font-family: var(--font-dancing), cursive;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif;
 }
