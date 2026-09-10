@@ -13,9 +13,9 @@ export default async function Home() {
   return (
     <div className="flex flex-col items-center">
       <div className="mt-5 flex flex-col items-center">
-        <h1 className="text-4xl font-dancing font-extrabold"><strong>WELCOME TO A WITCHS WHISK</strong></h1>
-        <h2 className="text-3xl font-bold font-dancing">Sweets so good, they're practically magic!</h2>
-        <h3>Check us out in person at conventions in the NYC, NJ, PA Area!</h3>
+        <h1 className="text-4xl font-dancing font-extrabold text-center"><strong>WELCOME TO A WITCHS WHISK</strong></h1>
+        <h2 className="text-3xl font-bold font-dancing text-center">Sweets so good, they're practically magic!</h2>
+        <h3 className="text-center">Check us out in person at conventions in the NYC, NJ, PA Area!</h3>
       </div>
 
       <div className="flex mt-4 mb-4 flex-col items-center">
@@ -40,7 +40,7 @@ export default async function Home() {
                 {/* Header */}
                 <div className="flex justify-between items-center mb-4">
 
-                    <h1 className="text-2xl font-bold">
+                    <h1 className="text-2xl font-extrabold font-dancing">
                         About Me
                     </h1>
 

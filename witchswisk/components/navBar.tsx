@@ -26,23 +26,16 @@ export default function NavBar() {
         return error;
     }
 
-    const userActive = async () => {
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (!user) {
-            return false
-        }
-
-        return true;
-    }
-
     useEffect(() => {
-        const checkUser = async () => {
-            const active = await userActive();
-            setLoggedIn(active);
-        };
+        const { data: listener } = supabase.auth.onAuthStateChange(
+            (event, session) => {
+            setLoggedIn(!!session?.user);
+            }
+        );
 
-        checkUser();
+        return () => {
+            listener.subscription.unsubscribe();
+        };
     }, []);
 
     return (
@@ -83,11 +76,13 @@ export default function NavBar() {
                             <div className="flex flex-col gap-3">
                                 {/* Nav links, shown here only on mobile */}
                                 <Link href={"/"} className="sm:hidden font-dancing font-bold">HOME</Link>
-                                <Link href={"/cart"} className="sm:hidden font-dancing font-bold">CART</Link>
-                                <Link href={"/profile"} className="font-dancing font-bold">PROFILE</Link>
 
                                 {loggedIn ? (
-                                    <button onClick={signOut} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-bold active:scale-95 font-dancing">Sign Out</button>
+                                    <div className="flex flex-col gap-3">
+                                        <Link href={"/profile"} className="font-dancing font-bold">PROFILE</Link>
+                                        <Link href={"/cart"} className="sm:hidden font-dancing font-bold">CART</Link>
+                                        <button onClick={signOut} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-bold active:scale-95 font-dancing">SIGN OUT</button>
+                                    </div>
                                 ) : (
                                     <Link href={"/signUp"} className="bg-white text-brand hover:text-bg-brand px-6 py-2 rounded-lg font-bold active:scale-95 text-center font-dancing">SIGN UP</Link>
                                 )}
