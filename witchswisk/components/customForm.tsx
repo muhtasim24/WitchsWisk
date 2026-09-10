@@ -16,7 +16,7 @@ export default function CustomForm() {
 
     return (
         <div className="w-full flex justify-center items-center flex-col p-6">
-            <h1 className="text-2xl sm:text-3xl font-extrabold font-dancing mb-4">SPECIAL INQUIRY</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold font-dancing mb-4">CONTACT US</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
 
                 {/* Left Side */}

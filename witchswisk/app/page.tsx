@@ -34,12 +34,12 @@ export default async function Home() {
           PERSONAL FAVORITES
         </h1>
         <ProductGrid products={firstThree} />
-        <Link href={"/cookies"} className="mt-4 text-lg px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand hover:opacity-90">SHOP ALL COOKIES</Link>
+        <Link href={"/cookies"} className="mt-6 text-lg px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand hover:opacity-90">SHOP ALL COOKIES</Link>
       </div>
 
 
       {/* ABOUT ME SECTION*/}
-      <div className="flex justify-center w-full mt-10">
+      <div className="flex justify-center w-full mt-4">
         <div className="bg-brand w-full max-w-2xl rounded-xl p-6 flex flex-col sm:flex-row gap-6 sm:gap-10 items-center">
 
             {/* Left Side */}
