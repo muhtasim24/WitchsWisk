@@ -11,13 +11,13 @@ export default async function Cart() {
 
     return (
         <div>
-            <div className="flex flex-row px-6 py-10 min-h-[calc(100vh-4rem)] gap-6">
-                <div className="w-2/3 p-4 bg-brand rounded-lg">
-                    <h1 className="text-3xl font-bold mb-4">CART</h1>
+            <div className="flex flex-col lg:flex-row px-4 sm:px-6 py-10 gap-6">
+                <div className="bg-brand w-full lg:w-2/3 p-4 rounded-lg">
+                    <h1 className="font-dancing text-3xl font-extrabold mb-4 uppercase">Cart</h1>
                     <CartView products = { products } />
                 </div>
        
-                <div className="w-1/3 p-4 border rounded-lg bg-brand p-4">
+                <div className="w-full lg:w-1/3 p-4 border rounded-lg bg-brand lg:sticky lg:top-6 lg:self-start">
                     <CartCheckout products = { products } />
                 </div>
             </div>
