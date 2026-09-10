@@ -17,8 +17,3 @@ export async function getOrder(): Promise<Order[]> {
 
     return data;
 }
-
-export async function getOrderReciept() {
-
-}
-

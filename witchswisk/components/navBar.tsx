@@ -5,8 +5,8 @@ import { supabase } from "@/lib/supabase/client"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ShoppingCart, UserCircle, X } from "lucide-react";
 
 export default function NavBar() {
 
@@ -14,6 +14,7 @@ export default function NavBar() {
     const router = useRouter();
     const [menuOpen, setMenuOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const cartCount = cartItems.length;
 
@@ -38,6 +39,22 @@ export default function NavBar() {
         };
     }, []);
 
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setMenuOpen(false);
+            }
+        }
+
+        if (menuOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [menuOpen]);
+
     return (
         <div className="relative bg-brand flex items-center justify-between px-4 sm:px-6">
 
@@ -48,7 +65,7 @@ export default function NavBar() {
             </div>
 
             {/* Center: logo */}
-            <div className="flex justify-start sm:justify-center sm:flex-1">
+            <div className="flex justify-start sm:justify-center sm:flex-1 p-2">
                 <Link href={"/"}>
                     <Image src="/logo.webp" alt="A Witch's Whisk" width={70} height={70} priority />
                 </Link>
@@ -57,8 +74,8 @@ export default function NavBar() {
             {/* Right: sign in, cart, menu */}
             <div className="flex-1 flex items-center justify-end gap-4">
                 <Link href={"/cookies"} className="text-lg font-dancing md:hidden">COOKIES</Link>
-                <Link href={"/cart"} className="relative">
-                    <ShoppingCart size={30} />
+                <Link href={"/cart"} className="relative mb-2">
+                    <ShoppingCart size={28} />
                     {cartCount > 0 && (
                         <span className="absolute -bottom-2 -right-2 bg-red-500 text-white text-sm rounded-full w-5 h-5 flex items-center justify-center">
                             {cartCount}
@@ -66,9 +83,9 @@ export default function NavBar() {
                     )}
                 </Link>
 
-                <div className="relative">
+                <div className="relative" ref={menuRef}>
                     <button onClick={() => setMenuOpen(!menuOpen)}>
-                        {menuOpen ? <X size={24} /> : <Menu size={24} />}
+                        {menuOpen ? <X size={28} /> : <UserCircle size={28} />}
                     </button>
 
                     {menuOpen && (

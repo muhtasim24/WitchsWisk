@@ -11,36 +11,51 @@ export default async function Home() {
   const firstThree = products.slice(0,3);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="mt-5 flex flex-col items-center">
-        <h1 className="text-4xl font-dancing font-extrabold text-center"><strong>WELCOME TO A WITCHS WHISK</strong></h1>
-        <h2 className="text-3xl font-bold font-dancing text-center">Sweets so good, they're practically magic!</h2>
-        <h3 className="text-center">Check us out in person at conventions in the NYC, NJ, PA Area!</h3>
+    <div className="flex flex-col items-center px-4 sm:px-6">
+
+      {/* BANNER SECTION*/}
+      <div className="mt-8 sm:mt-12 flex flex-col items-center text-center gap-2 max-w-2xl">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-dancing font-extrabold">
+          WELCOME TO A WITCH'S WHISK
+        </h1>
+
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-dancing text-white/90">
+          Sweets so good, they're practically magic!
+        </h2>
+
+        <h3 className="text-sm sm:text-base text-white/80 mt-1">
+          Check us out in person at conventions in the NYC, NJ, PA Area!
+        </h3>
       </div>
 
-      <div className="flex mt-4 mb-4 flex-col items-center">
-        <h1 className="text-lg w-full flex justify-center rounded-lg font-semibold bg-white text-brand">FEATURED COOKIES</h1>
+      {/* FEATURED SECTION*/}
+      <div className="flex mt-10 mb-4 flex-col items-center w-full">
+        <h1 className="text-lg font-semibold bg-white text-brand px-6 py-2 rounded-full mb-4">
+          PERSONAL FAVORITES
+        </h1>
         <ProductGrid products={firstThree} />
-        <Link href={"/cookies"} className="text-lg px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand hover:text-bg-brand">SHOP ALL COOKIES</Link>
+        <Link href={"/cookies"} className="mt-4 text-lg px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand hover:opacity-90">SHOP ALL COOKIES</Link>
       </div>
 
 
       {/* ABOUT ME SECTION*/}
-      <div className="flex justify-center">
-        <div className="bg-brand w-1/2 rounded-xl p-6 flex gap-10 items-center mt-6">
+      <div className="flex justify-center w-full mt-10">
+        <div className="bg-brand w-full max-w-2xl rounded-xl p-6 flex flex-col sm:flex-row gap-6 sm:gap-10 items-center">
 
             {/* Left Side */}
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-white/20 flex items-center justify-center text-white/70 text-sm">
                 <h1>IMG HERE</h1>
+              </div>
             </div>
 
             {/* Right Side */}
-            <div className="flex-1">
+            <div className="flex-1 text-center sm:text-left">
 
                 {/* Header */}
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4">
 
-                    <h1 className="text-2xl font-extrabold font-dancing">
+                    <h1 className="text-2xl font-extrabold font-dancing uppercase">
                         About Me
                     </h1>
 
@@ -51,15 +66,15 @@ export default async function Home() {
 
                 </div>
                 {/* Bio */}
-                <p className="text-lg leading-relaxed">
+                <p className="text-base sm:text-lg leading-relaxed">
                     Hello! My name is Mia. I bake stuff. I AM THEE WORLDS GREATEST BAKER.
                 </p>
               </div>
           </div>
       </div>
 
-    <div className="flex justify-center w-full mt-6 mb-10">
-      <div className="bg-brand w-1/3 flex justify-center items-center rounded-xl">
+    <div className="flex justify-center w-full mt-10 mb-10">
+      <div className="bg-brand w-full rounded-xl max-w-2xl">
           <CustomForm />
       </div>
     </div>

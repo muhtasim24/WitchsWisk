@@ -15,8 +15,8 @@ export default function CustomForm() {
     }
 
     return (
-        <div className="w-full max-w-3xl flex justify-center items-center flex-col p-6">
-            <h1 className="text-3xl font-extrabold font-dancing">SPECIAL INQUIRY</h1>
+        <div className="w-full flex justify-center items-center flex-col p-6">
+            <h1 className="text-2xl sm:text-3xl font-extrabold font-dancing mb-4">SPECIAL INQUIRY</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
 
                 {/* Left Side */}
@@ -49,7 +49,7 @@ export default function CustomForm() {
                 <div className="flex flex-col">
                     <label>Message:</label>
                     <textarea
-                        className="w-full h-48 bg-purple-400 rounded-md text-black border border-black px-2 py-2 resize-none"
+                        className="w-full h-32 sm:h-full bg-purple-400 rounded-md text-black border border-black px-2 py-2 resize-none"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
@@ -57,7 +57,7 @@ export default function CustomForm() {
     
     
                 {/* Button */}
-                <div className="col-span-2 flex justify-center">
+                <div className="col-span-1 sm:col-span-2 flex justify-center">
                     <button
                         type="submit"
                         className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand"
