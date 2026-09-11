@@ -214,12 +214,12 @@ export default function UserForm() {
                 <h1 className="text-lg font-bold flex items-center justify-center">LOGIN TO YOUR ACCOUNT</h1>
                 <form onSubmit={handleSignIn}>
                     <label>Email:</label>
-                    <input className={`w-full bg-input rounded-md h-8 text-black border px-2 ${errors.email ? "border-red-500" : "border-black"}`} type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
+                    <input className={`w-full bg-input text-white rounded-md h-8 text-black border px-2 ${errors.email ? "border-red-500" : "border-black"}`} type="email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)}></input>
                     <p className={`text-red-500 text-sm h-5 ${errors.email ? "visible" : "invisible"}`}>{errors.email || " "}</p>
 
 
                     <label>Password:</label>
-                    <input className={`w-full bg-input rounded-md h-8 text-black border px-2 ${errors.password ? "border-red-500" : "border-black"}`} type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
+                    <input className={`w-full bg-input text-white rounded-md h-8 text-black border px-2 ${errors.password ? "border-red-500" : "border-black"}`} type="password" value={userPassword} onChange={ (e) => setUserPassword(e.target.value)}></input>
                     <p className={`text-red-500 text-sm h-5 ${errors.password ? "visible" : "invisible"}`}>{errors.password || " "}</p>
                     
                     <div className="flex flex-row items-center gap-3">

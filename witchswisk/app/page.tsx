@@ -34,7 +34,7 @@ export default async function Home() {
           PERSONAL FAVORITES
         </h1>
         <ProductGrid products={firstThree} />
-        <Link href={"/cookies"} className="mt-6 text-lg px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand hover:opacity-90">SHOP ALL COOKIES</Link>
+        <Link href={"/cookies"} className="mt-6 text-lg px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand hover:opacity-90 hover:scale-105">SHOP ALL COOKIES</Link>
       </div>
 
 
