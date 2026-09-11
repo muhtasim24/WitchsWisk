@@ -3,14 +3,18 @@
 
 :root {
   --foreground: #ffffff;
-  --bg-gradient-start: #BC86CE;
-  --bg-gradient-end: #c5c1e3;
-  --brand-purple: #683cc1;
+  --bg-gradient-start: #370f60;
+  --bg-gradient-end: #ca75f2;
+--brand-purple: #52227b;
+--brand-purple-dark: #3a1858;
+--input-purple: #8c4bb8;
 }
 
 @theme {
   --color-foreground: var(--foreground);
   --color-brand: var(--brand-purple);
+  --color-brand-dark: var(--brand-purple-dark);
+  --color-input: var(--input-purple);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -21,10 +25,11 @@
 } */
 
 body {
+  min-height: 100vh;
   background: linear-gradient(
     90deg,
-    var(--bg-gradient-start) 40%,
-    var(--bg-gradient-end) 100%
+    var(--bg-gradient-start) 1%,
+    var(--bg-gradient-end) 80%
   );
   color: var(--foreground);
   font-family: var(--font-poppins), sans-serif;

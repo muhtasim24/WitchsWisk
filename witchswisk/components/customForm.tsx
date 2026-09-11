@@ -25,7 +25,7 @@ export default function CustomForm() {
                     <div>
                         <label>Name:</label>
                         <input
-                            className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2"
+                            className="w-full bg-input rounded-md h-8 text-black border border-black px-2"
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -35,7 +35,7 @@ export default function CustomForm() {
                     <div>
                         <label>Email:</label>
                         <input
-                            className="w-full bg-purple-400 rounded-md h-8 text-black border border-black px-2"
+                            className="w-full bg-input rounded-md h-8 text-black border border-black px-2"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -49,7 +49,7 @@ export default function CustomForm() {
                 <div className="flex flex-col">
                     <label>Message:</label>
                     <textarea
-                        className="w-full h-32 sm:h-full bg-purple-400 rounded-md text-black border border-black px-2 py-2 resize-none"
+                        className="w-full h-32 sm:h-full bg-input text-white rounded-md text-black border border-black px-2 py-2 resize-none"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />

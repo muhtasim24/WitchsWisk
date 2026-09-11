@@ -21,7 +21,7 @@ export default function Search({ products } : Props) {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex items-center justify-center">
-                <input className="flex items-center w-5/5 bg-purple-400 rounded-md h-10 text-black border border-black px-2" type="search" placeholder="Search Cookie..." value={searchQuery} onChange={ (e) => setSearchQuery(e.target.value)}></input>
+                <input className="flex items-center w-5/5 bg-input text-white rounded-md h-10  border border-white px-2" type="search" placeholder="Search Cookie..." value={searchQuery} onChange={ (e) => setSearchQuery(e.target.value)}></input>
             </div>
             <ProductGrid products={filteredProducts} />
         </div>
