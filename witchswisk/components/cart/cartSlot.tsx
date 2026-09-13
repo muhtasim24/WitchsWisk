@@ -16,7 +16,7 @@ export default function CartSlot( {item, product}: Props) {
     return (
         <div className="bg-input rounded-xl p-4 flex flex-col sm:flex-row gap-4 sm:items-center relative">
             <button 
-                className = "absolute top-3 right-3 text-white/70 hover:text-white disabled:opactiy-50 disabled:cursor-not-allowed" 
+                className = "absolute top-3 right-3 text-white/70 cursor-pointer hover:text-white disabled:opactiy-50 disabled:cursor-not-allowed" 
                 disabled = {isLoading}
                 onClick={() => removeFromCart(item.product_id)}
             >
@@ -35,14 +35,14 @@ export default function CartSlot( {item, product}: Props) {
                 <p className="text-white/80 text-sm line-clamp-2">{product.description}</p>
                 <div className = "flex items-center gap-4 mt-3">
                     <button 
-                        className="text-white disabled:opacity-50 disabled:cursor-not-allowed" 
+                        className="text-white/70 cursor-pointer hover:text-white disabled:opacity-50 disabled:cursor-not-allowed" 
                         disabled = {isLoading} 
                         onClick={() => decreaseCartQuantity(item.product_id)}>
                         <Minus size={24}/>
                     </button>
                     <span className = "font-bold text-white">{item.quantity}x</span>
                     <button 
-                        className="text-white disabled:opacity-50 disabled:cursor-not-allowed" 
+                        className="text-white/70 hover:text-white cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" 
                         disabled = {isLoading} 
                         onClick={() => increaseCartQuantity(item.product_id)}>
                         <Plus size={24}/>

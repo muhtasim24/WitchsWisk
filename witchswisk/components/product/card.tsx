@@ -17,7 +17,7 @@ export default function Card( { product, onClick } : Props) {
                 alt={product.name} 
                 width = {200}
                 height = {200}
-                className=" mt-2 rounded-xl border border-black object-cover"
+                className=" mt-2 rounded-xl border border-white object-cover"
             />
             <h1 className="text-2xl font-bold font-dancing text-center mt-2">{product.name}</h1>
             <h1 className="text-lg font-semibold">${product.price}.00</h1>
