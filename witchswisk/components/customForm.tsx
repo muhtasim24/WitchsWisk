@@ -49,7 +49,7 @@ export default function CustomForm() {
                 <div className="flex flex-col">
                     <label>Message:</label>
                     <textarea
-                        className="w-full h-32 sm:h-full bg-input text-white rounded-md text-black border border-black px-2 py-2 resize-none"
+                        className="w-full h-32 sm:h-full text-sm bg-input text-white rounded-md text-black border border-black px-2 py-2 resize-none"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />

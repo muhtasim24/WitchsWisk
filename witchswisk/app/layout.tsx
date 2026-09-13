@@ -5,6 +5,7 @@ import Link from "next/link";
 import "./globals.css";
 import { CartProvider } from "./context/cartContext";
 import NavBar from "@/components/navBar";
+import WandClickEffect from "@/components/wandClickEffect";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default function RootLayout({
         <CartProvider>
           <NavBar/>
           {children}
+          <WandClickEffect/>
         </CartProvider>
       </body>
     </html>

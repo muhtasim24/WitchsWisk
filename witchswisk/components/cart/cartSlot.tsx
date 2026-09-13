@@ -14,7 +14,7 @@ export default function CartSlot( {item, product}: Props) {
     const {cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart, isLoading} = useCart();
     console.log(isLoading);
     return (
-        <div className="bg-purple-500 rounded-xl p-4 flex flex-col sm:flex-row gap-4 sm:items-center relative">
+        <div className="bg-input rounded-xl p-4 flex flex-col sm:flex-row gap-4 sm:items-center relative">
             <button 
                 className = "absolute top-3 right-3 text-white/70 hover:text-white disabled:opactiy-50 disabled:cursor-not-allowed" 
                 disabled = {isLoading}

@@ -4,53 +4,47 @@ import { createServerSupabase } from "@/lib/supabase/server";
 import { User } from "lucide-react";
 import Link from "next/link";
 
-
 export default async function Profile() {
-    // should have user name, email, address,
     const supabase = await createServerSupabase();
-    const { data: { user }} = await supabase.auth.getUser();
-    if (!user) return [];
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
     const orders = await getOrder();
-    
+
     const userInfo = await supabase.from('users').select('*').eq('id', user.id);
-    console.log("USER INFO", userInfo);
     if (!userInfo.data || userInfo.error) {
-        return userInfo.error;
+        return <div className="p-8 text-red-500">Failed to load profile.</div>;
     }
 
-
     return (
-        <div className="flex gap-2 p-8">
-    
+        <div className="flex flex-col md:flex-row gap-4 p-4 md:p-8 max-w-6xl mx-auto">
+
             {/* Left side - User Info */}
-            <div className="w-1/3 bg-brand flex flex-col justify-center items-center">
-                <h1 className="text-3xl font-bold">
-                    Welcome {userInfo.data[0].name}
+            <div className="w-full md:w-64 shrink-0 bg-brand rounded-xl p-6 flex flex-col items-center gap-2 h-fit border border-white">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center">
+                    <User className="w-8 h-8" />
+                </div>
+                <h1 className="text-lg font-bold text-center ">
+                    {userInfo.data[0].name}
                 </h1>
-                <h1>{user.email}</h1>
+                <p className="text-sm text-muted-foreground text-center break-all">
+                    {user.email}
+                </p>
             </div>
-    
-    
+
             {/* Right side - Orders */}
-            <div className="w-2/3 bg-brand p-4 rounded-xl">
-    
-                <h1 className="text-2xl font-bold">
-                    ORDER HISTORY
-                </h1>
-    
-                {orders.map(orderItem => (
-                    <Link key = {orderItem.id} href={`/profile/orders/${orderItem.id}`}>
-                        <div 
-                            key={orderItem.id} 
-                            className="rounded-lg p-2 mb-2"
-                        >
+            <div className="flex-1 bg-brand p-4 rounded-xl flex flex-col min-h-0">
+                <h1 className="text-2xl font-bold font-dancing mb-4 shrink-0">ORDER HISTORY</h1>
+
+                <div className="flex flex-col gap-3 overflow-y-auto pr-1 max-h-[70vh]">
+                    {orders.map(orderItem => (
+                        <Link key={orderItem.id} href={`/profile/orders/${orderItem.id}`}>
                             <OrderSlot order={orderItem} />
-                        </div>
-                    </Link>
-                ))}
-    
+                        </Link>
+                    ))}
+                </div>
             </div>
-    
+
         </div>
     )
 }
