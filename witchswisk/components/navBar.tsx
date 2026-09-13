@@ -73,7 +73,7 @@ export default function NavBar() {
 
             {/* Right: sign in, cart, menu */}
             <div className="flex-1 flex items-center justify-end gap-4">
-                <Link href={"/cookies"} className="text-lg font-dancing md:hidden">COOKIES</Link>
+                <Link href={"/cookies"} className="text-lg font-dancing md:hidden font-bold">COOKIES</Link>
                 <Link href={"/cart"} className="relative mb-2">
                     <ShoppingCart size={28} />
                     {cartCount > 0 && (

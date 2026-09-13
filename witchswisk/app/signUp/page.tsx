@@ -16,7 +16,7 @@ export default function SignUp() {
                     height = {400}
                     className="w-40 sm:w-56 lg:w-80 h-auto"
                 />
-                <h1 className="text-xl font-dancing font-extrabold text-center lg:text-4xl max-w-md">"SWEETS SO GOOD, THEY'RE PRACTICALLY MAGIC"</h1>
+                <h1 className="text-xl font-dancing font-bold text-center lg:text-4xl max-w-md">"Sweets so good, they're practically magic!"</h1>
             </div>
             
             <div className="flex items-center justify-center bg-brand p-4 mx-auto max-w-sm rounded-xl lg:mx-0 lg:max-w-none lg:w-1/4 lg:rounded-none lg:p-8">

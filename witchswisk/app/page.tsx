@@ -2,6 +2,7 @@ import Card from "@/components/product/card";
 import ProductGrid from "@/components/product/productGrid";
 import { getProducts } from "@/lib/getProducts";
 import Image from "next/image";
+import { FaInstagram } from "react-icons/fa";
 import { Mail, User, Phone } from "lucide-react";
 import CustomForm from "@/components/customForm";
 import Link from "next/link";
@@ -13,20 +14,46 @@ export default async function Home() {
   return (
     <div className="flex flex-col items-center px-4 sm:px-6">
 
-      {/* BANNER SECTION*/}
-      <div className="mt-8 sm:mt-12 flex flex-col items-center text-center gap-2 max-w-2xl">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-dancing font-extrabold">
-          WELCOME TO A WITCH'S WHISK
-        </h1>
+    {/* BANNER SECTION*/}
+      <div className="mt-8 sm:mt-12 flex flex-col lg:flex-row items-center lg:items-center justify-center gap-4 lg:gap-10 max-w-2xl lg:max-w-4xl text-center lg:text-left">
+        <Image
+          src="/witch.webp"
+          alt="witch"
+          width={160}
+          height={160}
+          className="shrink-0"
+        />
 
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-dancing text-white/90">
-          Sweets so good, they're practically magic!
-        </h2>
+        <div className="flex flex-col items-center lg:items-start gap-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-dancing font-bold">
+            A WITCH'S WHISK
+          </h1>
 
-        <h3 className="text-sm sm:text-base text-white/80 mt-1">
-          Check us out in person at conventions in the NYC, NJ, PA Area!
-        </h3>
-      </div>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-dancing text-white/90">
+            "Sweets so good, they're practically magic!"
+          </h2>
+
+          <div className="flex flex-col items-center lg:items-start gap-1 mt-2">
+
+            <a
+              href="https://www.instagram.com/a_witchs_whisk/"
+              target="_blank"
+              className="flex items-center gap-2 text-white/90 hover:text-white transition-colors"
+            >
+              <FaInstagram size={18} />
+              <span>@a_witchs_whisk</span>
+            </a>
+
+            <a
+              href="mailto:awitchswhisk@gmail.com"
+              className="flex items-center gap-2 text-white/90 hover:text-white transition-colors"
+            >
+              <Mail size={18} />
+              <span>awitchswhisk@gmail.com</span>
+            </a>
+          </div>
+        </div>
+  </div>
 
       {/* FEATURED SECTION*/}
       <div className="flex mt-10 mb-4 flex-col items-center w-full">
@@ -55,13 +82,13 @@ export default async function Home() {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4">
 
-                    <h1 className="text-2xl font-extrabold font-dancing uppercase">
+                    <h1 className="text-2xl font-bold font-dancing uppercase">
                         About Me
                     </h1>
 
                     <div className="flex gap-4">
-                        <a href="https://www.instagram.com/a_witchs_whisk/" target="_blank"><User/></a>
-                        <a href="#"><Mail/></a>
+                        <a href="https://www.instagram.com/a_witchs_whisk/" target="_blank"><FaInstagram size={25}/></a>
+                        <a href="mailto:awitchswhisk@gmail.com"><Mail size={25}/></a>
                     </div>
 
                 </div>

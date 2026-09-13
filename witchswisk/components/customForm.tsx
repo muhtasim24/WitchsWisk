@@ -16,7 +16,7 @@ export default function CustomForm() {
 
     return (
         <div className="w-full flex justify-center items-center flex-col p-6">
-            <h1 className="text-2xl sm:text-3xl font-extrabold font-dancing mb-4">CONTACT US</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold font-dancing mb-4">CONTACT US</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
 
                 {/* Left Side */}
@@ -25,7 +25,7 @@ export default function CustomForm() {
                     <div>
                         <label>Name:</label>
                         <input
-                            className="w-full bg-input rounded-md h-8 text-black border border-black px-2"
+                            className="w-full text-white bg-input rounded-md h-8 text-black border border-black px-2"
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -35,7 +35,7 @@ export default function CustomForm() {
                     <div>
                         <label>Email:</label>
                         <input
-                            className="w-full bg-input rounded-md h-8 text-black border border-black px-2"
+                            className="w-full text-white bg-input rounded-md h-8 text-black border border-black px-2"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
