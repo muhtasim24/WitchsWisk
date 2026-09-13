@@ -25,8 +25,8 @@ export default async function Home() {
         />
 
         <div className="flex flex-col items-center lg:items-start gap-2">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-dancing font-bold">
-            A WITCH'S WHISK
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-dancing font-bold">
+            A Witch's Whisk
           </h1>
 
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-dancing text-white/90">
