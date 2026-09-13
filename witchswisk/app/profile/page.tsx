@@ -1,5 +1,5 @@
 import OrderSlot from "@/components/profile/orderSlot";
-import { getOrder, getOrderReciept } from "@/lib/orders"
+import { getOrder } from "@/lib/orders"
 import { createServerSupabase } from "@/lib/supabase/server";
 import { User } from "lucide-react";
 import Link from "next/link";
