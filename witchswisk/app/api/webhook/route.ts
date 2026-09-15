@@ -6,15 +6,23 @@ export async function POST(request: NextRequest) {
     const rawBody = request;
     console.log("RAW", rawBody);
     const response  = await request.json();
+    // need to verify webhook signature 
+    // construct an event - this will handle the verifcation, need (raw body, stripe signature, webhook secret key)
+    // https://docs.stripe.com/webhooks#webhook-endpoint-def
+    // quick status successful code 2xx beofre any complex logic
+    // return 200x response
+
+    // idempotency
+    // create new column in orders table, put in sessionId or objectid not sure yet
+    // when we reach our event type checkout session complete
+    // check our db to see if objcetID is alreayd in table if it is do ntohign, if its not we can create new order
 
 
     if (response.type == "checkout.session.completed") {
         const data = response.data.object
         console.log(response);
-        console.log("GIVE ME SHIPPING", response.data.object.collected_information);
         const address = data.collected_information.shipping_details.address
         const fullAddress = address.line1 + ' ' + address.city + ' ' + address.state + ' ' + address.postal_code + ' ' + address.country
-        console.log("FULL ADDRESS", fullAddress);
         const fullName = data.collected_information.shipping_details.name;
         const userEmail = data.customer_email;
         const userId = data.metadata.user_id;

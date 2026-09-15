@@ -21,7 +21,7 @@ export default function Card( { product, onClick } : Props) {
             />
             <h1 className="text-2xl font-bold font-dancing text-center mt-2">{product.name}</h1>
             <h1 className="text-lg font-semibold">${product.price}.00</h1>
-            <h1 className="text-sm text-center line-clamp-3 px-2">{product.description}</h1>
+            <h1 className="text-sm text-center line-clamp-2 px-2">{product.description}</h1>
             <div className="mt-auto pt-3">
                 <AddCartBtn product={product}/>
             </div>
