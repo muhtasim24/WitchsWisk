@@ -94,7 +94,7 @@ export default async function Home() {
                 </div>
                 {/* Bio */}
                 <p className="text-base sm:text-lg leading-relaxed">
-                    Hello! My name is Mia. I bake stuff. I AM THEE WORLDS GREATEST BAKER.
+                    Hello! My name is Mia. Born and raised in Queens, New York! I love baking, and creating sweets treats with my own creativity. I have a love for horror so I try to incorporate that with my cookies.
                 </p>
               </div>
           </div>
