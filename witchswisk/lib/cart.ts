@@ -152,7 +152,7 @@ export async function decreaseQuantity(id: number) {
     return data;
 }
 
-export async function checkoutCart(userId: string, address: string, name: string, email: string) {
+export async function checkoutCart(userId: string, address: string, name: string, email: string, totalPrice: number) {
     // so I want to create an entry for orders, so create an insert into 
     // get everything from cart
     const supabase = supabaseAdmin;
@@ -165,11 +165,11 @@ export async function checkoutCart(userId: string, address: string, name: string
     }
 
     // loop through cart, match up product with each product id get the price, calcualte total price 
-    let totalPrice = 0
-    for (const cartItems of cart.data) {
-        const price = cartItems.products.price * cartItems.quantity
-        totalPrice += price
-    }
+    // let totalPrice = 0
+    // for (const cartItems of cart.data) {
+    //     const price = cartItems.products.price * cartItems.quantity
+    //     totalPrice += price
+    // }
 
     // so got all items in the cart, and total price, need to create orders now
 

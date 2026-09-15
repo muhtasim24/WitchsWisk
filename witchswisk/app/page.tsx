@@ -17,7 +17,7 @@ export default async function Home() {
     {/* BANNER SECTION*/}
       <div className="mt-8 sm:mt-12 flex flex-col lg:flex-row items-center lg:items-center justify-center gap-4 lg:gap-10 max-w-2xl lg:max-w-4xl text-center lg:text-left">
         <Image
-          src="/witch.webp"
+          src="/witchCookie.webp"
           alt="witch"
           width={160}
           height={160}
