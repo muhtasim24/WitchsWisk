@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
             const checkout = await checkoutCart(userId, fullAddress, fullName, userEmail, totalPrice)
             return NextResponse.json(checkout);
         }        
-    } 't=1789443760,v1=83a3bd1908aaab3b9af95a0357ddabda27e23cbd8f2b1ad2090cb38abadf9ac3,v0=bf817677a7d511dde745d205054d986954f602ab40111169f84e351ba4b611f4'
+    } 
     
     return NextResponse.json(response);
 
