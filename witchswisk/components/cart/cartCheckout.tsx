@@ -127,8 +127,13 @@ export default function CartCheckout( {products} : Props) {
             <div className="mt-3 pt-3 border-t border-white">
                 <h1 className="text-xl font-semibold text-white mb-3">Total Price: ${totalPrice.toFixed(2)}</h1>
                 <form action="/api/checkout_session" method="POST">
-                    <button type="submit" role="link" 
-                    className="w-full px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">
+                    <button type="submit" role="link" disabled={cartItems.length===0}
+                    className={`w-full px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 
+                        ${cartItems.length === 0
+                        ? "bg-gray-400 text-white cursor-not-allowed"
+                        : "bg-white text-brand hover:bg-gray-100"}
+                        `}
+                    >
                         GO TO CHECKOUT
                     </button>
 
