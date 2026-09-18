@@ -30,6 +30,8 @@ export default function NavBar() {
     useEffect(() => {
         const { data: listener } = supabase.auth.onAuthStateChange(
             (event, session) => {
+                console.log("NAV EVENT", event);
+                console.log("NAV SESSION", session);
             setLoggedIn(!!session?.user);
             }
         );
