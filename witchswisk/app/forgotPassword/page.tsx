@@ -31,14 +31,14 @@ export default function ForgotPassword() {
         setLoading(true);
 
         try {
-            // const { error: supabaseError } = await supabase.auth.resetPasswordForEmail(email, {
-            //     redirectTo: `${window.location.origin}/resetPassword`,
-            // });
+            const { error: supabaseError } = await supabase.auth.resetPasswordForEmail(email, {
+                redirectTo: `${window.location.origin}/resetPassword`,
+            });
 
-            // if (supabaseError) {
-            //     setError("Something went wrong. Please try again.");
-            //     return;
-            // }
+            if (supabaseError) {
+                setError("Something went wrong. Please try again.");
+                return;
+            }
 
             setSent(true);
         } catch (err) {
@@ -59,7 +59,6 @@ export default function ForgotPassword() {
                         <p className="text-sm text-white/80">
                             If an account exists for that address, we've sent a password reset link.
                         </p>
-                        <Link href="/resetPassword">RESET PAGE</Link>
                         <Link href="/signUp" className="mt-2 text-sm underline underline-offset-2 text-white/80 hover:text-white">
                             Back to login
                         </Link>

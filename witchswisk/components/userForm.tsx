@@ -81,24 +81,27 @@ export default function UserForm() {
             {
                 email: userEmail,
                 password: userPassword,
+                options: {
+                    data: { first_name: firstName, last_name: lastName },
+                    emailRedirectTo: `${window.location.origin}/auth/confirm`
+                }
             }
         )
 
         if(error) {
             console.log(error);
             return;
-        } else{
-            console.log("USER REGISTERED")
         }
 
+        console.log("Signup successful, confirmation email sent");
         console.log(userEmail);
         console.log(data);
         console.log(data.user?.id);
-        if (data.user) {
-            return createUser(data.user.id);
-        } else {
-            console.log(error);
-        }
+
+        setFirstName("");
+        setLastName("");
+        setUserPassword("");
+        setLoginMode("checkEmail");
     }
 
     async function handleSignIn(e: React.FormEvent<HTMLFormElement>){
@@ -134,29 +137,6 @@ export default function UserForm() {
 
         router.replace("/")
         loadCart();
-        return data;
-    }
-
-    async function createUser(userId:string) {
-        // make this an api call instead
-        const fullName: string = firstName + " " + lastName
-        const {data, error} = await supabase
-        .from("users")
-        .insert( {id: userId, name: fullName, email: userEmail})
-        .select()
-
-        if (error) {
-            console.log(error);
-            return;
-        }
-        
-        console.log(data);
-        setFirstName("");
-        setLastName("");
-        setUserEmail("");
-        setUserPassword("");
-        
-        router.replace("/");
         return data;
     }
 
@@ -231,6 +211,16 @@ export default function UserForm() {
             </div>
 
             
+            )}
+
+            {loginMode === "checkEmail" && (
+            <div className="flex flex-col gap-2 p-2 items-center text-center">
+                <h1 className="text-lg font-bold">Check Your Email</h1>
+                <p className="text-sm">
+                    We sent a confirmation link to <span className="font-semibold">{userEmail}</span>.
+                    Click "Confirm Email" to activate your account, then you'll be redirected to the homepage.
+                </p>
+            </div>
             )}
         </div>
 

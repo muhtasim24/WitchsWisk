@@ -101,7 +101,7 @@ export default function ResetPassword() {
         <div className="flex items-center justify-center px-4 py-16 min-h-[calc(100vh-4rem)]">
             <div className="bg-brand w-full max-w-md rounded-xl p-6 sm:p-8">
 
-                {true ? (
+                {success ? (
                     <div className="flex flex-col items-center text-center gap-3">
                         <h1 className="text-2xl font-bold font-dancing">PASSWORD UPDATED</h1>
                         <p className="text-sm text-white/80">
