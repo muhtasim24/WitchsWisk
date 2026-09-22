@@ -37,11 +37,19 @@ export default async function Profile() {
                 <h1 className="text-2xl font-bold font-dancing mb-4 shrink-0">ORDER HISTORY</h1>
 
                 <div className="flex flex-col gap-3 overflow-y-auto pr-1 max-h-[70vh]">
-                    {orders.map(orderItem => (
-                        <Link key={orderItem.id} href={`/profile/orders/${orderItem.id}`}>
-                            <OrderSlot order={orderItem} />
-                        </Link>
-                    ))}
+                    {orders.length === 0 ? (
+                        <div className="flex flex-col items-center">
+                            <p className="text-white text-2xl text-center py-8 font-dancing">NO ORDERS YET</p>
+                            <Link href={"/cookies"} className="text-lg px-2 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand">SHOP COOKIES</Link>
+                        </div>
+                        ): (
+                        orders.map(orderItem => (
+                            <Link key={orderItem.id} href={`/profile/orders/${orderItem.id}`}>
+                                <OrderSlot order={orderItem} />
+                            </Link>
+                            ))
+                        )
+                    }
                 </div>
             </div>
 
