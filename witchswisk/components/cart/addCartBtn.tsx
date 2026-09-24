@@ -37,7 +37,7 @@ export default function AddCartBtn( { product } : Props) {
         <button onClick={handleClick} disabled={!!inCart} className={`px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 ${
             inCart
             ? "bg-white text-brand cursor-not-allowed"
-            : "bg-white text-brand hover:text-bg-brand"
+            : "bg-white text-brand hover:text-bg-brand cursor-pointer hover:scale-105"
         }`}>
             {inCart ? "Added" : "Add to Cart"}
         </button>
