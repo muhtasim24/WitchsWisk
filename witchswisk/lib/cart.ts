@@ -144,7 +144,14 @@ export async function decreaseQuantity(id: number) {
     return data;
 }
 
-export async function checkoutCart(userId: string, address: string, name: string, email: string, totalPrice: number, session_id: string) {
+export async function checkoutCart(
+    userId: string, 
+    address: string, 
+    name: string, 
+    email: string, 
+    totalPrice: number, 
+    session_id: string
+): Promise<{ success: true; order: any } | { success: false; error: string }> {
     // so I want to create an entry for orders, so create an insert into 
     // get everything from cart
     const supabase = supabaseAdmin;
@@ -217,9 +224,8 @@ export async function checkoutCart(userId: string, address: string, name: string
         .eq('user_id', userId)
         .select();
 
-    if (!deleteCart.data || deleteCart.error) {
-        console.log(deleteCart.error);
-        return deleteCart.error;
+    if (deleteCart.error) {
+        console.log('Failed to clear cart after order completed:', deleteCart.error);
     }
 
     return { success: true, order: orders.data[0]};

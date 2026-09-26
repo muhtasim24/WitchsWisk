@@ -61,13 +61,11 @@ export async function POST(request: NextRequest) {
 
                 const checkout = await checkoutCart(userId, fullAddress, fullName, userEmail, totalPrice, session_id);
 
-                // checkoutCart returns either the created order data, or an error/undefined on failure
-                if (!checkout || (checkout as { code?: string }).code) {
-                    console.log(`checkoutCart failed for session ${session_id}`, checkout);
+                if (!checkout.success) {
+                    console.log(`checkoutCart failed for session ${session_id}: ${checkout.error}`);
                     return NextResponse.json({ message: 'Order processing failed' }, { status: 500 });
                 }
-
-                console.log(`Order created for session ${session_id}`);
+                console.log(`Order ${checkout.order.id} created for session ${session_id}`);
                 return NextResponse.json({ message: 'Order created' }, { status: 200 });
             }
 

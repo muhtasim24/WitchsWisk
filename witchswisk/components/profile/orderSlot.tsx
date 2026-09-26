@@ -23,7 +23,10 @@ export default function OrderSlot({ order }: OrderSlotProps) {
             </div>
 
             <div className="flex flex-col sm:flex-row sm:justify-between text-sm gap-1">
-                <span>Shipping to: {order.address}</span>
+                <div className="flex flex-col">
+                    <span>Name: {order.name}</span>
+                    <span>Shipping to: {order.address}</span>
+                </div>
                 <span className="font-medium">Total: ${order.total_price}.00</span>
             </div>
 
