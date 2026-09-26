@@ -9,7 +9,3 @@ export async function GET() {
         headers: {"Content-Type": "application/json"},
     });
 }
-
-export async function PATCH(request: NextRequest) {
-    return NextResponse;
-}
