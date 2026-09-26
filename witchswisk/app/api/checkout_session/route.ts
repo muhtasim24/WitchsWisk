@@ -9,9 +9,16 @@ import { CartProduct, Product } from "@/lib/types";
 export async function POST() {
     const supabase = await createServerSupabase();
     const { data: { user }} = await supabase.auth.getUser();
-    if (!user) return [];
+    if (!user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    } 
+
     const { data, error } = await supabase.from('cart_items').select('quantity, products(*)').eq('user_id', user.id);
-    if (!data) return;
+
+    if (error || !data || data.length === 0) {
+        console.log(error);
+        return NextResponse.json({ error: "Cart is empty or could not be loaded" }, { status: 400 });
+    }
     
     try {
         // below grabs site URL dynamically
@@ -28,7 +35,7 @@ export async function POST() {
                         description: cartItem.products.description,
                         images: [cartItem.products.image] 
                     },
-                    unit_amount: cartItem.products.price * 100 //cents
+                    unit_amount: Math.round(cartItem.products.price * 100) //cents
                 },
                 quantity: cartItem.quantity
             })
@@ -67,6 +74,8 @@ export async function POST() {
         }
         return NextResponse.redirect(session.url, 303);
     } catch (err) {
-
+        console.log(err);
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+        return NextResponse.json({ error: `Checkout error: ${errorMessage}` }, { status: 500 });
     }
 }

@@ -150,9 +150,15 @@ export async function checkoutCart(userId: string, address: string, name: string
     const supabase = supabaseAdmin;
     //const cart = await supabase.from('cart_items').select('*').eq('user_id', userId);
     const cart = await supabase.from('cart_items').select('quantity, product_id, products(*)').eq('user_id', userId);
-    if (cart.error || !cart.data) {
+
+    if (cart.error) {
         console.log(cart.error);
-        return;
+        return { success: false, error: 'Failed to load cart' };
+    }
+
+    if (!cart.data || cart.data.length === 0) {
+        console.log(`No cart items found for user ${userId}, session ${session_id}`);
+        return { success: false, error: 'Cart is empty' };
     }
 
     const orders = await supabase
@@ -165,26 +171,34 @@ export async function checkoutCart(userId: string, address: string, name: string
         if (orders.error.code === '23505') {
             // unique constraint violation — another request already inserted this session
             console.log('Duplicate session, already processed by another request');
-            const { data: existing } = await supabase
+            const { data: existing, error: fetchError } = await supabase
                 .from('orders')
                 .select('*')
                 .eq('stripe_session_id', session_id)
                 .single();
-            return existing;
+            if (fetchError || !existing) {
+                console.log(fetchError);
+                return { success: false, error: "Duplicate detected but failed to fetch existing order"}
+            }
+            return { success: true, order: existing };
         }
         console.log(orders.error);
-        return orders.error;
+        return { success: false, error: orders.error.message };
     }
 
-    if (!orders.data) {
-        return; // shouldn't normally happen if no error, but keeps types happy
+    if (!orders.data || orders.data.length === 0) {
+        return { success: false, error: "Order insert returned no data" }; 
     }
 
     // orders has the order_id, i can create the order_items 
 
-    const orderItems = cart.data.map(cartItem => {
-        return {order_id: orders.data[0].id, product_name: cartItem.products.name, checkout_price: cartItem.products.price, product_id: cartItem.product_id, quantity: cartItem.quantity}
-    })
+    const orderItems = cart.data.map(cartItem => ({
+        order_id: orders.data[0].id, 
+        product_name: cartItem.products.name, 
+        checkout_price: cartItem.products.price, 
+        product_id: cartItem.product_id, 
+        quantity: cartItem.quantity
+    }));
     
     const orderReciept = await supabase
         .from('order_items')
@@ -193,7 +207,7 @@ export async function checkoutCart(userId: string, address: string, name: string
 
     if (!orderReciept.data || orderReciept.error) {
         console.log(orderReciept.error);
-        return orderReciept.error;
+        return { success: false, error: 'Failed to create order items'};
     }
     // already have list of product_ids that are in the cart, use that to call deletefromCart on the product id
     
@@ -208,6 +222,6 @@ export async function checkoutCart(userId: string, address: string, name: string
         return deleteCart.error;
     }
 
-    return orders;
+    return { success: true, order: orders.data[0]};
 
 }
