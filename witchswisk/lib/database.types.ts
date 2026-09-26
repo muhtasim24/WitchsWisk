@@ -93,6 +93,7 @@ export type Database = {
           id: string
           name: string
           status: string
+          stripe_session_id: string
           total_price: number
           user_id: string | null
         }
@@ -103,6 +104,7 @@ export type Database = {
           id?: string
           name: string
           status?: string
+          stripe_session_id?: string
           total_price: number
           user_id?: string | null
         }
@@ -113,6 +115,7 @@ export type Database = {
           id?: string
           name?: string
           status?: string
+          stripe_session_id?: string
           total_price?: number
           user_id?: string | null
         }
