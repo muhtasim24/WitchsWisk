@@ -73,14 +73,6 @@ export async function deleteFromCart(id: number) {
 // go through every cart item, till we find the one with the id that matches, return everything before so it stays the same
 // and only update the correct item's quantity
 export async function increaseQuantity(id: number) {
-    // const updateQuantity = cart.map(item => {
-    //     if (item.id === id) {
-    //         return {...item, quantity: item.quantity + 1}
-    //     }
-    //     return item
-    // })
-    // cart = updateQuantity;
-    // return cart;
     const supabase = await createServerSupabase();
     const { data: { user }} = await supabase.auth.getUser();
     
@@ -152,37 +144,41 @@ export async function decreaseQuantity(id: number) {
     return data;
 }
 
-export async function checkoutCart(userId: string, address: string, name: string, email: string, totalPrice: number) {
+export async function checkoutCart(userId: string, address: string, name: string, email: string, totalPrice: number, session_id: string) {
     // so I want to create an entry for orders, so create an insert into 
     // get everything from cart
     const supabase = supabaseAdmin;
     //const cart = await supabase.from('cart_items').select('*').eq('user_id', userId);
     const cart = await supabase.from('cart_items').select('quantity, product_id, products(*)').eq('user_id', userId);
-    console.log("CART FORM CHECKOUT", cart.data);
     if (cart.error || !cart.data) {
         console.log(cart.error);
         return;
     }
 
-    // loop through cart, match up product with each product id get the price, calcualte total price 
-    // let totalPrice = 0
-    // for (const cartItems of cart.data) {
-    //     const price = cartItems.products.price * cartItems.quantity
-    //     totalPrice += price
-    // }
-
-    // so got all items in the cart, and total price, need to create orders now
-
     const orders = await supabase
         .from('orders')
-        .insert( {user_id: userId, total_price: totalPrice, status: "Paid", address: address, name: name, email: email})
+        .insert( {user_id: userId, total_price: totalPrice, status: "Paid", address: address, name: name, email: email, stripe_session_id: session_id})
         .select()
 
-    if (!orders.data || orders.error) {
+    
+    if (orders.error) {
+        if (orders.error.code === '23505') {
+            // unique constraint violation — another request already inserted this session
+            console.log('Duplicate session, already processed by another request');
+            const { data: existing } = await supabase
+                .from('orders')
+                .select('*')
+                .eq('stripe_session_id', session_id)
+                .single();
+            return existing;
+        }
         console.log(orders.error);
         return orders.error;
     }
 
+    if (!orders.data) {
+        return; // shouldn't normally happen if no error, but keeps types happy
+    }
 
     // orders has the order_id, i can create the order_items 
 
