@@ -69,12 +69,18 @@ export default async function Home() {
       <div className="flex justify-center w-full mt-4">
         <div className="bg-brand w-full max-w-2xl rounded-xl p-6 flex flex-col sm:flex-row gap-6 sm:gap-10 items-center">
 
-            {/* Left Side */}
-            <div className="shrink-0">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-white/20 flex items-center justify-center text-white/70 text-sm">
-                <h1>IMG HERE</h1>
-              </div>
+          {/* Left Side */}
+          <div className="shrink-0">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-white/20 overflow-hidden">
+              <Image
+                src="/mia.webp"
+                alt="mia picture"
+                width={160}
+                height={160}
+                className="w-full h-full object-cover rounded-full border border-white"
+              />
             </div>
+          </div>
 
             {/* Right Side */}
             <div className="flex-1 text-center sm:text-left">
