@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     try {
         const { data, error } = await resend.emails.send({
             from: 'contact@awitchswhisk.com',
-            to: 'muhtasim01@gmail.com',
+            to: 'awitchswhisk@gmail.com',
             replyTo: email,
             subject: `New Message from ${name} — A Witch's Whisk`,
             html: `
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
                 <div style="font-family: sans-serif; text-align: center; max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 10px;">
 
                     <img 
-                    src="https://awitchswhisk.com/logo.webp"
+                    src="https://awitchswhisk.com/logo.png"
                     alt="A Witch's Whisk"
                     style="width: 120px; margin-bottom: 16px;"
                     />
