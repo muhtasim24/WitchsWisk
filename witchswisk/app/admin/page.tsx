@@ -12,8 +12,9 @@ export default async function Admin() {
 
     const { data, error } = await supabase.from('users').select('*').eq('id', user.id).maybeSingle();
 
-    if (error || !data) {
+    if (error || !data ) {
         console.error(error);
+        redirect("/");
         return [];
     }
 
