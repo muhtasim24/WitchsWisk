@@ -6,8 +6,8 @@ export async function POST(request: NextRequest) {
     const { name, email, body } = await request.json();
     try {
         const {data, error} = await resend.emails.send( {
-            from: 'onboarding@resend.dev',
-            to: 'awitchswhisk@gmail.com',
+            from: 'contact@awitchswhisk.com',
+            to: 'muhtasim01@gmail.com',
             subject: "New A Witch Whisk Contact Form Message",
             text: `
                 Name: ${name}
