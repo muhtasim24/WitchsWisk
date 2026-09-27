@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: "A Witch's Whisk",
     images: [
       {
-        url: "/witch_cookie_1000.webp", // or a dedicated 1200x630 OG image
+        url: "/logo.webp", // or a dedicated 1200x630 OG image
         width: 1000,
         height: 1000,
         alt: "A Witch's Whisk logo",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "A Witch's Whisk | Sweets so good, they're practically magic",
     description:
       "Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
-    images: ["/witch_cookie_1000.webp"],
+    images: ["/logo.webp"],
   },
   icons: {
     icon: "/favicon.ico",
