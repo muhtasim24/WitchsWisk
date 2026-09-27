@@ -13,6 +13,7 @@ export default function OrderSlot({ order }: OrderSlotProps) {
         day: "numeric",
         hour: "numeric",
         minute: "2-digit",
+        timeZone: "America/New_York",
     });
 
     return (
