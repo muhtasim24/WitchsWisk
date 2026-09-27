@@ -7,6 +7,9 @@ import { Mail, User, Phone } from "lucide-react";
 import CustomForm from "@/components/customForm";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic';
+
+
 export default async function Home() {
   const products = await getProducts();
   const firstThree = products.slice(0,3);

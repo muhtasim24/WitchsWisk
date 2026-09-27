@@ -3,7 +3,8 @@ import CartView from "@/components/cart/cartView";
 import { getProducts } from "@/lib/getProducts";
 import { getCart } from "@/lib/cart";
 
-    
+export const dynamic = 'force-dynamic';
+
 export default async function Cart() {
     const cart = await getCart();
     console.log(cart);

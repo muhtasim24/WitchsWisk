@@ -7,21 +7,39 @@ import { supabaseAdmin } from "./supabase/admin";
 
 export async function getCart() {
     const supabase = await createServerSupabase();
+    const { data: { user } } = await supabase.auth.getUser();
 
-    const { data: { user }} = await supabase.auth.getUser();
-
-    // if user doesnt exist, reutnr []
     if (!user) return [];
 
-    const { data, error } = await supabase.from('cart_items').select('*').eq('user_id', user.id);
-    if (!data) return;
+    const { data, error } = await supabase
+        .from('cart_items')
+        .select('*, products(*)')
+        .eq('user_id', user.id);
 
     if (error || !data) {
         console.error(error);
         return [];
     }
 
-    return data;
+    // split out anything no longer in stock
+    const outOfStockItems = data.filter(item => !item.products.in_stock);
+    const inStockItems = data.filter(item => item.products.in_stock);
+
+    // clean them out of the actual cart in the DB
+    if (outOfStockItems.length > 0) {
+        const outOfStockProductIds = outOfStockItems.map(item => item.product_id);
+        const { error: deleteError } = await supabase
+            .from('cart_items')
+            .delete()
+            .eq('user_id', user.id)
+            .in('product_id', outOfStockProductIds);
+
+        if (deleteError) {
+            console.log('Failed to remove out-of-stock items from cart:', deleteError);
+        }
+    }
+
+    return inStockItems;
 }
 
 export async function addToCart(id: number) {
