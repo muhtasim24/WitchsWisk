@@ -31,7 +31,55 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "A Witch's Whisk | Sweets so good, they're practically magic",
-  description: "Offical Website for A Witch's Whisk. Order Homemade Jumbo Cookies Here!!",
+  description:
+    "Official website for A Witch's Whisk. Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
+  keywords: [
+    "A Witch's Whisk",
+    "homemade cookies",
+    "jumbo cookies",
+    "cookies NYC",
+    "cookies NJ",
+    "cookies PA",
+    "cookie bakery",
+    "convention cookies",
+  ],
+  metadataBase: new URL("https://awitchwhisk.com"), // swap in your real domain
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "A Witch's Whisk | Sweets so good, they're practically magic",
+    description:
+      "Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
+    url: "https://awitchwhisk.com",
+    siteName: "A Witch's Whisk",
+    images: [
+      {
+        url: "/witch_cookie_1000.webp", // or a dedicated 1200x630 OG image
+        width: 1000,
+        height: 1000,
+        alt: "A Witch's Whisk logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "A Witch's Whisk | Sweets so good, they're practically magic",
+    description:
+      "Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
+    images: ["/witch_cookie_1000.webp"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
