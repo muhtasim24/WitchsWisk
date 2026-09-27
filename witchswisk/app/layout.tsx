@@ -29,10 +29,12 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
+
 export const metadata: Metadata = {
-  title: "A Witch's Whisk | Sweets so good, they're practically magic",
+  title: "A Witch's Whisk",
   description:
-    "Official website for A Witch's Whisk. Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
+    "Sweets so good, they're practically magic! Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
+
   keywords: [
     "A Witch's Whisk",
     "homemade cookies",
@@ -43,19 +45,22 @@ export const metadata: Metadata = {
     "cookie bakery",
     "convention cookies",
   ],
-  metadataBase: new URL("https://awitchwhisk.com"), // swap in your real domain
+
+  metadataBase: new URL("https://awitchwhisk.com"),
+
   alternates: {
     canonical: "/",
   },
+
   openGraph: {
-    title: "A Witch's Whisk | Sweets so good, they're practically magic",
+    title: "A Witch's Whisk",
     description:
-      "Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
+      "Sweets so good, they're practically magic! Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
     url: "https://awitchwhisk.com",
     siteName: "A Witch's Whisk",
     images: [
       {
-        url: "/logo.webp", // or a dedicated 1200x630 OG image
+        url: "/logo.webp",
         width: 1000,
         height: 1000,
         alt: "A Witch's Whisk logo",
@@ -64,23 +69,28 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "A Witch's Whisk | Sweets so good, they're practically magic",
+    title: "A Witch's Whisk",
     description:
-      "Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
+      "Sweets so good, they're practically magic! Order homemade jumbo cookies online, or find us at conventions across NYC, NJ, and PA.",
     images: ["/logo.webp"],
   },
+
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
+
   robots: {
     index: true,
     follow: true,
   },
 };
+
+
 
 export default function RootLayout({
   children,
