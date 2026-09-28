@@ -8,10 +8,10 @@ export default async function Profile() {
     const supabase = await createServerSupabase();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return null;
-
+    
     const orders = await getOrder();
 
-    const userInfo = await supabase.from('users').select('*').eq('id', user.id);
+    const userInfo = await supabase.from('users').select('*').eq('id', user.id).maybeSingle();
     if (!userInfo.data || userInfo.error) {
         return <div className="p-8 text-red-500">Failed to load profile.</div>;
     }
@@ -25,11 +25,17 @@ export default async function Profile() {
                     <User className="w-8 h-8" />
                 </div>
                 <h1 className="text-lg font-bold text-center ">
-                    {userInfo.data[0].name}
+                    {userInfo.data.name}
                 </h1>
                 <p className="text-sm text-muted-foreground text-center break-all">
                     {user.email}
                 </p>
+
+                {userInfo.data.is_admin && (
+                    <div className="px-6 py-2 rounded-lg font-semibold transition-all active:scale-95 bg-white text-brand hover:text-bg-brand cursor-pointer hover:scale-105">
+                        <Link href="/admin">Admin Dashboard</Link>
+                    </div>
+                )}
             </div>
 
             {/* Right side - Orders */}
