@@ -7,7 +7,7 @@ import { Product, ProductWithImages } from "./types";
 export async function getProducts(): Promise<Product[]> {
    const supabase = await createServerSupabase();
    //const { data, error } = await supabase.from("products").select("*, product_images(image)");
-   const { data, error } = await supabase.from("products").select("*");
+   const { data, error } = await supabase.from("products").select("*").order("in_stock", { ascending: false }).order("id", { ascending: true });
 
    if (error) {
     console.error(error);
