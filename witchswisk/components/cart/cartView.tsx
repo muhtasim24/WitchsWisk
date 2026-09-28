@@ -11,13 +11,7 @@ type Props = {
 
 export default function CartView( { products } : Props) {
 
-    const { cartItems, loadCart } = useCart();
-
-
-    useEffect(() => {
-        loadCart();
-    }, []);
-
+    const { cartItems } = useCart();
 
     if (cartItems.length === 0) {
         return (

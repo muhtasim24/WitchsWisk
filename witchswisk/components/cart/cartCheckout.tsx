@@ -116,10 +116,10 @@ export default function CartCheckout( {products} : Props) {
                     <span>${shippingPrice.toFixed(2)}</span>
                 </div>
 
-                {/* <div className="flex justify-between">
+                <div className="flex justify-between">
                     <span>Sales Tax (8.875%)</span>
                     <span>${salesTax.toFixed(2)}</span>
-                </div> */}
+                </div>
             </div>
             
 

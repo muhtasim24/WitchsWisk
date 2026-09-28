@@ -11,8 +11,8 @@ type Props = {
 }
 
 export default function CartSlot( {item, product}: Props) {
-    const {cartItems, addToCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart, isLoading} = useCart();
-    console.log(isLoading);
+    const {increaseCartQuantity, decreaseCartQuantity, removeFromCart, isLoading} = useCart();
+    
     return (
         <div className="bg-input rounded-xl p-4 flex flex-col sm:flex-row gap-4 sm:items-center relative">
             <button 
@@ -36,7 +36,7 @@ export default function CartSlot( {item, product}: Props) {
                 <div className = "flex items-center gap-4 mt-3">
                     <button 
                         className="text-white/70 cursor-pointer hover:text-white disabled:opacity-50 disabled:cursor-not-allowed" 
-                        disabled = {isLoading} 
+                        disabled = {isLoading || item.quantity <= 1} 
                         onClick={() => decreaseCartQuantity(item.product_id)}>
                         <Minus size={24}/>
                     </button>

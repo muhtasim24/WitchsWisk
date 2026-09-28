@@ -42,20 +42,21 @@ export function CartProvider( { children } : CartProviderProps) {
     const[isLoading, setIsLoading] = useState(false);
     const lockButton = useRef(false);
 
-    useEffect( () => {
-        loadCart();
+    const initialLoad = useRef<Promise<void> | null>(null);
+
+    useEffect(() => {
+        initialLoad.current = loadCart();
     }, []);
 
     async function loadCart() {
         try {
-            const res = await fetch("/api/cart");
+            const res = await fetch("/api/cart", { cache: "no-store" });
             
             if (!res.ok) {
                 throw new Error("Failed to fetch cart");
             };
 
             const data = await res.json();
-            console.log("DATA", data);
             setCartItems(data);
         } catch(error) {
             console.log("LOAD CART FAILED", error);
@@ -64,6 +65,9 @@ export function CartProvider( { children } : CartProviderProps) {
 
     // we get the product.id
     async function addToCart(id: number) {
+        // wait for intial cart landing first
+        await initialLoad.current;
+
         console.log("ADDING TO CART: producct_id:", id);
         setCartItems(currItems => {
             // if we dont find the item, in the arrayList add it
@@ -99,6 +103,7 @@ export function CartProvider( { children } : CartProviderProps) {
         lockButton.current = true;
         console.log("increasing count for: ", id);
         setIsLoading(true);
+        await initialLoad.current;
 
         setCartItems(currItems => {
             return currItems.map(item => {
@@ -132,11 +137,17 @@ export function CartProvider( { children } : CartProviderProps) {
     }
 
     async function decreaseCartQuantity(id: number) {
+        const item = cartItems.find(i => i.product_id === id);
+        if (!item || item.quantity <= 1) return;
+        
         if (lockButton.current) return;
 
         lockButton.current = true;
         console.log("decreasing count for: ", id);
         setIsLoading(true);
+
+        await initialLoad.current;
+
         setCartItems(currItems => {
             return currItems.map(item => {
                 if (item.product_id === id && item.quantity !== 1) {
@@ -175,6 +186,9 @@ export function CartProvider( { children } : CartProviderProps) {
         lockButton.current = true;
         console.log("REMOVING FROM CART", id)
         setIsLoading(true);
+
+        await initialLoad.current;
+
         setCartItems(currItems => {
             return currItems.filter(item => item.product_id !== id)
         })

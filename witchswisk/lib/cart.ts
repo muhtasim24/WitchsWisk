@@ -48,6 +48,10 @@ export async function addToCart(id: number) {
     
     // if user doesnt exist, reutnr []
     if (!user) return [];
+
+    // make sure no one tries to post adding to cart thats out of stock
+    const { data: product } = await supabase.from('products').select('in_stock').eq('id', id).maybeSingle();
+    if (!product?.in_stock) throw new Error("Out of stock");
     
     const { data, error } = await supabase
         .from('cart_items')
@@ -92,73 +96,49 @@ export async function deleteFromCart(id: number) {
 // and only update the correct item's quantity
 export async function increaseQuantity(id: number) {
     const supabase = await createServerSupabase();
-    const { data: { user }} = await supabase.auth.getUser();
-    
-    // if user doesnt exist, reutnr []
-    if (!user) return [];
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Unauthorized");
 
-    const response= await supabase
+    const { data: row, error: readError } = await supabase
         .from('cart_items')
         .select('quantity')
         .eq('product_id', id).eq('user_id', user.id)
-    
-    let updatedQuantity = 0;
-    if (response.data) {
-        updatedQuantity = response.data[0].quantity + 1
-    }
-    
+        .maybeSingle();
+
+    if (readError) throw readError;
+    if (!row) return [];
+
     const { data, error } = await supabase
         .from('cart_items')
-        .update({quantity: updatedQuantity}) 
+        .update({ quantity: row.quantity + 1 })
         .eq('product_id', id).eq('user_id', user.id)
-        .select()
-    
-    
-    if (error) {
-        console.log(error)
-        return;
-    }
+        .select();
 
-    console.log(data);
-    return(data);
+    if (error) throw error;
+    return data;
 }
 
 export async function decreaseQuantity(id: number) {
     const supabase = await createServerSupabase();
-    const { data: { user }} = await supabase.auth.getUser();
-    
-    // if user doesnt exist, reutnr []
-    if (!user) return [];
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Unauthorized");
 
-    const response = await supabase
+    const { data: row, error: readError } = await supabase
         .from('cart_items')
         .select('quantity')
         .eq('product_id', id).eq('user_id', user.id)
+        .maybeSingle();
 
-    let updatedQuantity = 0;
-    if (response.data) {
-        const quantity = response.data[0].quantity
-        if (quantity == 1) {
-            deleteFromCart(id);
-        }
-        else {
-            updatedQuantity = quantity - 1;
-        }
-    }
+    if (readError) throw readError;
+    if (!row || row.quantity <= 1) return []; // nothing to decrease
 
-    const { data , error} = await supabase
+    const { data, error } = await supabase
         .from('cart_items')
-        .update({quantity: updatedQuantity})
+        .update({ quantity: row.quantity - 1 })
         .eq('product_id', id).eq('user_id', user.id)
         .select();
 
-
-    if (error) {
-        console.log(error);
-        return;
-    }
-
-    console.log(data);
+    if (error) throw error;
     return data;
 }
 
