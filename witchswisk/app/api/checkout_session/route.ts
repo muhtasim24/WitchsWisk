@@ -56,13 +56,13 @@ export async function POST() {
                 {
                     shipping_rate_data: {
                         type: "fixed_amount",
-                        fixed_amount: { amount: 0, currency: "usd"},
+                        fixed_amount: { amount: 2000, currency: "usd"},
                         display_name: "Standard Shipping",
                     }
                 }
             ],
 
-            //automatic_tax: { enabled: true},
+            automatic_tax: { enabled: true},
             
             success_url: `${origin}/profile`,
             cancel_url: `${origin}/cart`,
