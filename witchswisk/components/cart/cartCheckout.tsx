@@ -10,7 +10,7 @@ type Props = {
     products: Product[];
 }
 
-const SHIPPING_PRICE = 15; // Flat Shipping Fee $15
+const SHIPPING_PRICE = 0; // Flat Shipping Fee $15
 const TAX_RATE = 0.08875; // NY Sales Tax
 
 export default function CartCheckout( {products} : Props) {

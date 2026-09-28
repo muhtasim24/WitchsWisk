@@ -56,7 +56,7 @@ export async function POST() {
                 {
                     shipping_rate_data: {
                         type: "fixed_amount",
-                        fixed_amount: { amount: 1500, currency: "usd"},
+                        fixed_amount: { amount: 0, currency: "usd"},
                         display_name: "Standard Shipping",
                     }
                 }
