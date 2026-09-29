@@ -1,8 +1,5 @@
 import { createServerSupabase } from "./supabase/server";
-import { Product, ProductWithImages } from "./types";
-
-// THIS PAGE CHANGES WHEN IMPLEMENT REAL DB
-// USED TO ACCESS THE DATA, will change when where we access data from is different
+import { Product } from "./types";
 
 export async function getProducts(): Promise<Product[]> {
    const supabase = await createServerSupabase();
@@ -12,6 +9,18 @@ export async function getProducts(): Promise<Product[]> {
    if (error) {
     console.error(error);
     return [];
+   }
+
+   return data;
+}
+
+export async function updateInStockProduct(id: number, inStock: boolean): Promise<Product | null> {
+   const supabase = await createServerSupabase();
+   const {data , error } = await supabase.from('products').update( {in_stock: inStock}).eq("id", id).select().maybeSingle();
+
+   if (error) {
+      console.error(error);
+      return null;
    }
 
    return data;
