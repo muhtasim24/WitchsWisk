@@ -89,21 +89,22 @@ export default async function Home() {
             <div className="flex-1 text-center sm:text-left">
 
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 pb-4 border-b border-white/20">
 
-                    <h1 className="text-2xl font-bold font-dancing uppercase">
+                    <h1 className="text-2xl font-bold font-dancing uppercase tracking-wide">
                         About Me
                     </h1>
 
                     <div className="flex gap-4">
-                        <a href="https://www.instagram.com/a_witchs_whisk/" target="_blank"><FaInstagram size={25}/></a>
-                        <a href="mailto:awitchswhisk@gmail.com"><Mail size={25}/></a>
+                        <a href="https://www.instagram.com/a_witchs_whisk/" className="p-2 rounded-full bg-white/10 hover:bg-white/20 hover:scale-110 transition-all"
+                        target="_blank"><FaInstagram size={25}/></a>
+                        <a href="mailto:awitchswhisk@gmail.com" className="p-2 rounded-full bg-white/10 hover:bg-white/20 hover:scale-110 transition-all"><Mail size={25}/></a>
                     </div>
 
                 </div>
                 {/* Bio */}
-                <p className="text-base sm:text-lg leading-relaxed">
-                    Hello! My name is Mia. Born and raised in Queens, New York! I love baking, and creating sweets treats with my own creativity. I have a love for horror so I try to incorporate that with my cookies.
+                <p className="text-sm sm:text-base leading-loose text-white/75 ">
+                    Hello! My name is Mia and I'm the owner and baker behind A Witch's Whisk. Born and raised in New York, I've been baking for as long as I can remember. What started as something I loved doing as a little girl has grown into a passion for creating delicious stuffed jumbo cookies. Every cookie is made with love, a little creativity, and a whole lot of sweetness. Thank you for supporting my small business and allowing me to do what I love every day!
                 </p>
               </div>
           </div>

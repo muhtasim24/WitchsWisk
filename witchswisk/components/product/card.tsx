@@ -20,7 +20,7 @@ export default function Card( { product, onClick } : Props) {
             }`}
         >
             {!product.in_stock && (
-                <div className="absolute top-3 right-3 bg-black/80 text-white text-xs font-bold px-2 py-1 rounded-md z-10">
+                <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-md z-10">
                     OUT OF STOCK
                 </div>
             )}
