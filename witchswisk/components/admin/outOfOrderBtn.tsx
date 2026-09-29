@@ -1,6 +1,4 @@
 'use client';
-import { useCart } from "@/app/context/cartContext";
-import { supabase } from "@/lib/supabase/client";
 import type { Product } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -14,6 +12,7 @@ type Props = {
 export default function OutOfOrderBtn( { product } : Props) {
     const [inStock, setInStock] = useState(product.in_stock);
     const [showConfirm, setShowConfirm] = useState(false);
+    const router = useRouter();
 
     function handleClick(e: React.MouseEvent) {
         e.stopPropagation();
@@ -31,6 +30,10 @@ export default function OutOfOrderBtn( { product } : Props) {
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify( {id: product.id, in_stock: newStock})
             })
+
+            if (!response.ok) throw new Error("Failed to update stock");
+
+            router.refresh(); 
         } catch (error) {
             console.error(error);
             setInStock(inStock);
