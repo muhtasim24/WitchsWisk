@@ -226,6 +226,6 @@ export async function checkoutCart(
         console.log('Failed to clear cart after order completed:', deleteCart.error);
     }
 
-    return { success: true, order: orders.data[0]};
+    return { success: true, order: orders.data[0] };
 
 }

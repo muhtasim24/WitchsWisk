@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkoutCart } from "@/lib/cart";
 import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { sendOrderConfirmation } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
     const rawBody = await request.text();
@@ -66,6 +67,14 @@ export async function POST(request: NextRequest) {
                     return NextResponse.json({ message: 'Order processing failed' }, { status: 500 });
                 }
                 console.log(`Order ${checkout.order.id} created for session ${session_id}`);
+                
+                // SEND CONFIRMATION EMAIL
+                try {
+                    await sendOrderConfirmation(checkout.order);
+                } catch (err) {
+                    console.log(`Failed to send confirmation email for order ${checkout.order.id}:`, err);
+                }
+
                 return NextResponse.json({ message: 'Order created' }, { status: 200 });
             }
 

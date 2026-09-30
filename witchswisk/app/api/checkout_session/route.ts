@@ -62,7 +62,7 @@ export async function POST() {
                 }
             ],
 
-            automatic_tax: { enabled: true},
+            //automatic_tax: { enabled: true},
             
             success_url: `${origin}/profile`,
             cancel_url: `${origin}/cart`,
