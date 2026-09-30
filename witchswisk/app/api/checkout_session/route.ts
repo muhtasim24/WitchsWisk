@@ -3,8 +3,6 @@ import { headers } from "next/headers";
 
 import { stripe } from "@/lib/stripe";
 import { createServerSupabase } from "@/lib/supabase/server";
-import { getCart } from "@/lib/cart";
-import { CartProduct, Product } from "@/lib/types";
 
 export async function POST() {
     const supabase = await createServerSupabase();

@@ -16,3 +16,15 @@ export async function getOrder(): Promise<Order[]> {
 
     return data;
 }
+
+export async function updateOrderStatus(id: string, newStatus: string): Promise <Order | null> {
+    const supabase = await createServerSupabase();
+    const { data, error } = await supabase.from('orders').update( {status: newStatus}).eq("id", id).select().maybeSingle();
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+
+    return data;
+}

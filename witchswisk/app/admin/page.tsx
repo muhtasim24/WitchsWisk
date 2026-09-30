@@ -45,7 +45,7 @@ export default async function Admin() {
                     className="bg-brand rounded-xl p-6 flex flex-col items-center gap-3 text-center hover:scale-105 transition-transform cursor-pointer"
                 >
                     <ClipboardList size={40} className="text-white" />
-                    <h2 className="text-xl font-bold text-white">Orders</h2>
+                    <h2 className="text-xl font-bold text-white">All Orders</h2>
                     <p className="text-white/70 text-sm">
                         View orders and update shipping & delivery status
                     </p>

@@ -1,4 +1,4 @@
-import { addToCart, decreaseQuantity, deleteFromCart, getCart, increaseQuantity } from "@/lib/cart";
+import { getCart } from "@/lib/cart";
 import { NextRequest, NextResponse } from "next/server";
 
 

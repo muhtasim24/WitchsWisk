@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Image from "next/image";
+import OrderSlot from "@/components/profile/orderSlot";
 
 export default async function AdminOrders() {
     const supabase = await createServerSupabase();
@@ -19,8 +21,13 @@ export default async function AdminOrders() {
         redirect("/");
     }
 
-    const allOrders = await supabase.from("orders").select("*");
-    
+    const {data: allOrders, error: orderError} = await supabase.from("orders").select("*").order("created_at", { ascending: false });
+
+    if (!allOrders) {
+        return;
+    }
+
+
     console.log(data);
     return (
         <div>
@@ -33,8 +40,23 @@ export default async function AdminOrders() {
             </Link>
 
             <h1 className="text-2xl sm:text-3xl font-bold font-dancing text-white mb-2">
-                Admin Orders
+                All Orders
             </h1>
+
+            
+            <div className="flex-1 bg-brand p-4 rounded-xl flex flex-col min-h-0">
+                <h1 className="text-2xl font-bold font-dancing mb-4 shrink-0">ORDER HISTORY</h1>
+
+                <div className="flex flex-col gap-3 overflow-y-auto pr-1 max-h-[70vh]">
+                    
+                {allOrders.map(orderItem => (
+                    <Link key={orderItem.id} href={`/admin/orders/${orderItem.id}`}>
+                        <OrderSlot order={orderItem} />
+                    </Link>
+                    ))
+                }
+                </div>
+            </div>
         </div>
     )
 }
