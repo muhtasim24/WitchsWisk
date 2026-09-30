@@ -90,7 +90,9 @@ export default async function OrderDetails({
                     </div>
 
                     {statusBtn && (
-                        <UpdateOrderBtn orderId={orderDetails.id} status={statusBtn} />
+                        <div className="mt-5 pt-4 border-t border-white/10">
+                            <UpdateOrderBtn orderId={orderDetails.id} status={statusBtn} />
+                        </div>
                     )}
                 </div>
             </div>

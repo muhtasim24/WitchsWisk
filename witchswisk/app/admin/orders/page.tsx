@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import OrderSlot from "@/components/profile/orderSlot";
 
 export default async function AdminOrders() {
@@ -21,16 +20,17 @@ export default async function AdminOrders() {
         redirect("/");
     }
 
-    const {data: allOrders, error: orderError} = await supabase.from("orders").select("*").order("created_at", { ascending: false });
+    const { data: allOrders, error: orderError } = await supabase
+        .from("orders")
+        .select("*")
+        .order("created_at", { ascending: false });
 
     if (!allOrders) {
         return;
     }
 
-
-    console.log(data);
     return (
-        <div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
             <Link
                 href="/admin"
                 className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-6"
@@ -39,24 +39,30 @@ export default async function AdminOrders() {
                 Back to Dashboard
             </Link>
 
-            <h1 className="text-2xl sm:text-3xl font-bold font-dancing text-white mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold font-dancing text-white mb-1">
                 All Orders
             </h1>
+            <p className="text-white/70 mb-6">
+                {allOrders.length} order{allOrders.length !== 1 ? "s" : ""} total
+            </p>
 
-            
-            <div className="flex-1 bg-brand p-4 rounded-xl flex flex-col min-h-0">
-                <h1 className="text-2xl font-bold font-dancing mb-4 shrink-0">ORDER HISTORY</h1>
-
+            <div className="bg-brand p-5 sm:p-6 rounded-xl">
                 <div className="flex flex-col gap-3 overflow-y-auto pr-1 max-h-[70vh]">
-                    
-                {allOrders.map(orderItem => (
-                    <Link key={orderItem.id} href={`/admin/orders/${orderItem.id}`}>
-                        <OrderSlot order={orderItem} />
-                    </Link>
-                    ))
-                }
+                    {allOrders.length === 0 ? (
+                        <p className="text-white/60 text-center py-8">No orders yet.</p>
+                    ) : (
+                        allOrders.map(orderItem => (
+                            <Link
+                                key={orderItem.id}
+                                href={`/admin/orders/${orderItem.id}`}
+                                className="block rounded-lg transition-transform hover:scale-[1.02]"
+                            >
+                                <OrderSlot order={orderItem} />
+                            </Link>
+                        ))
+                    )}
                 </div>
             </div>
         </div>
-    )
+    );
 }

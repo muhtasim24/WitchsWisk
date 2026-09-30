@@ -17,13 +17,22 @@ export async function getOrder(): Promise<Order[]> {
     return data;
 }
 
-export async function updateOrderStatus(id: string, newStatus: string): Promise <Order | null> {
+export async function updateOrderStatus(id: string, newStatus: string): Promise<Order> {
     const supabase = await createServerSupabase();
-    const { data, error } = await supabase.from('orders').update( {status: newStatus}).eq("id", id).select().maybeSingle();
+    const { data, error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq("id", id)
+        .select()
+        .maybeSingle();
 
     if (error) {
         console.error(error);
-        return null;
+        throw error;
+    }
+
+    if (!data) {
+        throw new Error(`No order found with id ${id}`);
     }
 
     return data;

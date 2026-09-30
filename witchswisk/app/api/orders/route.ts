@@ -19,7 +19,17 @@ export async function PATCH(request: NextRequest){
 
     const {id, newStatus} = await request.json()
 
-    const updateStatus = await updateOrderStatus(id, newStatus);
+    if (!id || (newStatus !== "Shipped" && newStatus !== "Delivered")) {
+        return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    }
+
+    let updatedOrder;
+    try {
+        updatedOrder = await updateOrderStatus(id, newStatus);
+    } catch (err) {
+        console.log(`Failed to update order ${id} status:`, err);
+        return NextResponse.json({ error: "Failed to update order status" }, { status: 500 });
+    }
     console.log("IN API FOR ORDER PATCH");
 
     // SEND CONFIRMATION EMAIL
@@ -29,5 +39,5 @@ export async function PATCH(request: NextRequest){
         console.log(`Failed to send status update email for order ${id}:`, err);
     }
     
-    return NextResponse.json(updateStatus);
+    return NextResponse.json(updatedOrder);
 }

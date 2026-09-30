@@ -22,6 +22,10 @@ export async function updateInStockProduct(id: number, inStock: boolean): Promis
       console.error(error);
       return null;
    }
+   
+   if (!data) {
+      throw new Error(`No product found with id ${id}`);
+   }
 
    return data;
 }
