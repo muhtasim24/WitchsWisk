@@ -31,13 +31,13 @@ export async function sendOrderConfirmation(order: Order) {
 
     const itemsHtml = orderItems.map(item => `
         <tr>
-            <td style="padding: 8px 0; color: #333;">${escapeHtml(item.product_name)}</td>
-            <td style="padding: 8px 0; color: #333; text-align: right;">x${item.quantity}</td>
+            <td style="padding: 10px 0 10px 20px; color: #333;">${escapeHtml(item.product_name)}</td>
+            <td style="padding: 10px 20px 10px 0; color: #333; text-align: right;">x${item.quantity}</td>
         </tr>
     `).join('');
 
     const { data, error: sendError } = await resend.emails.send({
-        from: 'order@awitchswhisk.com',
+        from: "A Witch's Whisk <orders@awitchswhisk.com>",
         to: [order.email, 'awitchswhisk@gmail.com'],
         subject: `Order Confirmed — A Witch's Whisk`,
         html: `
@@ -59,21 +59,21 @@ export async function sendOrderConfirmation(order: Order) {
                 Order #${order.id} is confirmed. Here's what you ordered:
                 </p>
 
-                <table style="width: 100%; text-align: left; background: #f7f5f2; border-radius: 6px; padding: 16px 18px; margin-bottom: 20px; border-collapse: collapse;">
+                <table style="width: 100%; text-align: left; background: #f7f5f2; border-radius: 6px; margin-bottom: 20px; border-collapse: collapse;">
                     <tbody>
                         ${itemsHtml}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td style="padding-top: 12px; border-top: 1px solid #ddd; font-weight: 600; color: #333;">Total</td>
-                            <td style="padding-top: 12px; border-top: 1px solid #ddd; font-weight: 600; color: #333; text-align: right;">$${order.total_price}.00</td>
+                            <td style="padding: 14px 0 16px 20px; border-top: 1px solid #ddd; font-weight: 600; color: #333;">Total</td>
+                            <td style="padding: 14px 20px 16px 0; border-top: 1px solid #ddd; font-weight: 600; color: #333; text-align: right;">$${order.total_price}.00</td>
                         </tr>
                     </tfoot>
                 </table>
 
-                <div style="text-align: left; background: #f7f5f2; border-radius: 6px; padding: 16px 18px; margin-bottom: 20px;">
+                <div style="text-align: left; background: #f7f5f2; border-radius: 6px; padding: 18px 20px; margin-bottom: 20px;">
                     <p style="margin: 0; color: #333;"><strong>Shipping to:</strong></p>
-                    <p style="margin: 4px 0 0 0; color: #333;">${safeAddress}</p>
+                    <p style="margin: 6px 0 0 0; color: #333;">${safeAddress}</p>
                 </div>
 
             </div>
@@ -111,13 +111,13 @@ export async function sendOrderStatusUpdate(id: string, newStatus: string) {
 
     const itemsHtml = order.order_items.map(item => `
         <tr>
-            <td style="padding: 8px 0; color: #333;">${escapeHtml(item.product_name)}</td>
-            <td style="padding: 8px 0; color: #333; text-align: right;">x${item.quantity}</td>
+            <td style="padding: 10px 0 10px 20px; color: #333;">${escapeHtml(item.product_name)}</td>
+            <td style="padding: 10px 20px 10px 0; color: #333; text-align: right;">x${item.quantity}</td>
         </tr>
     `).join('');
 
     const { data, error: sendError } = await resend.emails.send({
-        from: 'order@awitchswhisk.com',
+        from: "A Witch's Whisk <orders@awitchswhisk.com>",
         to: [order.email, 'awitchswhisk@gmail.com'],
         subject: `Order ${newStatus} — A Witch's Whisk`,
         html: `
@@ -139,21 +139,21 @@ export async function sendOrderStatusUpdate(id: string, newStatus: string) {
                 Order #${order.id} has ${newStatus}. Here's what you ordered:
                 </p>
 
-                <table style="width: 100%; text-align: left; background: #f7f5f2; border-radius: 6px; padding: 16px 18px; margin-bottom: 20px; border-collapse: collapse;">
+                <table style="width: 100%; text-align: left; background: #f7f5f2; border-radius: 6px; margin-bottom: 20px; border-collapse: collapse;">
                     <tbody>
                         ${itemsHtml}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td style="padding-top: 12px; border-top: 1px solid #ddd; font-weight: 600; color: #333;">Total</td>
-                            <td style="padding-top: 12px; border-top: 1px solid #ddd; font-weight: 600; color: #333; text-align: right;">$${order.total_price}.00</td>
+                            <td style="padding: 14px 0 16px 20px; border-top: 1px solid #ddd; font-weight: 600; color: #333;">Total</td>
+                            <td style="padding: 14px 20px 16px 0; border-top: 1px solid #ddd; font-weight: 600; color: #333; text-align: right;">$${order.total_price}.00</td>
                         </tr>
                     </tfoot>
                 </table>
 
-                <div style="text-align: left; background: #f7f5f2; border-radius: 6px; padding: 16px 18px; margin-bottom: 20px;">
+                <div style="text-align: left; background: #f7f5f2; border-radius: 6px; padding: 18px 20px; margin-bottom: 20px;">
                     <p style="margin: 0; color: #333;"><strong>Shipping to:</strong></p>
-                    <p style="margin: 4px 0 0 0; color: #333;">${safeAddress}</p>
+                    <p style="margin: 6px 0 0 0; color: #333;">${safeAddress}</p>
                 </div>
 
 
