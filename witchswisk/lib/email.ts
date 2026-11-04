@@ -98,7 +98,6 @@ export async function sendOrderStatusUpdate(id: string, newStatus: string) {
         .select('*, order_items(product_name, quantity)')
         .eq('id', id).maybeSingle();
 
-    console.log("WHATS HERE", order);
     
     if (error || !order) {
         console.log("ORDER ITEMS ERROR:", error);

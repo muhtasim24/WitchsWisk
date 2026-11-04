@@ -68,7 +68,6 @@ export function CartProvider( { children } : CartProviderProps) {
         // wait for intial cart landing first
         await initialLoad.current;
 
-        console.log("ADDING TO CART: producct_id:", id);
         setCartItems(currItems => {
             // if we dont find the item, in the arrayList add it
             const findItem = currItems.find(item => item.product_id === id);
@@ -101,7 +100,6 @@ export function CartProvider( { children } : CartProviderProps) {
         if (lockButton.current) return;
 
         lockButton.current = true;
-        console.log("increasing count for: ", id);
         setIsLoading(true);
         await initialLoad.current;
 
@@ -143,7 +141,6 @@ export function CartProvider( { children } : CartProviderProps) {
         if (lockButton.current) return;
 
         lockButton.current = true;
-        console.log("decreasing count for: ", id);
         setIsLoading(true);
 
         await initialLoad.current;
@@ -184,7 +181,6 @@ export function CartProvider( { children } : CartProviderProps) {
         if (lockButton.current) return;
 
         lockButton.current = true;
-        console.log("REMOVING FROM CART", id)
         setIsLoading(true);
 
         await initialLoad.current;
