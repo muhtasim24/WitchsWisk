@@ -6,6 +6,7 @@ import { FaInstagram } from "react-icons/fa";
 import { Mail, User, Phone } from "lucide-react";
 import CustomForm from "@/components/customForm";
 import Link from "next/link";
+import BoxBuilder from "@/components/boxBuilder";
 
 export const dynamic = 'force-dynamic';
 
@@ -117,7 +118,7 @@ export default async function Home() {
     </div>
 
 
-
+    <BoxBuilder/>
 
 
     </div>

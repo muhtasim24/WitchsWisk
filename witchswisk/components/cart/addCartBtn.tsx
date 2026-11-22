@@ -39,7 +39,7 @@ export default function AddCartBtn( { product } : Props) {
             ? "bg-white text-brand cursor-not-allowed"
             : "bg-white text-brand hover:text-bg-brand cursor-pointer hover:scale-105"
         }`}>
-            {inCart ? "Added" : "Add to Cart"}
+            {inCart ? "Added" : "Add to Box"}
         </button>
     )
 

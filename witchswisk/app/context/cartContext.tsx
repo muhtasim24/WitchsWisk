@@ -14,6 +14,13 @@ export type CartItem = {
     quantity: number // can get price from price X quantity
 }
 
+// information our box holds
+export type Box = {
+    product_id: number
+    quantity: number
+    limit: number
+}
+
 // what do we need to be able to do with our cart
 // add, increment, decrement, remove, how many items in our cart
 type CartContextType = {
@@ -22,6 +29,7 @@ type CartContextType = {
     decreaseCartQuantity: (id: number) => void
     removeFromCart: (id: number) => void
     cartItems: CartItem[]
+    boxItems: Box[]
     addToCart: (id: number) => void
     loadCart: () => Promise<void>
     isLoading: boolean;
@@ -39,10 +47,11 @@ export function useCart() {
 export function CartProvider( { children } : CartProviderProps) {
     // need a place to store our cart information, for now using useState to store that
     const[cartItems, setCartItems] = useState<CartItem[]>([])
+    const[boxItems, setBoxItems] = useState<Box[]>([])
     const[isLoading, setIsLoading] = useState(false);
     const lockButton = useRef(false);
 
-    const initialLoad = useRef<Promise<void> | null>(null);
+    const initialLoad = useRef<Promise<void> | null>(null); // used to prevent race conditions, and let cart finish loading before making any changes.
 
     useEffect(() => {
         initialLoad.current = loadCart();
@@ -62,6 +71,8 @@ export function CartProvider( { children } : CartProviderProps) {
             console.log("LOAD CART FAILED", error);
         }
     }
+
+    // add the box 
 
     // we get the product.id
     async function addToCart(id: number) {
