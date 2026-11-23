@@ -15,11 +15,18 @@ export type CartItem = {
 }
 
 // information our box holds
+export type BoxStatus = "in_progress" | "complete";
+
 export type Box = {
-    product_id: number
-    quantity: number
-    limit: number
+    id: string,
+    status: BoxStatus;
+    items: BoxItem[];
 }
+export type BoxItem = {
+    id: string,
+    product_id: number,
+}
+
 
 // what do we need to be able to do with our cart
 // add, increment, decrement, remove, how many items in our cart
